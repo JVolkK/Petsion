@@ -1,4 +1,4 @@
-import HomeForm from "./components/HomeForm";
+import HomeForm from "../components/HomeForm";
 
 function App() {
   return (
