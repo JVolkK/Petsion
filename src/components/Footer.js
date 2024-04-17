@@ -5,7 +5,7 @@ import "../styles/HomeForm.css";
 function Footer() {
   return (
     <>
-      <Container>
+      <Container fluid className="p-0">
         <footer className="footer mt-auto py-3 bg-custom-color">
           <div className="d-flex text-white">
             <div className="p-2 flex-fill ">

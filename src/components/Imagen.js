@@ -6,37 +6,19 @@ import c3 from "../images/c3.jpg";
 
 function Imagen() {
   return (
-    <Container>
+    <Container fluid className="p-0">
       <Carousel>
         <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={c1}
-            alt="First slide"
-          />
-          <Carousel.Caption>
-            
-          </Carousel.Caption>
+          <img className="d-block w-100" src={c1} alt="First slide" />
+          <Carousel.Caption></Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={c2}
-            alt="Second slide"
-          />
-          <Carousel.Caption>
-           
-          </Carousel.Caption>
+          <img className="d-block w-100" src={c2} alt="Second slide" />
+          <Carousel.Caption></Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={c3}
-            alt="Third slide"
-          />
-          <Carousel.Caption>
-           
-          </Carousel.Caption>
+          <img className="d-block w-100" src={c3} alt="Third slide" />
+          <Carousel.Caption></Carousel.Caption>
         </Carousel.Item>
       </Carousel>
     </Container>

@@ -4,7 +4,7 @@ import PETSION from "../images/PETSION.png";
 function NavBar() {
   return (
     <>
-      <Container>
+      <Container fluid className="p-0">
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container">
             <a className="navbar-brand" href="/">
