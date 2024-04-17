@@ -1,12 +1,13 @@
 .backgroundImage {
   background-image: url("../images/wepik-export-20240412064642tJSA.png");
   max-width: 100%;
-  max-height: auto;
+  height: 30rem;
+  padding-left: 0;
 }
 
 .formTitle {
   font-size: 1.3rem;
 }
 .bg-custom-color {
-  background-color: #4C78B5; /* Reemplazar con tu color de fondo personalizado */
+  background-color: #4c78b5; /* Reemplazar con tu color de fondo personalizado */
 }

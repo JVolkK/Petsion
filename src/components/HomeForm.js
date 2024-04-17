@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -7,42 +8,45 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 
 function HomeForm() {
+  const [homeFormValue, setHomeFormValue] = useState(1);
+
   return (
     <>
-      <Container fluid className="backgroundImage p-5">
+      <Container fluid className="backgroundImage p-2 pt-5">
         <Row>
-          <Col lg={7} xl={5}>
+          <Col xs={12} lg={8} xl={5}>
             <Container className="bg-light text-dark p-3 border rounded">
               <Row className="p-3 formTitle ">
                 Que servicio buscas el dia de hoy?
               </Row>
-              <Row className="p-3">
-                <ToggleButtonGroup
-                  className="border p-0"
-                  type="radio"
-                  name="options"
-                  defaultValue={1}
-                >
+              <Row>
+                <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
                   <ToggleButton
+                    className="border"
+                    variant="light"
                     id="tbg-radio-1"
                     value={1}
-                    variant="light"
+                    onClick={() => setHomeFormValue(1)}
                     size="lg"
                   >
                     Alojamiento
                   </ToggleButton>
                   <ToggleButton
+                    className="border"
+                    variant="light"
                     id="tbg-radio-2"
                     value={2}
-                    variant="light"
+                    onClick={() => setHomeFormValue(2)}
                     size="lg"
                   >
-                    Guarderia de dia
+                    Cuidado de dia
                   </ToggleButton>
                   <ToggleButton
+                    className="border"
+                    variant="light"
                     id="tbg-radio-3"
                     value={3}
-                    variant="light"
+                    onClick={() => setHomeFormValue(3)}
                     size="lg"
                   >
                     Paseo
