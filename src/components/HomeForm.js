@@ -9,10 +9,10 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 function HomeForm() {
   return (
     <>
-      <Container fluid className="backgroundImage p-5 ">
+      <Container fluid className="backgroundImage p-5">
         <Row>
-          <Col lg={7}>
-            <Container className="bg-light text-dark p-3">
+          <Col lg={7} xl={5}>
+            <Container className="bg-light text-dark p-3 border rounded">
               <Row className="p-3 formTitle ">
                 Que servicio buscas el dia de hoy?
               </Row>
@@ -23,21 +23,41 @@ function HomeForm() {
                   name="options"
                   defaultValue={1}
                 >
-                  <ToggleButton id="tbg-radio-1" value={1} variant="light">
-                    Radio 1 (pre-checked)
+                  <ToggleButton
+                    id="tbg-radio-1"
+                    value={1}
+                    variant="light"
+                    size="lg"
+                  >
+                    Alojamiento
                   </ToggleButton>
-                  <ToggleButton id="tbg-radio-2" value={2} variant="light">
-                    Radio 2
+                  <ToggleButton
+                    id="tbg-radio-2"
+                    value={2}
+                    variant="light"
+                    size="lg"
+                  >
+                    Guarderia de dia
                   </ToggleButton>
-                  <ToggleButton id="tbg-radio-3" value={3} variant="light">
-                    Radio 3
+                  <ToggleButton
+                    id="tbg-radio-3"
+                    value={3}
+                    variant="light"
+                    size="lg"
+                  >
+                    Paseo
                   </ToggleButton>
                 </ToggleButtonGroup>
               </Row>
-              <Row>
-                <Col className="d-flex justify-content-center pt-3 pb-3 ">
-                  <Button className="w-50" variant="secondary">
-                    Boton 1
+              <Row className="justify-content-center">
+                <Col
+                  className="d-flex justify-content-center pt-3 pb-3  "
+                  xl={7}
+                  lg={7}
+                  xs={8}
+                >
+                  <Button className="w-100" variant="secondary">
+                    Buscar
                   </Button>
                 </Col>
               </Row>
