@@ -1,3 +1,6 @@
 .backgroundImage {
   background-image: url("../images/free-photo-of-close-up-of-the-head-of-a-dog.jpeg");
 }
+.bg-custom-color {
+  background-color: #4C78B5; /* Reemplazar con tu color de fondo personalizado */
+}
