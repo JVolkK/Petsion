@@ -1,15 +1,17 @@
-import HomeForm from "../components/HomeForm";
-import NavBar from "../components/NavBar";
-import Imagen from "../components/Imagen";
-import Footer from "../components/Footer";
+import { Route, Routes } from "react-router-dom";
+import Home from "./Home";
+import RegistrationSelect from "./RegistrationSelect";
+import "../styles/App.css";
+import RegistrationDuenio from "./RegistrationDuenio";
 
 function App() {
   return (
     <div className="App">
-      <NavBar />
-      <HomeForm />
-      <Imagen />
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/registration-select" element={<RegistrationSelect />} />
+        <Route path="/registration-duenio" element={<RegistrationDuenio />} />
+      </Routes>
     </div>
   );
 }
