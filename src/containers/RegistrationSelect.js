@@ -12,7 +12,7 @@ const Registration = () => {
   return (
     <>
       <NavBar />
-      <Container className="registrationSelectStyle ">
+      <Container className="registrationSelectStyle d-flex flex-column justify-content-center align-items-center">
         <p className="d-flex justify-content-center ">
           Como quieres registrarte?
         </p>
