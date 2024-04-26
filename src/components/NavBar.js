@@ -29,7 +29,7 @@ function NavBar() {
                 {" "}
                 {/* Alineación a la derecha */}
                 <li className="nav-item">
-                  <a className="nav-link" href="/">
+                  <a className="nav-link" href="/buscar-cuidador">
                     Buscar Cuidador
                   </a>
                 </li>

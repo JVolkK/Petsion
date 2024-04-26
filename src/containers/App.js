@@ -3,6 +3,7 @@ import Home from "./Home";
 import RegistrationSelect from "./RegistrationSelect";
 import "../styles/App.css";
 import RegistrationDuenio from "./RegistrationDuenio";
+import BuscarCuidador from "./BuscarCuidador";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/registration-select" element={<RegistrationSelect />} />
         <Route path="/registration-duenio" element={<RegistrationDuenio />} />
+        <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
       </Routes>
     </div>
   );
