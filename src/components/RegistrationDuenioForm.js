@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { useForm } from "../hooks/useForm";
-import DuenioFormStyle from "../styles/DuenioFormStyle.css";
+import "../styles/DuenioFormStyle.css";
 
 const initialForm = {
   //Valores base para el state de Form en el hook perzonalizado useForm
