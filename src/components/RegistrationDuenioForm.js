@@ -1,10 +1,10 @@
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { useForm } from "../hooks/useForm";
+import DuenioFormStyle from "../styles/DuenioFormStyle.css";
 
 const initialForm = {
   //Valores base para el state de Form en el hook perzonalizado useForm
@@ -124,6 +124,7 @@ function RegistrationDuenioForm() {
         <Form.Group as={Col} md="4">
           <Form.Label>Contraseña</Form.Label>
           <Form.Control
+            className="inputStyle"
             required
             maxLength="15"
             type="password"
@@ -138,6 +139,7 @@ function RegistrationDuenioForm() {
         <Form.Group as={Col} md="4">
           <Form.Label>Correo electronico</Form.Label>
           <Form.Control
+            className="inputStyle"
             required
             type="email"
             name="email"
@@ -184,6 +186,7 @@ function RegistrationDuenioForm() {
           <Form.Label>DNI</Form.Label>
           <InputGroup>
             <Form.Control
+              className="inputStyle"
               min="1"
               max="70000000"
               type="number"
@@ -195,9 +198,6 @@ function RegistrationDuenioForm() {
               value={form.dni}
             />
             {errors.dni && <p style={styles}>{errors.dni}</p>}
-            <Form.Control.Feedback type="invalid">
-              Ingrese un numero de DNI valido.
-            </Form.Control.Feedback>
           </InputGroup>
         </Form.Group>
       </Row>
@@ -205,6 +205,7 @@ function RegistrationDuenioForm() {
         <Form.Group as={Col} md="4">
           <Form.Label>Fecha de nacimiento</Form.Label>
           <Form.Control
+            className="inputStyle"
             type="date"
             max="2005-01-01"
             min="1920-01-01"
@@ -217,13 +218,11 @@ function RegistrationDuenioForm() {
           {errors.fechaDeNacimiento && (
             <p style={styles}>{errors.fechaDeNacimiento}</p>
           )}
-          <Form.Control.Feedback type="invalid">
-            Cargue una fecha de nacimiento valida
-          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="4">
           <Form.Label>Numero de telefono</Form.Label>
           <Form.Control
+            className="inputStyle"
             type="number"
             placeholder="Numero de telefono"
             required
@@ -235,13 +234,11 @@ function RegistrationDuenioForm() {
           {errors.numeroDeTelefono && (
             <p style={styles}>{errors.numeroDeTelefono}</p>
           )}
-          <Form.Control.Feedback type="invalid">
-            Cargue un numero de telefono valido
-          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="4">
           <Form.Label>Codigo postal</Form.Label>
           <Form.Control
+            className="inputStyle"
             type="number"
             placeholder="Codigo Postal"
             required
