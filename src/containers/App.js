@@ -3,6 +3,7 @@ import Home from "./Home";
 import RegistrationSelect from "./RegistrationSelect";
 import "../styles/App.css";
 import RegistrationDuenio from "./RegistrationDuenio";
+import Servicios from "./Servicios";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/registration-select" element={<RegistrationSelect />} />
         <Route path="/registration-duenio" element={<RegistrationDuenio />} />
+        <Route path="/servicios-select" element={<Servicios />} />
       </Routes>
     </div>
   );
