@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Link } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -61,7 +61,7 @@ function HomeForm() {
                   lg={7}
                   xs={8}
                 >
-                  <Button className="w-100" variant="secondary" href="/buscar-cuidador">
+                  <Button className="w-100" variant="secondary">
                     Buscar
                   </Button>
                 </Col>

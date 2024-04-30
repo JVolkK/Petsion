@@ -8,9 +8,9 @@ function NavBar() {
       <Container fluid className="p-0">
         <nav className="navbar navbar-expand-lg bg-body-tertiary p-0">
           <div className="container">
-            <a className="navbar-brand" href="/">
+            <Link className="navbar-brand" to="/">
               <img src={PETSION} alt="logo" width="180" />
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -30,19 +30,19 @@ function NavBar() {
                 {" "}
                 {/* Alineación a la derecha */}
                 <li className="nav-item">
-                  <a className="nav-link" href="/buscar-cuidador">
-                    Buscar Cuidador
-                  </a>
+                  <Link className="nav-link" to="/buscar-cuidador">
+                    Buscar cuidador
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/">
+                  <Link className="nav-link" to="/">
                     Servicios
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/">
-                    Iniciar Sesión
-                  </a>
+                  <Link className="nav-link" to="/">
+                    Iniciar sesion
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/registration-select">

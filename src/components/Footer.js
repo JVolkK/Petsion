@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
 
 import "../styles/HomeForm.css";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -10,39 +11,41 @@ function Footer() {
           <div className="d-flex text-white">
             <div className="p-2 flex-fill ">
               <nav class="nav flex-column ">
-                <a class="nav-link text-white" href="/">
+                <Link class="nav-link text-white" to="/">
                   <b>PETSION</b>
-                </a>
-                <a class="nav-link text-white" href="/">
+                </Link>
+                <Link class="nav-link text-white" to="/">
                   Servicios
-                </a>
-                <a class="nav-link text-white" href="/">
-                  ¿Cómo Funciona?
-                </a>
-                <a class="nav-link text-white" href="/">
+                </Link>
+                <Link class="nav-link text-white" to="/">
+                  ¿Como funciona?
+                </Link>
+                <Link class="nav-link text-white" to="/">
                   Sobre Nosotros
-                </a>
-                <a class="nav-link text-white" href="/">
+                </Link>
+                <Link class="nav-link text-white" to="/">
                   Tarifas
-                </a>
-                <a class="nav-link text-white" href="/">
-                  Hazte Cuidador
-                </a>
-                <a class="nav-link text-white" href="/">
+                </Link>
+                <Link class="nav-link text-white" to="/">
+                  Hazte cuidador
+                </Link>
+                <Link class="nav-link text-white" to="/">
                   Contacto
-                </a>
+                </Link>
               </nav>
             </div>
             <div className="p-2 flex-fill">
-              <b>REDES SOCIALES</b>
+              <Link className="p-2 flex-fill" to="/">
+                Contacto
+              </Link>
             </div>
             <nav class="nav flex-column ">
-              <a class="nav-link text-white" href="/">
+              <Link class="nav-link text-white" to="/">
                 TERMINOS Y CONDICIONES
-              </a>
-              <a class="nav-link text-white" href="/">
+              </Link>
+              <Link class="nav-link text-white" to="/">
                 POLITICAS DE PRIVACIDAD
-              </a>
+              </Link>
             </nav>
           </div>
           <hr style={{ borderTop: "1px solid white", margin: "10px auto" }} />
