@@ -1,5 +1,6 @@
 import Container from "react-bootstrap/Container";
 import PETSION from "../images/PETSION.png";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
@@ -44,9 +45,9 @@ function NavBar() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/registration-select">
+                  <Link className="nav-link" to="/registration-select">
                     Registrarse
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
