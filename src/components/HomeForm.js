@@ -60,7 +60,7 @@ function HomeForm() {
                   lg={7}
                   xs={8}
                 >
-                  <Button className="w-100" variant="secondary">
+                  <Button className="w-100" variant="secondary" href="/buscar-cuidador">
                     Buscar
                   </Button>
                 </Col>

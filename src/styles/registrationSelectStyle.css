@@ -3,5 +3,21 @@
 }
 
 .buttonStyle {
-  background-color: #4c78b5;
+  height: 10rem;
+  width: 8rem;
+}
+
+.btn-primary,
+.btn-primary:active,
+.btn-primary:visited {
+  background-color: #4c78b5 !important;
+}
+
+.btn-primary:hover {
+  background-color: #3c7bd2 !important;
+}
+
+.textTitle {
+  font-weight: 600;
+  font-size: large;
 }
