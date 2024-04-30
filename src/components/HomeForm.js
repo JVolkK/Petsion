@@ -8,7 +8,8 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 
 function HomeForm() {
-  const [homeFormValue, setHomeFormValue] = useState(1);
+  //const [homeFormValue, setHomeFormValue] = useState(1);
+  const [setHomeFormValue] = useState(1);
 
   return (
     <>
