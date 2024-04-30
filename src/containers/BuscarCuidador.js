@@ -54,25 +54,35 @@ const BuscarCuidador = () => {
             </Col>
           </Row>
         </Container>
-        <Row>
-          <Col md={6}>
-            <Row>
-              <Col md={6}>
-                <ProfileCard
-                  nombre="Tobey"
-                  apellido="Maguire"
-                  ubicacion="San Miguel de Tucumán"
-                  foto={ejemploFoto}
-                />
-              </Col>
-            </Row>
-          </Col>
-          <Col md={6}>
-            <div className="map-container">
-              <div id="map" className="map"></div>
-            </div>
-          </Col>
-        </Row>
+        <Container>
+          <Row>
+            <Col>
+              <ProfileCard
+                nombre="Tobey"
+                apellido="Maguire"
+                ubicacion="San Miguel de Tucumán"
+                foto={ejemploFoto}
+              />
+              <ProfileCard
+                nombre="Tobey"
+                apellido="Maguire"
+                ubicacion="San Miguel de Tucumán"
+                foto={ejemploFoto}
+              />
+              <ProfileCard
+                nombre="Tobey"
+                apellido="Maguire"
+                ubicacion="San Miguel de Tucumán"
+                foto={ejemploFoto}
+              />
+            </Col>
+            <Col md={5}>
+              <div className="map-container">
+                <div id="map" className="map"></div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </Container>
       <Footer />
     </>

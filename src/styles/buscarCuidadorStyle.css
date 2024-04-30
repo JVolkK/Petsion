@@ -1,56 +1,54 @@
 .container {
-    margin-top: 20px;
-  }
-  
+  margin-top: 20px;
+}
+
 label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
+  display: block;
+  margin-bottom: 5px;
+}
+
 input[type="text"],
-  select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #4c78b5;
-    border-radius: 5px;
-    box-sizing: border-box;
-    margin-bottom: 15px;
-  }
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #4c78b5;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
 
 input[type="date"] {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #4c78b5;
-    border-radius: 5px;
-    box-sizing: border-box;
-    margin-bottom: 15px;
-  }
-  
-button {
-    padding: 10px 20px;
-    background-color: #4c78b5;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-button:hover {
-    background-color: #355f8d;
-  }
-  
-footer {
-    margin-top: 20px;
-  }
-  .map-container {
-    display: flex;
-  }
-  
-  .map {
-    height: 1000px; 
-    width: 100%; 
-    margin-top: 90px;
-    margin-left: 4%;
-  }
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #4c78b5;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
 
-  
+button {
+  padding: 10px 20px;
+  background-color: #4c78b5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #355f8d;
+}
+
+footer {
+  margin-top: 20px;
+}
+.map-container {
+  display: flex;
+}
+
+.map {
+  height: 45rem;
+  width: 100%;
+  margin: 0;
+  margin-bottom: 5rem;
+}
