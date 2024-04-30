@@ -5,7 +5,7 @@ function NavBar() {
   return (
     <>
       <Container fluid className="p-0">
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary p-0">
           <div className="container">
             <a className="navbar-brand" href="/">
               <img src={PETSION} alt="logo" width="180" />

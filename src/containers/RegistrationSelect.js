@@ -26,7 +26,7 @@ const Registration = () => {
               </Link>
             </Col>
             <Col>
-              <Link to="/">
+              <Link to="/registration-anfitrion">
                 <Button size="lg" className="buttonStyle">
                   Anfitrion
                 </Button>{" "}

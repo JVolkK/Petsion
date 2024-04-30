@@ -41,5 +41,16 @@ button:hover {
   
 footer {
     margin-top: 20px;
-    text-align: center;
   }
+  .map-container {
+    display: flex;
+  }
+  
+  .map {
+    height: 1000px; 
+    width: 100%; 
+    margin-top: 90px;
+    margin-left: 4%;
+  }
+
+  

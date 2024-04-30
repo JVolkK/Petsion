@@ -96,8 +96,8 @@ function RegistrationDuenioForm() {
   const {
     form,
     errors,
-    loading,
-    response,
+    // loading,
+    //response,
     handleChange,
     handleBlur,
     handleSubmit,
@@ -105,6 +105,7 @@ function RegistrationDuenioForm() {
 
   return (
     <Form onSubmit={handleSubmit} className="p-5">
+      <h1 className="pb-3">Registrarse como dueño</h1>
       <Row className="mb-3">
         <Form.Group as={Col} md="4">
           <Form.Label>Nombre de Usuario</Form.Label>
