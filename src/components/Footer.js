@@ -53,21 +53,21 @@ function Footer() {
 
             <nav className="nav flex-column ">
               {/* Enlace para mostrar el modal de términos */}
-              <a
+              <Link
                 className="nav-link text-white"
                 onClick={handleShowTerminos}
                 style={{ cursor: "pointer" }}
               >
                 TERMINOS Y CONDICIONES
-              </a>
+              </Link>
               {/* Enlace para mostrar el modal de políticas */}
-              <a
+              <Link
                 className="nav-link text-white"
                 onClick={handleShowPoliticas}
                 style={{ cursor: "pointer" }}
               >
                 POLITICAS DE PRIVACIDAD
-              </a>
+              </Link>
             </nav>
           </div>
           <hr style={{ borderTop: "1px solid white", margin: "10px auto" }} />
