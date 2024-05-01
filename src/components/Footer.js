@@ -1,9 +1,20 @@
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
-
-import "../styles/HomeForm.css";
 import { Link } from "react-router-dom";
+import Terminos from "./Terminos";
+import Politicas from "./Politicas";
+import "../styles/HomeForm.css";
 
 function Footer() {
+  const [showTerminos, setShowTerminos] = useState(false); // Estado para el modal de términos
+  const [showPoliticas, setShowPoliticas] = useState(false); // Estado para el modal de políticas
+
+  const handleCloseTerminos = () => setShowTerminos(false);
+  const handleShowTerminos = () => setShowTerminos(true);
+
+  const handleClosePoliticas = () => setShowPoliticas(false);
+  const handleShowPoliticas = () => setShowPoliticas(true);
+
   return (
     <>
       <Container fluid className="p-0">
@@ -39,13 +50,24 @@ function Footer() {
                 Contacto
               </Link>
             </div>
-            <nav class="nav flex-column ">
-              <Link class="nav-link text-white" to="/">
+
+            <nav className="nav flex-column ">
+              {/* Enlace para mostrar el modal de términos */}
+              <a
+                className="nav-link text-white"
+                onClick={handleShowTerminos}
+                style={{ cursor: "pointer" }}
+              >
                 TERMINOS Y CONDICIONES
-              </Link>
-              <Link class="nav-link text-white" to="/">
+              </a>
+              {/* Enlace para mostrar el modal de políticas */}
+              <a
+                className="nav-link text-white"
+                onClick={handleShowPoliticas}
+                style={{ cursor: "pointer" }}
+              >
                 POLITICAS DE PRIVACIDAD
-              </Link>
+              </a>
             </nav>
           </div>
           <hr style={{ borderTop: "1px solid white", margin: "10px auto" }} />
@@ -54,6 +76,10 @@ function Footer() {
           </div>
         </footer>
       </Container>
+
+      {/* Renderiza ambos modales y pasa las props */}
+      <Terminos show={showTerminos} handleClose={handleCloseTerminos} />
+      <Politicas show={showPoliticas} handleClose={handleClosePoliticas} />
     </>
   );
 }

@@ -3,6 +3,7 @@ import Home from "./Home";
 import RegistrationSelect from "./RegistrationSelect";
 import "../styles/App.css";
 import RegistrationDuenio from "./RegistrationDuenio";
+import Servicios from "./Servicios";
 import BuscarCuidador from "./BuscarCuidador";
 import RegistrationAnfitrion from "./RegistrationAnfitrion";
 
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/registration-select" element={<RegistrationSelect />} />
         <Route path="/registration-duenio" element={<RegistrationDuenio />} />
+        <Route path="/servicios-select" element={<Servicios />} />
         <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
         <Route
           path="/registration-anfitrion"
