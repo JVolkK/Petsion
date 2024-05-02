@@ -6,6 +6,7 @@ import RegistrationDuenio from "./RegistrationDuenio";
 import Servicios from "./Servicios";
 import BuscarCuidador from "./BuscarCuidador";
 import RegistrationAnfitrion from "./RegistrationAnfitrion";
+import Contacto from "./Contacto";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           path="/registration-anfitrion"
           element={<RegistrationAnfitrion />}
         />
+        <Route path="/Contacto" element={<Contacto />} />
       </Routes>
     </div>
   );

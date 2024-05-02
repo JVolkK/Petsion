@@ -25,7 +25,7 @@ function Footer() {
                 <Link class="nav-link text-white" to="/">
                   <b>PETSION</b>
                 </Link>
-                <Link class="nav-link text-white" to="/">
+                <Link class="nav-link text-white" to="/servicios-select">
                   Servicios
                 </Link>
                 <Link class="nav-link text-white" to="/">
@@ -40,15 +40,15 @@ function Footer() {
                 <Link class="nav-link text-white" to="/">
                   Hazte cuidador
                 </Link>
-                <Link class="nav-link text-white" to="/">
+                <Link class="nav-link text-white" to="/Contacto">
                   Contacto
                 </Link>
               </nav>
             </div>
             <div className="p-2 flex-fill">
-              <Link className="p-2 flex-fill" to="/">
-                Contacto
-              </Link>
+                <Link class="nav-link text-white" to="/">
+                  REDES SOCIALES
+                </Link>
             </div>
 
             <nav className="nav flex-column ">
