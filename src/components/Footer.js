@@ -1,8 +1,20 @@
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
-
+import { Link } from "react-router-dom";
+import Terminos from "./Terminos";
+import Politicas from "./Politicas";
 import "../styles/HomeForm.css";
 
 function Footer() {
+  const [showTerminos, setShowTerminos] = useState(false); // Estado para el modal de términos
+  const [showPoliticas, setShowPoliticas] = useState(false); // Estado para el modal de políticas
+
+  const handleCloseTerminos = () => setShowTerminos(false);
+  const handleShowTerminos = () => setShowTerminos(true);
+
+  const handleClosePoliticas = () => setShowPoliticas(false);
+  const handleShowPoliticas = () => setShowPoliticas(true);
+
   return (
     <>
       <Container fluid className="p-0">
@@ -10,39 +22,52 @@ function Footer() {
           <div className="d-flex text-white">
             <div className="p-2 flex-fill ">
               <nav class="nav flex-column ">
-                <a class="nav-link text-white" href="/">
+                <Link class="nav-link text-white" to="/">
                   <b>PETSION</b>
-                </a>
-                <a class="nav-link text-white" href="/">
+                </Link>
+                <Link class="nav-link text-white" to="/">
                   Servicios
-                </a>
-                <a class="nav-link text-white" href="/">
-                  ¿Cómo Funciona?
-                </a>
-                <a class="nav-link text-white" href="/">
+                </Link>
+                <Link class="nav-link text-white" to="/">
+                  ¿Como funciona?
+                </Link>
+                <Link class="nav-link text-white" to="/">
                   Sobre Nosotros
-                </a>
-                <a class="nav-link text-white" href="/">
+                </Link>
+                <Link class="nav-link text-white" to="/">
                   Tarifas
-                </a>
-                <a class="nav-link text-white" href="/">
-                  Hazte Cuidador
-                </a>
-                <a class="nav-link text-white" href="/">
+                </Link>
+                <Link class="nav-link text-white" to="/">
+                  Hazte cuidador
+                </Link>
+                <Link class="nav-link text-white" to="/">
                   Contacto
-                </a>
+                </Link>
               </nav>
             </div>
             <div className="p-2 flex-fill">
-              <b>REDES SOCIALES</b>
+              <Link className="p-2 flex-fill" to="/">
+                Contacto
+              </Link>
             </div>
-            <nav class="nav flex-column ">
-              <a class="nav-link text-white" href="/">
+
+            <nav className="nav flex-column ">
+              {/* Enlace para mostrar el modal de términos */}
+              <Link
+                className="nav-link text-white"
+                onClick={handleShowTerminos}
+                style={{ cursor: "pointer" }}
+              >
                 TERMINOS Y CONDICIONES
-              </a>
-              <a class="nav-link text-white" href="/">
+              </Link>
+              {/* Enlace para mostrar el modal de políticas */}
+              <Link
+                className="nav-link text-white"
+                onClick={handleShowPoliticas}
+                style={{ cursor: "pointer" }}
+              >
                 POLITICAS DE PRIVACIDAD
-              </a>
+              </Link>
             </nav>
           </div>
           <hr style={{ borderTop: "1px solid white", margin: "10px auto" }} />
@@ -51,6 +76,10 @@ function Footer() {
           </div>
         </footer>
       </Container>
+
+      {/* Renderiza ambos modales y pasa las props */}
+      <Terminos show={showTerminos} handleClose={handleCloseTerminos} />
+      <Politicas show={showPoliticas} handleClose={handleClosePoliticas} />
     </>
   );
 }

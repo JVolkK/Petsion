@@ -1,15 +1,16 @@
 import Container from "react-bootstrap/Container";
 import PETSION from "../images/PETSION.png";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
     <>
       <Container fluid className="p-0">
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary p-0">
           <div className="container">
-            <a className="navbar-brand" href="/">
+            <Link className="navbar-brand" to="/">
               <img src={PETSION} alt="logo" width="180" />
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -26,27 +27,26 @@ function NavBar() {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                {" "}
                 {/* Alineación a la derecha */}
                 <li className="nav-item">
-                  <a className="nav-link" href="/buscar-cuidador">
-                    Buscar Cuidador
-                  </a>
+                  <Link className="nav-link" to="/buscar-cuidador">
+                    Buscar cuidador
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/">
+                  <Link className="nav-link" to="/">
                     Servicios
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/login">
+                  <Link className="nav-link" to="/login">
                     Iniciar Sesión
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="registration-select">
+                  <Link className="nav-link" to="/registration-select">
                     Registrarse
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

@@ -13,7 +13,7 @@ const Registration = () => {
     <>
       <NavBar />
       <Container className="registrationSelectStyle d-flex flex-column justify-content-center align-items-center">
-        <p className="d-flex justify-content-center ">
+        <p className="d-flex justify-content-center textTitle ">
           Como quieres registrarte?
         </p>
         <Container className=" d-flex justify-content-center align-items-center">
@@ -26,7 +26,7 @@ const Registration = () => {
               </Link>
             </Col>
             <Col>
-              <Link to="/">
+              <Link to="/registration-anfitrion">
                 <Button size="lg" className="buttonStyle">
                   Anfitrion
                 </Button>{" "}
