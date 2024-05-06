@@ -1,13 +1,114 @@
-.backgroundImage {
-  background-image: url("../images/wepik-export-20240412064642tJSA.png");
-  max-width: 100%;
-  height: 30rem;
-  padding-left: 0;
-}
-
 .formTitle {
   font-size: 1.3rem;
 }
+
 .bg-custom-color {
   background-color: #4c78b5; /* Reemplazar con tu color de fondo personalizado */
+}
+
+.backgroundImage {
+  position: relative;
+  background-image: url("../images/wepik-export-20240412064642tJSA.png");
+  max-width: 100%;
+  height: 30rem; /* Altura de la imagen de fondo en dispositivos de escritorio */
+  padding-left: 0.5rem; /* Espaciado izquierdo */
+  padding-top: 5rem; /* Espaciado superior */
+}
+
+
+
+/* Estilos para escritorio */
+@media only screen and (min-width: 768px) {
+  .serviceContainer {
+    position: absolute;
+    top: 50%;
+    transform: translate(-20%, -50%);
+    width: 80%;
+    max-width: 600px;
+    height: auto;
+    z-index: 299;
+    margin-left: 20%;
+  }
+
+  
+  .question {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .serviceContent {
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .serviceContent .buttonContainer {
+    width: 100%;
+  }
+
+  #servicioSelectTXT {
+    font-size: 1.3rem;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .btn-search {
+    width: 200px;
+  }
+}
+
+
+
+/* Estilos para móviles */
+@media only screen and (max-width: 767px) {
+  .backgroundImage {
+    height: 40vh;
+    padding-top: 4rem;
+  }
+
+  .serviceContainer {
+    position: relative; /* Cambiado a posición relativa */
+    margin: auto; /* Centra el contenedor horizontalmente */
+    width: 90%; /* Ancho relativo */
+    max-width: 350px; /* Ancho máximo */
+    margin-top: -20px;
+  }
+  
+  .question {
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  .serviceContent {
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .serviceContent .buttonContainer {
+    width: 100%;
+  }
+
+  #servicioSelectTXT {
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .btn-search {
+    width: 70px;
+  }
 }
