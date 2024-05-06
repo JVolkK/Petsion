@@ -18,18 +18,18 @@ const LoginPage = () => {
               </div>
               <div className="d-flex align-items-center h-custom-0 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                 <Form style={{ width: '23rem' }}>
-                  <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Iniciar sesion</h3>
+                  <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Iniciar Sesión</h3>
                   <Form.Group className="mb-4" controlId="formBasicEmail">
-                    <Form.Control type="email" placeholder="Correo electronico" size="lg" />
+                    <Form.Control type="email" placeholder="Correo electrónico" size="lg" />
                   </Form.Group>
                   <Form.Group className="mb-4" controlId="formBasicPassword">
                     <Form.Control type="password" placeholder="Contraseña" size="lg" />
                   </Form.Group>
                   <div className="pt-1 mb-4">
-                    <Button variant="info" size="lg" block>Iniciar sesion</Button>
+                    <Button variant="info" size="lg" block>Iniciar sesión</Button>
                   </div>
                   <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Olvidaste tu contraseña?</a></p>
-                  <p>No tenes cuenta? <a href="#!" className="link-info">Registrate aqui</a></p>
+                  <p>No tenes cuenta? <a href="#!" className="link-info">Regístrate</a></p>
                 </Form>
               </div>
             </Col>

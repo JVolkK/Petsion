@@ -9,9 +9,9 @@
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: right center;
   }
   
-  .backgroundImage {
+ .login.js .backgroundImage {
     background-image: url("../images/wepik-export-20240412064642tJSA.png");
-    background-position: right center;
   }
