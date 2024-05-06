@@ -6,7 +6,7 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import "../styles/HomeForm.css";
 
 function HomeForm() {
-  const [homeFormValue, setHomeFormValue] = useState(1);
+  const [/*homeFormValue*/, setHomeFormValue] = useState(1);
 
   const handleToggleButtonClick = (value) => {
     setHomeFormValue(value);
