@@ -47,6 +47,7 @@ const Registration = () => {
             </Col>
           </Row>
         </Container>
+        <Footer/>
       </section>
     </>
   );
