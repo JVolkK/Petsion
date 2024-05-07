@@ -74,8 +74,8 @@ function RegistrationAnfitrionForm() {
         <Form.Group as={Col} md="4">
           <Form.Label>Contraseña</Form.Label>
           <Form.Control
-            className="inputStyle"
             required
+            className="inputStyle"
             maxLength="15"
             type="password"
             name="password"

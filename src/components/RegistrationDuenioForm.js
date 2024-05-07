@@ -26,37 +26,45 @@ const validationsForm = (form) => {
   //Validaciones username
   if (!form.username.trim()) {
     errors.username = "El campo nombre de usuario es requerido.";
+  } else if (!namePattern.test(form.username)) {
+    errors.username =
+      "El campo de nombre de usuario no acepta caracteres especiales.";
   }
 
   //Validaciones password
   if (!form.password.trim()) {
     errors.password = "El campo contraseña es requerido";
+  } else if (!passwordPattern.test(form.password)) {
+    errors.password =
+      " La contraseña debe contener al menos una mayuscula, minimo 10 caracteres y no contener espacios";
   }
 
   //Validaciones
   if (!form.email.trim()) {
     errors.email = "El campo de correo electronico es requerido ";
+  } else if (!emailPattern.test(form.email)) {
+    errors.email = "El correo electronico ingresado es invalido";
   }
 
   //Validaciones nombre
   if (!form.nombre.trim()) {
     errors.nombre = "El campo de nombre es requerido ";
   } else if (!namePattern.test(form.nombre)) {
-    errors.nombre = "El campo de nombre es invalido";
+    errors.nombre = "El campo de nombre no acepta caracteres especiales.";
   }
 
   //Validaciones apellido
   if (!form.apellido.trim()) {
     errors.apellido = "El campo de apellido es requerido";
   } else if (!namePattern.test(form.apellido)) {
-    errors.apellido = "El campo de apellido es invalido";
+    errors.apellido = "El campo de apellido no acepta caracteres especiales.";
   }
 
   //Validaciones dni
   if (!form.dni) {
     errors.dni = "El campo de dni es requerido";
-  } else if (form.dni > 70000000 || form.dni < 1) {
-    errors.dni = "El campo de dni es invalido";
+  } else if (form.dni > 70000000 || form.dni < 1000000) {
+    errors.dni = "Ingrese un DNI valido.";
   }
 
   //Validaciones fecha de nacimiento
@@ -77,6 +85,8 @@ const validationsForm = (form) => {
   //Validaciones codigo postal
   if (!form.codigoPostal) {
     errors.codigoPostal = "El campo de codigo postal es requerido";
+  } else if (!numberPattern.test(form.codigoPostal)) {
+    errors.codigoPostal = "Este campo solo acepta numeros.";
   } else if (form.codigoPostal > 9999 || form.codigoPostal < 1) {
     errors.codigoPostal = "El campo de codigo postal es invalido";
   }
@@ -90,12 +100,16 @@ let styles = {
   color: "#dc3545",
 };
 
-var namePattern = /^[a-zA-Z\s-]+$/;
+var namePattern = /^[a-zA-Z]+$/;
+var passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@.#$!%*?&]{10,15}$/; // Test para password, requiere al menos una letra minuscula, una mayuscula, un caracter especial, un numero y un largo minimo de 8 a 15 caracteres
+var emailPattern = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/;
+var numberPattern = /^[1-9]+$/;
 
 function RegistrationDuenioForm() {
   const {
     form,
     errors,
+    submitPressed,
     // loading,
     //response,
     handleChange,
@@ -111,6 +125,7 @@ function RegistrationDuenioForm() {
           <Form.Label>Nombre de Usuario</Form.Label>
           <Form.Control
             maxLength="15"
+            minLength={5}
             type="text"
             name="username"
             placeholder="Escribe tu nombre de usuario"
@@ -119,7 +134,9 @@ function RegistrationDuenioForm() {
             value={form.username}
             required
           />
-          {errors.username && <p style={styles}>{errors.username}</p>}
+          {submitPressed === true && errors.username && (
+            <p style={styles}>{errors.username}</p>
+          )}
         </Form.Group>
 
         <Form.Group as={Col} md="4">
@@ -135,7 +152,17 @@ function RegistrationDuenioForm() {
             onChange={handleChange}
             value={form.password}
           />
-          {errors.password && <p style={styles}>{errors.password}</p>}
+          {submitPressed && errors.password ? (
+            // Si hay errores, muestra el mensaje de error
+            <p style={styles}>{errors.password}</p>
+          ) : (
+            // Si no hay errores, muestra el label
+            <label>
+              {" "}
+              La contraseña debe contener al menos una mayuscula, minimo 10
+              caracteres y no contener espacios
+            </label>
+          )}
         </Form.Group>
         <Form.Group as={Col} md="4">
           <Form.Label>Correo electronico</Form.Label>
@@ -149,7 +176,9 @@ function RegistrationDuenioForm() {
             onChange={handleChange}
             value={form.email}
           />
-          {errors.email && <p style={styles}>{errors.email}</p>}
+          {submitPressed === true && errors.email && (
+            <p style={styles}>{errors.email}</p>
+          )}
         </Form.Group>
       </Row>
       <Row className="mb-3">
@@ -158,6 +187,7 @@ function RegistrationDuenioForm() {
           <Form.Control
             required
             maxLength="15"
+            minLength={3}
             type="text"
             placeholder="Primer nombre"
             name="nombre"
@@ -165,13 +195,16 @@ function RegistrationDuenioForm() {
             onChange={handleChange}
             value={form.nombre}
           />
-          {errors.nombre && <p style={styles}>{errors.nombre}</p>}
+          {submitPressed === true && errors.nombre && (
+            <p style={styles}>{errors.nombre}</p>
+          )}
         </Form.Group>
 
         <Form.Group as={Col} md="4">
           <Form.Label>Apellido</Form.Label>
           <Form.Control
             maxLength="15"
+            minLength={3}
             required
             type="text"
             placeholder="Apellido/s"
@@ -180,7 +213,9 @@ function RegistrationDuenioForm() {
             onChange={handleChange}
             value={form.apellido}
           />
-          {errors.apellido && <p style={styles}>{errors.apellido}</p>}
+          {submitPressed === true && errors.apellido && (
+            <p style={styles}>{errors.apellido}</p>
+          )}
         </Form.Group>
 
         <Form.Group as={Col} md="4">
@@ -188,7 +223,7 @@ function RegistrationDuenioForm() {
           <InputGroup>
             <Form.Control
               className="inputStyle"
-              min="1"
+              min="1000000"
               max="70000000"
               type="number"
               placeholder="DNI"
@@ -198,7 +233,9 @@ function RegistrationDuenioForm() {
               onChange={handleChange}
               value={form.dni}
             />
-            {errors.dni && <p style={styles}>{errors.dni}</p>}
+            {submitPressed === true && errors.dni && (
+              <p style={styles}>{errors.dni}</p>
+            )}
           </InputGroup>
         </Form.Group>
       </Row>
@@ -216,7 +253,7 @@ function RegistrationDuenioForm() {
             onChange={handleChange}
             value={form.fechaDeNacimiento}
           />
-          {errors.fechaDeNacimiento && (
+          {submitPressed === true && errors.fechaDeNacimiento && (
             <p style={styles}>{errors.fechaDeNacimiento}</p>
           )}
         </Form.Group>
@@ -232,13 +269,15 @@ function RegistrationDuenioForm() {
             onChange={handleChange}
             value={form.numeroDeTelefono}
           />
-          {errors.numeroDeTelefono && (
+          {submitPressed === true && errors.numeroDeTelefono && (
             <p style={styles}>{errors.numeroDeTelefono}</p>
           )}
         </Form.Group>
         <Form.Group as={Col} md="4">
           <Form.Label>Codigo postal</Form.Label>
           <Form.Control
+            min="100"
+            max="10000"
             className="inputStyle"
             type="number"
             placeholder="Codigo Postal"
@@ -248,7 +287,9 @@ function RegistrationDuenioForm() {
             onChange={handleChange}
             value={form.codigoPostal}
           />
-          {errors.codigoPostal && <p style={styles}>{errors.codigoPostal}</p>}
+          {submitPressed === true && errors.codigoPostal && (
+            <p style={styles}>{errors.codigoPostal}</p>
+          )}
         </Form.Group>
       </Row>
       <Form.Group className="mb-3">

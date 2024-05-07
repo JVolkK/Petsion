@@ -3,6 +3,7 @@ import { useState } from "react";
 export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
+  const [submitPressed, setSubmitPressed] = useState(false);
   // const [loading, setLoading] = useState(false);
   // const [response, setResponse] = useState(null);
 
@@ -21,6 +22,7 @@ export const useForm = (initialForm, validateForm) => {
   };
 
   const handleSubmit = (e) => {
+    setSubmitPressed(true);
     e.preventDefault();
     setErrors(validateForm(form));
     if (Object.keys(errors).length === 0) {
@@ -36,6 +38,7 @@ export const useForm = (initialForm, validateForm) => {
   return {
     form,
     errors,
+    submitPressed,
     //loading,
     //response,
     handleChange,
