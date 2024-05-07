@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import { useForm } from "../hooks/useForm";
+import { useForm } from "../hooks/useFormDuenio";
 import "../styles/DuenioFormStyle.css";
 
 const initialForm = {
@@ -103,7 +103,7 @@ let styles = {
 var namePattern = /^[a-zA-Z]+$/;
 var passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@.#$!%*?&]{10,15}$/; // Test para password, requiere al menos una letra minuscula, una mayuscula, un caracter especial, un numero y un largo minimo de 8 a 15 caracteres
 var emailPattern = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/;
-var numberPattern = /^[1-9]+$/;
+var numberPattern = /^[0-9]+$/;
 
 function RegistrationDuenioForm() {
   const {
