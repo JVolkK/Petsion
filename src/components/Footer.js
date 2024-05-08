@@ -46,20 +46,18 @@ function Footer() {
               </nav>
             </div>
             <div className="p-2 flex-fill">
-<<<<<<< HEAD
-                <Link class="nav-link text-white" to="/">
-                  REDES SOCIALES
-=======
+              <Link class="nav-link text-white" to="/">
+                REDES SOCIALES
+              </Link>
               <Link class="nav-link text-white" to="/">
                 <b>Contacto</b>
               </Link>
               <Link class="nav-link text-white" to="/">
                 Gmail: petsionar@gmail.com
-                </Link>
+              </Link>
               <Link class="nav-link text-white" to="/">
                 Instagram: @petsion
->>>>>>> 53a5c83dc5ed13f800d056e5c4a837f8a75b9fcd
-                </Link>
+              </Link>
             </div>
 
             <nav className="nav flex-column ">
