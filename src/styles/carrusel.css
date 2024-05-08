@@ -1,0 +1,14 @@
+@media only screen and (min-width: 768px) {
+    
+}
+
+@media only screen and (max-width: 767px){
+      .carousel-item {
+        height: 250px;
+      }
+      
+      .carousel-item img {
+        height: 250px;
+        width: auto;
+      }
+    }

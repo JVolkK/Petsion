@@ -27,7 +27,6 @@ function NavBar() {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                {" "}
                 {/* Alineación a la derecha */}
                 <li className="nav-item">
                   <Link className="nav-link" to="/buscar-cuidador">
@@ -40,8 +39,8 @@ function NavBar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/">
-                    Iniciar sesion
+                  <Link className="nav-link" to="/login">
+                    Iniciar Sesión
                   </Link>
                 </li>
                 <li className="nav-item">

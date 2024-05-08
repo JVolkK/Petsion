@@ -11,31 +11,44 @@ import Button from "react-bootstrap/Button";
 const Registration = () => {
   return (
     <>
-      <NavBar />
-      <Container className="registrationSelectStyle d-flex flex-column justify-content-center align-items-center">
-        <p className="d-flex justify-content-center textTitle ">
-          Como quieres registrarte?
-        </p>
-        <Container className=" d-flex justify-content-center align-items-center">
+      <section className="vh-100">
+        <Container fluid>
           <Row>
-            <Col>
-              <Link to="/registration-duenio">
-                <Button size="lg" className="buttonStyle">
-                  Dueño
-                </Button>{" "}
-              </Link>
+            <NavBar /> {/* Agrega el NavBar aquí */}
+            <Col sm={6} className="px-0 d-none d-sm-block">
+              <div className="LoginImagen backgroundImage" />
             </Col>
-            <Col>
-              <Link to="/registration-anfitrion">
-                <Button size="lg" className="buttonStyle">
-                  Anfitrion
-                </Button>{" "}
-              </Link>
+            <Col sm={6} className="text-black">
+              <div className="px-5 ms-xl-4">
+                <i className="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style={{ color: '#709085' }}></i>
+                <span className="h1 fw-bold mb-0"></span>
+              </div>
+              <div className="d-flex flex-column justify-content-center align-items-center h-custom-0 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+                <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>¿Cómo quieres registrarte?</h3>
+                <Container className=" d-flex justify-content-center align-items-center">
+                  <Row>
+                    <Col>
+                      <Link to="/registration-duenio">
+                        <Button variant="info" size="lg" block className="buttonStyle">
+                          <span>Dueño</span>
+                        </Button>
+                      </Link>
+                    </Col>
+                    <Col>
+                      <Link to="/registration-anfitrion">
+                        <Button variant="info" size="lg" block className="buttonStyle">
+                         <span>Anfitrion</span>
+                        </Button>
+                      </Link>
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
             </Col>
           </Row>
         </Container>
-      </Container>
-      <Footer />
+        <Footer/>
+      </section>
     </>
   );
 };

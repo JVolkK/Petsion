@@ -1,0 +1,17 @@
+.LoginImagen {
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    object-fit: cover;
+    object-position: left;
+    height: 89vh;
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right center;
+  }
+  
+ .login.js .backgroundImage {
+    background-image: url("../images/wepik-export-20240412064642tJSA.png");
+  }

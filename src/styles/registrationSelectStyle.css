@@ -1,20 +1,40 @@
+.buttonStyle {
+  height: 3rem;
+  width: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: #a8dfe6 !important;
+  border-color: #cff6fc !important;
+}
+
+.buttonStyle span {
+  position: relative;
+  z-index: 2;
+  transition: .3 ease all;
+}
+
+.buttonStyle::after {
+  content: "";
+  width: 0; /* Cambiar el ancho inicial del bloque a 0 para que aparezca de izquierda a derecha */
+  height: 100%;
+  background: #cff6fc;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  transition: .3s ease-in-out width; /* Cambiar la propiedad que se anima para el efecto de aparición */
+  pointer-events: none; /* Para que el pseudo-elemento no afecte los eventos del botón */
+  border-radius: 7px;
+}
+
+.buttonStyle:hover::after {
+  width: 100%; /* Al hacer hover, el ancho del bloque se ajusta al 100% para mostrarlo de izquierda a derecha */
+}
+
 .registrationSelectStyle {
   height: 30rem;
-}
-
-.buttonStyle {
-  height: 10rem;
-  width: 8rem;
-}
-
-.btn-primary,
-.btn-primary:active,
-.btn-primary:visited {
-  background-color: #4c78b5 !important;
-}
-
-.btn-primary:hover {
-  background-color: #3c7bd2 !important;
 }
 
 .textTitle {

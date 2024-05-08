@@ -1,75 +1,65 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import "../styles/HomeForm.css";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import "../styles/HomeForm.css";
 
 function HomeForm() {
-  //const [homeFormValue, setHomeFormValue] = useState(1);
-  const [setHomeFormValue] = useState(1);
+  const [/*homeFormValue*/, setHomeFormValue] = useState(1);
+
+  const handleToggleButtonClick = (value) => {
+    setHomeFormValue(value);
+  };
 
   return (
     <>
-      <Container fluid className="backgroundImage p-2 pt-5">
-        <Row>
-          <Col xs={12} lg={8} xl={5}>
-            <Container className="bg-light text-dark p-3 border rounded">
-              <Row className="p-3 formTitle ">
-                Que servicio buscas el dia de hoy?
-              </Row>
-              <Row>
-                <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                  <ToggleButton
-                    className="border"
-                    variant="light"
-                    id="tbg-radio-1"
-                    value={1}
-                    onClick={() => setHomeFormValue(1)}
-                    size="lg"
-                  >
-                    Alojamiento
-                  </ToggleButton>
-                  <ToggleButton
-                    className="border"
-                    variant="light"
-                    id="tbg-radio-2"
-                    value={2}
-                    onClick={() => setHomeFormValue(2)}
-                    size="lg"
-                  >
-                    Cuidado de dia
-                  </ToggleButton>
-                  <ToggleButton
-                    className="border"
-                    variant="light"
-                    id="tbg-radio-3"
-                    value={3}
-                    onClick={() => setHomeFormValue(3)}
-                    size="lg"
-                  >
-                    Paseo
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              </Row>
-              <Row className="justify-content-center">
-                <Col
-                  className="d-flex justify-content-center pt-3 pb-3  "
-                  xl={7}
-                  lg={7}
-                  xs={8}
+      <div className="backgroundImage">
+        <div className="serviceContainer">
+          <Container fluid className="serviceContent">
+            <h2 className="question">¿Qué servicio buscas hoy?</h2>
+            <div className="buttonContainer">
+              <ToggleButtonGroup type="radio" id="ToggleButtonGroup" name="options" defaultValue={1}>
+                <ToggleButton
+                  className="border"
+                  variant="light"
+                  id="tbg-radio-1"
+                  value={1}
+                  onClick={() => handleToggleButtonClick(1)}
+                  size="lg"
                 >
-                  <Button className="w-100" variant="secondary">
-                    Buscar
-                  </Button>
-                </Col>
-              </Row>
-            </Container>
-          </Col>
-        </Row>
-      </Container>
+                  <span id="servicioSelectTXT">Alojamiento</span>
+                </ToggleButton>
+                <ToggleButton
+                  className="border"
+                  variant="light"
+                  id="tbg-radio-2"
+                  value={2}
+                  onClick={() => handleToggleButtonClick(2)}
+                  size="lg"
+                >
+                  <span id="servicioSelectTXT">Cuidado de día</span>
+                </ToggleButton>
+                <ToggleButton
+                  className="border"
+                  variant="light"
+                  id="tbg-radio-3"
+                  value={3}
+                  onClick={() => handleToggleButtonClick(3)}
+                  size="lg"
+                >
+                  <span id="servicioSelectTXT">Paseo</span>
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </div>
+            <div className="d-flex justify-content-center pt-2 pb-1">
+              <Button className="btn-search" variant="secondary">
+                <span>Buscar</span>
+              </Button>
+            </div>
+          </Container>
+        </div>
+      </div>
     </>
   );
 }
