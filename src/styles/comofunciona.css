@@ -1,0 +1,10 @@
+h3 {
+    color: rgb(65, 65, 69);
+    font-size: 24px;
+    font-weight: bold;
+}
+p{
+    font-size: 18px;
+    padding: 10px;
+    text-align: left;
+}

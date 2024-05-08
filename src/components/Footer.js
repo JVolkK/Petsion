@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import Terminos from "./Terminos";
 import Politicas from "./Politicas";
+import { AiOutlineMail, AiOutlineInstagram } from 'react-icons/ai';
 import "../styles/HomeForm.css";
 
 function Footer() {
@@ -19,69 +22,66 @@ function Footer() {
     <>
       <Container fluid className="p-0">
         <footer className="footer mt-auto py-3 bg-custom-color">
-          <div className="d-flex text-white">
-            <div className="p-2 flex-fill ">
-              <nav class="nav flex-column ">
-                <Link class="nav-link text-white" to="/">
+          <Row>
+            <Col sm={12} md={4}>
+              <nav className="nav flex-column">
+                <Link className="nav-link text-white" to="/">
                   <b>PETSION</b>
                 </Link>
-                <Link class="nav-link text-white" to="/servicios-select">
+                <Link className="nav-link text-white" to="/servicios-select">
                   Servicios
                 </Link>
-                <Link class="nav-link text-white" to="/">
+                <Link className="nav-link text-white" to="/">
                   ¿Como funciona?
                 </Link>
-                <Link class="nav-link text-white" to="/">
+                <Link className="nav-link text-white" to="/">
                   Sobre Nosotros
                 </Link>
-                <Link class="nav-link text-white" to="/">
+                <Link className="nav-link text-white" to="/">
                   Tarifas
                 </Link>
-                <Link class="nav-link text-white" to="/">
+                <Link className="nav-link text-white" to="/">
                   Hazte cuidador
                 </Link>
-                <Link class="nav-link text-white" to="/Contacto">
+                <Link className="nav-link text-white" to="/Contacto">
                   Contacto
                 </Link>
               </nav>
-            </div>
-            <div className="p-2 flex-fill">
-              <Link class="nav-link text-white" to="/">
-                REDES SOCIALES
-              </Link>
-              <Link class="nav-link text-white" to="/">
-                <b>Contacto</b>
-              </Link>
-              <Link class="nav-link text-white" to="/">
-                Gmail: petsionar@gmail.com
-              </Link>
-              <Link class="nav-link text-white" to="/">
-                Instagram: @petsion
-              </Link>
-            </div>
-
-            <nav className="nav flex-column ">
-              {/* Enlace para mostrar el modal de términos */}
-              <Link
-                className="nav-link text-white"
-                onClick={handleShowTerminos}
-                style={{ cursor: "pointer" }}
-              >
-                TERMINOS Y CONDICIONES
-              </Link>
-              {/* Enlace para mostrar el modal de políticas */}
-              <Link
-                className="nav-link text-white"
-                onClick={handleShowPoliticas}
-                style={{ cursor: "pointer" }}
-              >
-                POLITICAS DE PRIVACIDAD
-              </Link>
-            </nav>
-          </div>
+            </Col>
+            <Col sm={12} md={4}>
+              <nav className="nav flex-column">
+                <Link className="nav-link text-white" to="/">
+                  <AiOutlineMail className="mr-2" /> petsionar@gmail.com
+                </Link>
+                <Link className="nav-link text-white" to="/">
+                  <AiOutlineInstagram className="mr-2" /> petsion
+                </Link>
+              </nav>
+            </Col>
+            <Col sm={12} md={4}>
+              <nav className="nav flex-column">
+                {/* Enlace para mostrar el modal de términos */}
+                <Link
+                  className="nav-link text-white"
+                  onClick={handleShowTerminos}
+                  style={{ cursor: "pointer" }}
+                >
+                  TERMINOS Y CONDICIONES
+                </Link>
+                {/* Enlace para mostrar el modal de políticas */}
+                <Link
+                  className="nav-link text-white"
+                  onClick={handleShowPoliticas}
+                  style={{ cursor: "pointer" }}
+                >
+                  POLITICAS DE PRIVACIDAD
+                </Link>
+              </nav>
+            </Col>
+          </Row>
           <hr style={{ borderTop: "1px solid white", margin: "10px auto" }} />
           <div className="text-center text-white">
-            <span>© 2024 PETSION. Todos los derechos reservados.</span>
+            <span>© 2024 PETSION | Todos los derechos reservados | Proyecto con fines educativos | UNSTA 2024</span>
           </div>
         </footer>
       </Container>
