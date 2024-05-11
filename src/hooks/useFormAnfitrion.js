@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm);
@@ -30,15 +31,58 @@ export const useForm = (initialForm, validateForm) => {
     setErrors(validateForm(form));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     setSubmitPressed(true);
     e.preventDefault();
     setErrors(validateForm(form));
     if (Object.keys(errors).length === 0) {
       // Validamos que el objeto errors donde guardamos los errores de las validaciones este vacio lo que significa que todos los campos han sido llenados correctamente.
-      alert("Enviando formulario");
-      // AQUI IRA EL CODIGO DE AXIOS O FETCH PARA GUARDAR USUARIO EN LA API
-      // LOS VALORES QUE ENVIA EL USUARIO ESTAN EN EL STATE form
+      try {
+        const response = await axios.post(
+          "https://apipetsion-production.up.railway.app/anfitrion",
+          {
+            username: form.username,
+            password: form.password,
+            name: form.nombre,
+            lastname: form.apellido,
+            email: form.email,
+            dni: form.dni,
+            fechaDeNacimiento: form.fechaDeNacimiento,
+            telefono: form.numeroDeTelefono,
+            direccion: form.direccion,
+            numeroDireccion: form.numeroDireccion,
+            codigoPostal: form.codigoPostal,
+            tipoDeVivienda: form.tipoDeVivienda,
+            conPatio: form.conPatio,
+            distintoDueño: form.distintoDueño,
+            cantidadDeAnimales: form.cantidadDeAnimales,
+            admitePerro: form.admitePerro,
+            admiteGato: form.admiteGato,
+            admitAlltypesMascotas: form.admiteAlltypesMascotas,
+            disponibilidadHoraria: form.disponibilidadHoraria,
+            disponibilidadPaseo: form.disponibilidadPaseo,
+            disponibilidadVisita: form.disponibilidadVisita,
+            disponibilidadAlojamiento: form.disponibilidadAlojamiento,
+            disponibilidadlunes: form.disponibilidadlunes,
+            disponibilidadmartes: form.disponibilidadmartes,
+            disponibilidadmiercoles: form.disponibilidadmiercoles,
+            disponibilidadjueves: form.disponibilidadjueves,
+            disponibilidadviernes: form.disponibilidadviernes,
+            disponibilidadsabado: form.disponibilidadsabado,
+            disponibilidaddomingo: form.disponibilidaddomingo,
+            tarifaBase: form.tarifaBase,
+            cancelaciones: form.cancelaciones,
+          }
+        );
+        console.log(response.data); // Maneja la respuesta de la API según tus necesidades
+        alert("Usuario registrado exitosamente");
+      } catch (error) {
+        console.error("Error al enviar solicitud:", error);
+        // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario
+        alert(
+          "Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo más tarde."
+        );
+      }
     } else {
       return;
     }

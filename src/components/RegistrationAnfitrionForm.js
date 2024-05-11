@@ -18,6 +18,7 @@ const initialForm = {
   numeroDeTelefono: "",
   codigoPostal: "",
   direccion: "",
+  numeroDireccion: 0,
   tipoDeVivienda: "",
   conPatio: false,
   admitePerro: false,

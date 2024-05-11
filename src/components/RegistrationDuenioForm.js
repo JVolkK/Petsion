@@ -28,7 +28,7 @@ const validationsForm = (form) => {
     errors.username = "El campo nombre de usuario es requerido.";
   } else if (!namePattern.test(form.username)) {
     errors.username =
-      "El campo de nombre de usuario no acepta caracteres especiales.";
+      "El campo de nombre de usuario no acepta caracteres especiales ni numeros.";
   }
 
   //Validaciones password
