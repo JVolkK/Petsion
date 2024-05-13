@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import NavBar from "../components/NavBar";
@@ -11,6 +12,8 @@ import ejemploFoto from "../images/tobey.jpg";
 import "../styles/buscarCuidadorStyle.css";
 
 const BuscarCuidador = () => {
+  const { homeFormValue } = useContext(AppContext);
+
   useEffect(() => {
     const map = L.map("map").setView([-26.8083, -65.2176], 13);
 
@@ -27,7 +30,7 @@ const BuscarCuidador = () => {
           <Row>
             <Col>
               <label>Servicios:</label>
-              <select>
+              <select defaultValue={homeFormValue}>
                 <option value="alojamiento">Alojamiento</option>
                 <option value="cuidado-dia">Cuidado de día</option>
                 <option value="paseo">Paseo</option>
