@@ -84,7 +84,7 @@ const validationsForm = (form) => {
 
   //Validaciones dni
   if (!form.dni) {
-    errors.dni = "El campo de dni es requerido";
+    errors.dni = "El campo de DNI es requerido";
   } else if (form.dni > 70000000 || form.dni < 1000000) {
     errors.dni = "Ingrese un DNI valido.";
   }
@@ -117,7 +117,8 @@ const validationsForm = (form) => {
   if (!form.direccion.trim()) {
     errors.direccion = "El campo de direccion es requerido";
   } else if (!addressPattern.test(form.direccion)) {
-    errors.direccion = "Direccion invalida.";
+    errors.direccion =
+      "Debe contener al menos tres letras, un numero y un espacio.";
   }
 
   //Validaciones tipo de mascotas que cuida
@@ -197,7 +198,8 @@ var namePattern = /^[a-zA-Z]+$/;
 var passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@.#$!%*?&]{10,15}$/; // Test para password, requiere al menos una letra minuscula, una mayuscula, un caracter especial, un numero y un largo minimo de 8 a 15 caracteres
 var emailPattern = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/;
 var numberPattern = /^[0-9]+$/;
-var addressPattern = /^[a-zA-Z0-9\s]+$/;
+var addressPattern =
+  /^(?=(?:[^A-Za-z]*[A-Za-z]){3})(?=.*\d)(?=.*\s)[A-Za-z\d\s-]+$/;
 
 function RegistrationAnfitrionForm() {
   const {
@@ -375,6 +377,8 @@ function RegistrationAnfitrionForm() {
             placeholder="Direccion"
             required
             name="direccion"
+            minLength={2}
+            maxLength={50}
             onBlur={handleBlur}
             onChange={handleChange}
             value={form.direccion}
@@ -421,6 +425,8 @@ function RegistrationAnfitrionForm() {
           <Form.Control
             min="100"
             max="10000"
+            minLength={1}
+            maxLength={6}
             className="inputStyle"
             type="number"
             placeholder="Codigo Postal"
