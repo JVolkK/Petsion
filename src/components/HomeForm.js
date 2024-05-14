@@ -61,8 +61,13 @@ function HomeForm() {
               </ToggleButtonGroup>
             </div>
             <div className="d-flex justify-content-center pt-2 pb-1">
-              <Button className="btn-search" variant="secondary">
-                <Link to="/buscar-cuidador">Buscar</Link>
+              <Button
+                as={Link}
+                to="/buscar-cuidador"
+                className="btn-search"
+                variant="secondary"
+              >
+                Buscar
               </Button>
             </div>
           </Container>

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import PETSION from '../images/PETSION.png';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import PETSION from "../images/PETSION.png";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
