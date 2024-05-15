@@ -8,7 +8,7 @@ function NavBar() {
     <>
       <Navbar bg="body-tertiary" expand="lg" className="p-0">
         <Container fluid>
-          <Navbar.Brand as={Link} to="/">
+          <Navbar.Brand as={Link} to="/" href="#">
             <img src={PETSION} alt="logo" width="180" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarSupportedContent" />
@@ -16,22 +16,22 @@ function NavBar() {
             <Nav className="ms-auto mb-2 mb-lg-0">
               {/* Alineación a la derecha */}
               <Nav.Item>
-                <Nav.Link as={Link} to="/buscar-cuidador">
+                <Nav.Link as={Link} to="/buscar-cuidador" href="#">
                   Buscar cuidador
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link as={Link} to="/servicios-select">
+                <Nav.Link as={Link} to="/servicios-select" href="#">
                   Servicios
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link as={Link} to="/login">
+                <Nav.Link as={Link} to="/login" href="#">
                   Iniciar Sesión
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link as={Link} to="/registration-select">
+                <Nav.Link as={Link} to="/registration-select" href="#">
                   Registrarse
                 </Nav.Link>
               </Nav.Item>
