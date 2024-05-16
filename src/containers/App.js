@@ -9,6 +9,8 @@ import RegistrationAnfitrion from "./RegistrationAnfitrion";
 import Contacto from "./Contacto";
 import LoginPage from "./Login";
 import { AppProvider } from "../contexts/AppContext";
+import "../styles/leaflet.css";
+
 
 function App() {
   return (

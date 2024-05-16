@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Container from "react-bootstrap/Container";
@@ -6,31 +6,57 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProfileCard from "../components/ProfileCard";
 import ejemploFoto from "../images/tobey.jpg";
-// import Mapa from "../components/Mapa"; // Importa el componente del mapa
 import "../styles/buscarCuidadorStyle.css";
 import FilterAnfitrionForm from "../components/FilterAnfitrionForm";
+import Mapa from "../components/Mapa";
+import axios from 'axios';
+
+const geocodeAddress = async (address) => {
+  try {
+    const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+      params: {
+        q: address,
+        format: 'json',
+        addressdetails: 1,
+        limit: 1,
+      },
+    });
+    if (response.data && response.data.length > 0) {
+      const { lat, lon } = response.data[0];
+      return { lat: parseFloat(lat), lng: parseFloat(lon) };
+    }
+    throw new Error('No se encontraron coordenadas para la dirección proporcionada');
+  } catch (error) {
+    console.error('Error al geocodificar la dirección:', error);
+    return null;
+  }
+};
 
 const BuscarCuidador = () => {
-  // const [location, setLocation] = useState([-26.8083, -65.2176]); // Ubicación inicial
+  const [locations, setLocations] = useState([]);
 
-  // const handleSearchLocation = async (address) => {
-  //   try {
-  //     const response = await fetch(
-  //       `https://nominatim.openstreetmap.org/search?format=json&q=${address}`
-  //     );
-  //     const data = await response.json();
-  //     if (data.length > 0) {
-  //       setLocation([parseFloat(data[0].lat), parseFloat(data[0].lon)]);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error searching location:", error);
-  //   }
-  // };
+  const ubicaciones = [
+    { nombre: "Tobey", apellido: "Maguire", direccion: "Carlos Gardel 2259, Yerba Buena, Tucumán" },
+    { nombre: "Roberto", apellido: "Gonzalez", direccion: "Av. Aconquija 1234, Yerba Buena, Tucumán" },
+    { nombre: "Julia", apellido: "Roberts", direccion: "San Juan 955, San Miguel de Tucumán" }
+  ];
 
-  // const handleLocationInputChange = (event) => {
-  //   const address = event.target.value;
-  //   handleSearchLocation(address);
-  // };
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const geocodedLocations = await Promise.all(
+        ubicaciones.map(async (ubicacion) => {
+          const coords = await geocodeAddress(ubicacion.direccion);
+          if (coords) {
+            return { ...ubicacion, ...coords };
+          }
+          return null;
+        })
+      );
+      setLocations(geocodedLocations.filter(loc => loc !== null));
+    };
+
+    fetchLocations();
+  }, [ubicaciones]); // Agregar ubicaciones como dependencia
 
   return (
     <>
@@ -42,28 +68,18 @@ const BuscarCuidador = () => {
         <Container>
           <Row>
             <Col>
-              <ProfileCard
-                nombre="Tobey"
-                apellido="Maguire"
-                ubicacion="San Miguel de Tucumán"
-                foto={ejemploFoto}
-              />
-              <ProfileCard
-                nombre="Tobey"
-                apellido="Maguire"
-                ubicacion="San Miguel de Tucumán"
-                foto={ejemploFoto}
-              />
-              <ProfileCard
-                nombre="Tobey"
-                apellido="Maguire"
-                ubicacion="San Miguel de Tucumán"
-                foto={ejemploFoto}
-              />
+              {locations.map((ubicacion, index) => (
+                <ProfileCard
+                  key={index}
+                  nombre={ubicacion.nombre}
+                  apellido={ubicacion.apellido}
+                  ubicacion={ubicacion.direccion}
+                  foto={ejemploFoto}
+                />
+              ))}
             </Col>
             <Col md={5}>
-              {/* Mapa */}
-              {/* } <Mapa location={location} /> */}
+              <Mapa locations={locations} />
             </Col>
           </Row>
         </Container>
