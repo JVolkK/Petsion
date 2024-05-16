@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../contexts/AppContext";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Container from "react-bootstrap/Container";
@@ -11,6 +12,9 @@ import "../styles/buscarCuidadorStyle.css";
 import FilterAnfitrionForm from "../components/FilterAnfitrionForm";
 
 const BuscarCuidador = () => {
+  const { usuariosFiltrados } = useContext(AppContext);
+  console.log(usuariosFiltrados);
+
   // const [location, setLocation] = useState([-26.8083, -65.2176]); // Ubicación inicial
 
   // const handleSearchLocation = async (address) => {
