@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export const useLogin = (setAuthenticated, usurname, password, userType, setError) => {
+export const useLogin = (setAuthenticated, username, password, userType, setError) => {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
