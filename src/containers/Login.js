@@ -1,67 +1,16 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import axios from 'axios';
 import NavBar from '../components/NavBar';
 import '../styles/login.css';
-import { useHistory } from 'react-router';
+import { useLogin } from '../hooks/useLogin';
 
-const LoginPage = () => {
-  const [email, setEmail] = useState('');
+const LoginPage = ({ setAuthenticated }) => {
+  const [emailOrUsername, setEmailOrUsername] = useState(''); // Cambiado a emailOrUsername
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('user');
-  const [usuarioValido, setUsuarioValido] = useState({
-    role: "user",
-    _id: "663d5eceb8cbb69c7cd1bc8b",
-    name: "Luis",
-    email: "luis@example.com"
-  });
   const [error, setError] = useState(null);
-  const history = useHistory();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      let loginUrl = '';
-      if (userType === 'user') {
-        loginUrl = 'https://apipetsion-production.up.railway.app/user/login';
-      } else {
-        loginUrl = 'https://apipetsion-production.up.railway.app/anfitrion/login';
-      }
-
-      // Simulación de una respuesta de la API
-      const simulatedResponse = {
-        data: {
-          token: "fakeToken123",
-          role: userType,
-          _id: "663d5eceb8cbb69c7cd1bc8b",
-          name: "Luis",
-          email: "luis@example.com"
-        }
-      };
-
-      // En lugar de hacer una petición real, usaremos la respuesta simulada
-      const response = simulatedResponse;
-      setUsuarioValido(response.data);
-      handleTokenStorage(response.data.token);
-      console.log('Login exitoso:', response.data);
-      
-      // Redirigir al usuario al Home después del inicio de sesión
-      history.push('/');
-    } catch (error) {
-      console.error('Error en el login:', error.message);
-      setError('Error en el login');
-    }
-  };
-
-  const handleTokenStorage = (token) => {
-    try {
-      localStorage.setItem('authToken', token);
-      console.log('Token guardado en localStorage:', token);
-    } catch (error) {
-      console.error('Error al guardar el token en localStorage:', error);
-    }
-  };
-  
+  const { handleLogin } = useLogin(setAuthenticated, emailOrUsername, password, userType, setError); // Cambiado a emailOrUsername
 
   return (
     <>
@@ -77,22 +26,38 @@ const LoginPage = () => {
               <div className="d-flex align-items-center h-custom-0 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                 <Form style={{ width: '23rem' }} onSubmit={handleLogin}>
                   <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Iniciar Sesión</h3>
-                  <Form.Group className="mb-4" controlId="formBasicEmail">
-                    <Form.Control type="email" placeholder="Correo electrónico o Usuario" size="lg" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  <Form.Group className="mb-4" controlId="formBasicEmailOrUsername">
+                    <Form.Control
+                      type="text" // Cambiado a text
+                      placeholder="Correo electrónico o Usuario"
+                      size="lg"
+                      value={emailOrUsername} // Cambiado a emailOrUsername
+                      onChange={(e) => setEmailOrUsername(e.target.value)} // Cambiado a setEmailOrUsername
+                    />
                   </Form.Group>
                   <Form.Group className="mb-4" controlId="formBasicPassword">
-                    <Form.Control type="password" placeholder="Contraseña" size="lg" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <Form.Control
+                      type="password"
+                      placeholder="Contraseña"
+                      size="lg"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                   </Form.Group>
                   <Form.Group controlId="formUserType">
                     <Form.Label>Seleccionar tipo de cuenta:</Form.Label>
-                    <Form.Control as="select" value={userType} onChange={(e) => setUserType(e.target.value)}>
+                    <Form.Control
+                      as="select"
+                      value={userType}
+                      onChange={(e) => setUserType(e.target.value)}
+                    >
                       <option value="user">Usuario</option>
                       <option value="anfitrion">Anfitrión</option>
                     </Form.Control>
                   </Form.Group>
                   {error && <p className="text-danger">{error}</p>}
                   <div className="pt-1 mb-4">
-                  <Button variant="info" size="lg" block type="submit">Iniciar sesión</Button>
+                    <Button variant="info" size="lg" className="btn-block" type="submit">Iniciar sesión</Button>
                   </div>
                   <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Olvidaste tu contraseña?</a></p>
                   <p>No tenes cuenta? <a href="#!" className="link-info">Regístrate</a></p>
