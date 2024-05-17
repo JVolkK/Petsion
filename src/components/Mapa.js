@@ -53,7 +53,7 @@ const Mapa = ({ locations }) => {
         markersRef.current = [];
       }
     };
-  }, []);
+  }, [locations]);
 
   return <div id="map" className="map" style={{ height: "500px" }}></div>;
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Container from "react-bootstrap/Container";
@@ -33,26 +33,30 @@ const geocodeAddress = async (address) => {
 };
 
 const BuscarCuidador = () => {
-  // const [location, setLocation] = useState([-26.8083, -65.2176]); // Ubicación inicial
+  const [locations, setLocations] = useState([]);
 
-  // const handleSearchLocation = async (address) => {
-  //   try {
-  //     const response = await fetch(
-  //       `https://nominatim.openstreetmap.org/search?format=json&q=${address}`
-  //     );
-  //     const data = await response.json();
-  //     if (data.length > 0) {
-  //       setLocation([parseFloat(data[0].lat), parseFloat(data[0].lon)]);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error searching location:", error);
-  //   }
-  // };
+  const ubicaciones = [
+    { nombre: "Tobey", apellido: "Maguire", direccion: "Carlos Gardel 2259, Yerba Buena, Tucumán" },
+    { nombre: "Roberto", apellido: "Gonzalez", direccion: "Av. Aconquija 1234, Yerba Buena, Tucumán" },
+    { nombre: "Julia", apellido: "Roberts", direccion: "San Juan 955, San Miguel de Tucumán" }
+  ];
 
-  // const handleLocationInputChange = (event) => {
-  //   const address = event.target.value;
-  //   handleSearchLocation(address);
-  // };
+  useEffect(() => {
+    const fetchLocations = async () => {
+      const geocodedLocations = await Promise.all(
+        ubicaciones.map(async (ubicacion) => {
+          const coords = await geocodeAddress(ubicacion.direccion);
+          if (coords) {
+            return { ...ubicacion, ...coords };
+          }
+          return null;
+        })
+      );
+      setLocations(geocodedLocations.filter(loc => loc !== null));
+    };
+
+    fetchLocations();
+  }, [ubicaciones]); // Agregar ubicaciones como dependencia
 
   return (
     <>
