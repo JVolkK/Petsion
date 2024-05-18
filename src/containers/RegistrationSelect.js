@@ -1,20 +1,15 @@
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
-import React from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import "../styles/registrationSelectStyle.css";
-import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+import React from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
+import '../styles/registrationSelectStyle.css';
 
-const Registration = () => {
+const RegistrationSelect = () => {
   return (
     <>
       <section className="vh-100">
         <Container fluid>
           <Row>
-            <NavBar /> {/* Agrega el NavBar aquí */}
             <Col sm={6} className="px-0 d-none d-sm-block">
               <div className="LoginImagen backgroundImage" />
             </Col>
@@ -25,7 +20,7 @@ const Registration = () => {
               </div>
               <div className="d-flex flex-column justify-content-center align-items-center h-custom-0 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                 <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>¿Cómo quieres registrarte?</h3>
-                <Container className=" d-flex justify-content-center align-items-center">
+                <Container className="d-flex justify-content-center align-items-center">
                   <Row>
                     <Col>
                       <Link to="/registration-duenio">
@@ -37,7 +32,7 @@ const Registration = () => {
                     <Col>
                       <Link to="/registration-anfitrion">
                         <Button variant="info" size="lg" block className="buttonStyle">
-                         <span>Anfitrion</span>
+                          <span>Anfitrión</span>
                         </Button>
                       </Link>
                     </Col>
@@ -47,10 +42,10 @@ const Registration = () => {
             </Col>
           </Row>
         </Container>
-        <Footer/>
+        <Footer />
       </section>
     </>
   );
 };
 
-export default Registration;
+export default RegistrationSelect;

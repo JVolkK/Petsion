@@ -7,13 +7,12 @@ export const useLogin = (setAuthenticated, username, password, userType, setErro
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-        const loginUrl = 'https://api-petsion.onrender.com/user/login';
+      const loginUrl = 'https://api-petsion.onrender.com/user/login';
       
-        const response = await axios.post(loginUrl, {
-            username: username,
-            password: password
-        });
-      
+      const response = await axios.post(loginUrl, {
+        username: username,
+        password: password
+      });
 
       // Si la solicitud es exitosa, guardamos el token en localStorage
       localStorage.setItem('authToken', response.data.token);
@@ -21,7 +20,7 @@ export const useLogin = (setAuthenticated, username, password, userType, setErro
 
       // Actualizamos el estado de autenticación y redirigimos al usuario
       setAuthenticated(true);
-      navigate('/');
+      navigate('/'); // Redirigir a la página principal
     } catch (error) {
       console.error('Error en el login:', error.response.data.message);
       setError(error.response.data.message); // Mostramos el mensaje de error recibido del servidor

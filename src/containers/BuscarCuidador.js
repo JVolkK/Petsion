@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -34,7 +33,6 @@ const BuscarCuidador = () => {
 
   return (
     <>
-      <NavBar />
       <Container fluid>
         <Container>
           <FilterAnfitrionForm />

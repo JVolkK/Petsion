@@ -5,47 +5,45 @@ import { Link } from 'react-router-dom';
 
 const NavBar = ({ isAuthenticated, setAuthenticated }) => {
   const handleLogout = () => {
-    // Lógica para cerrar sesión aquí
+    // Limpiar el token de autenticación y actualizar el estado
+    localStorage.removeItem('authToken');
     setAuthenticated(false); // Actualizar el estado de autenticación a falso
   };
 
   return (
-    <Navbar bg="body-tertiary" expand="lg" className="p-0">
+    <Navbar bg="body-tertiary" expand="lg" className="p-0 fixed-top">
       <Container fluid>
-        <Navbar.Brand as={Link} to="/" href="#">
+        <Navbar.Brand as={Link} to="/">
           <img src={PETSION} alt="logo" width="180" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarSupportedContent" />
         <Navbar.Collapse id="navbarSupportedContent">
           <Nav className="ms-auto mb-2 mb-lg-0">
-            {/* Alineación a la derecha */}
             <Nav.Item>
-              <Nav.Link as={Link} to="/buscar-cuidador" href="#">
+              <Nav.Link as={Link} to="/buscar-cuidador">
                 Buscar cuidador
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link as={Link} to="/servicios-select" href="#">
+              <Nav.Link as={Link} to="/servicios-select">
                 Servicios
               </Nav.Link>
             </Nav.Item>
             {isAuthenticated ? (
-              <>
-                <Nav.Item>
-                  <Nav.Link as={Link} to="/" onClick={handleLogout} href="#">
-                    Logout
-                  </Nav.Link>
-                </Nav.Item>
-              </>
+              <Nav.Item>
+                <Nav.Link as={Link} to="/mi-perfil">
+                 Mi Perfil 
+                </Nav.Link>
+              </Nav.Item>
             ) : (
               <>
                 <Nav.Item>
-                  <Nav.Link as={Link} to="/login" href="#">
+                  <Nav.Link as={Link} to="/login">
                     Iniciar Sesión
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link as={Link} to="/registration-select" href="#">
+                  <Nav.Link as={Link} to="/registration-select">
                     Registrarse
                   </Nav.Link>
                 </Nav.Item>
