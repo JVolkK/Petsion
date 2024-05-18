@@ -13,27 +13,27 @@ export const useForm = (initialForm) => {
 
     try {
       // Aquí realizas la solicitud a tu API utilizando Axios
-      //  const response = await axios.post(
-      //   "https://api-petsion.onrender.com/anfitrion/filtrado",
-      //   {
-      // admitePerro: form.admitePerro,
-      // admiteGato: form.admiteGato,
-      // admiteAlltypesMascotas: form.admiteAlltypesMascotas,
-      // disponibilidadAlojamiento: form.disponibilidadAlojamiento,
-      // disponibilidadPaseo: form.disponibilidadPaseo,
-      // disponibilidadVisita: form.disponibilidadVisita,
-      // disponibilidadlunes: form.disponibilidadlunes,
-      // disponibilidadmartes: form.disponibilidadmartes,
-      // disponibilidadmiercoles: form.disponibilidadmiercoles,
-      // disponibilidadjueves: form.disponibilidadjueves,
-      // disponibilidadviernes: form.disponibilidadviernes,
-      // disponibilidadsabado: form.disponibilidadsabado,
-      // disponibilidaddomingo: form.disponibilidaddomingo,
-      // disponibilidadHoraria: form.disponibilidadHoraria,
-      //  }
-      //  );
+      const response = await axios.post(
+        "https://api-petsion.onrender.com/anfitrion/filtrado",
+        {
+          admitePerro: form.admitePerro,
+          admiteGato: form.admiteGato,
+          admiteAlltypesMascotas: form.admiteAlltypesMascotas,
+          disponibilidadAlojamiento: form.disponibilidadAlojamiento,
+          disponibilidadPaseo: form.disponibilidadPaseo,
+          disponibilidadVisita: form.disponibilidadVisita,
+          disponibilidadlunes: form.disponibilidadlunes,
+          disponibilidadmartes: form.disponibilidadmartes,
+          disponibilidadmiercoles: form.disponibilidadmiercoles,
+          disponibilidadjueves: form.disponibilidadjueves,
+          disponibilidadviernes: form.disponibilidadviernes,
+          disponibilidadsabado: form.disponibilidadsabado,
+          disponibilidaddomingo: form.disponibilidaddomingo,
+          disponibilidadHoraria: form.disponibilidadHoraria,
+        }
+      );
       // Manejar la respuesta de la API según sea necesario
-      // setUsuariosFiltrados(response.data);
+      setUsuariosFiltrados(response.data);
     } catch (error) {
       // Manejar errores de la solicitud
       console.error("Error al enviar la solicitud a la API:", error);
