@@ -31,7 +31,7 @@ const NavBar = ({ isAuthenticated, setAuthenticated }) => {
             </Nav.Item>
             {isAuthenticated ? (
               <Nav.Item>
-                <Nav.Link as={Link} to="/mi-perfil">
+                <Nav.Link as={Link} to="/mi-perfil"> {/* Enlace actualizado */}
                  Mi Perfil 
                 </Nav.Link>
               </Nav.Item>
