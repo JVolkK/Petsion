@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -6,7 +7,6 @@ import Col from "react-bootstrap/Col";
 import "../styles/buscarCuidadorStyle.css";
 import ProfileCard from "../components/ProfileCard";
 import FilterAnfitrionForm from "../components/FilterAnfitrionForm";
-import NavBar from "../components/NavBar";
 // import Mapa from "../components/Mapa";
 // import axios from "axios";
 import { AppContext } from "../contexts/AppContext";

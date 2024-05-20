@@ -11,13 +11,13 @@ const FilterAnfitrionForm = () => {
   const { homeFormValue } = useContext(AppContext);
 
   const initialForm = {
-    admitePerro: false,
+    admitePerro: true,
     admiteGato: false,
     admiteAlltypesMascotas: false,
-    disponibilidadAlojamiento: false,
+    disponibilidadAlojamiento: true,
     disponibilidadPaseo: false,
     disponibilidadVisita: false,
-    disponibilidadlunes: false,
+    disponibilidadlunes: true,
     disponibilidadmartes: false,
     disponibilidadmiercoles: false,
     disponibilidadjueves: false,

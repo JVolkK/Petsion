@@ -1,95 +1,52 @@
-import React, { useEffect, useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
+import React, { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import ProfileCard from "../components/ProfileCard";
-import ejemploFoto from "../images/tobey.jpg";
-import "../styles/buscarCuidadorStyle.css";
 
-const BuscarCuidador = () => {
-  const { homeFormValue } = useContext(AppContext);
+const Mapa = ({ locations }) => {
+  const mapRef = useRef(null);
+  const markersRef = useRef([]);
 
   useEffect(() => {
-    const map = L.map("map").setView([-26.8083, -65.2176], 13);
+    if (!locations || locations.length === 0) {
+      return;
+    }
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors",
-    }).addTo(map);
-  }, []);
+    // Crea el mapa si aún no existe
+    if (!mapRef.current) {
+      mapRef.current = L.map("map").setView([locations[0].lat, locations[0].lng], 13);
 
-  return (
-    <>
-      <NavBar />
-      <Container fluid>
-        <Container>
-          <Row>
-            <Col>
-              <label>Servicios:</label>
-              <select defaultValue={homeFormValue}>
-                <option value="alojamiento">Alojamiento</option>
-                <option value="cuidado-dia">Cuidado de día</option>
-                <option value="paseo">Paseo</option>
-              </select>
-            </Col>
-            <Col>
-              <label>Zona:</label>
-              <input type="text" value="" readOnly />
-            </Col>
-            <Col>
-              <label>Fecha de entrada:</label>
-              <input type="date" />
-            </Col>
-            <Col>
-              <label>Fecha de salida:</label>
-              <input type="date" />
-            </Col>
-            <Col>
-              <label>Mascotas:</label>
-              <select>
-                <option value="perro">Perro</option>
-                <option value="gato">Gato</option>
-              </select>
-            </Col>
-          </Row>
-        </Container>
-        <Container>
-          <Row>
-            <Col>
-              <ProfileCard
-                nombre="Tobey"
-                apellido="Maguire"
-                ubicacion="San Miguel de Tucumán"
-                foto={ejemploFoto}
-              />
-              <ProfileCard
-                nombre="Tobey"
-                apellido="Maguire"
-                ubicacion="San Miguel de Tucumán"
-                foto={ejemploFoto}
-              />
-              <ProfileCard
-                nombre="Tobey"
-                apellido="Maguire"
-                ubicacion="San Miguel de Tucumán"
-                foto={ejemploFoto}
-              />
-            </Col>
-            <Col md={5}>
-              <div className="map-container">
-                <div id="map" className="map"></div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </Container>
-      <Footer />
-    </>
-  );
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+      }).addTo(mapRef.current);
+    }
+
+    // Elimina marcadores existentes
+    markersRef.current.forEach(marker => {
+      marker.remove();
+    });
+
+    // Agrega marcadores al mapa
+    markersRef.current = locations.map(location => (
+      L.marker([location.lat, location.lng])
+        .bindPopup(`${location.nombre} ${location.apellido}`)
+        .addTo(mapRef.current)
+    ));
+
+    // Ajusta el límite del mapa según los marcadores
+    const bounds = L.latLngBounds(locations.map(location => [location.lat, location.lng]));
+    mapRef.current.fitBounds(bounds);
+
+    // Limpia el mapa cuando el componente se desmonta
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+        markersRef.current = [];
+      }
+    };
+  }, []); // <-- Agrega una dependencia vacía aquí
+
+  return <div id="map" className="map" style={{ height: "500px" }}></div>;
 };
 
-export default BuscarCuidador;
+export default Mapa;
