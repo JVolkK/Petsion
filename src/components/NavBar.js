@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import PETSION from '../images/PETSION.png';
 import { Link } from 'react-router-dom';
+import { AppContext } from '../contexts/AppContext';
 
-const NavBar = ({ isAuthenticated, setAuthenticated }) => {
-  const handleLogout = () => {
-    // Limpiar el token de autenticación y actualizar el estado
-    localStorage.removeItem('authToken');
-    setAuthenticated(false); // Actualizar el estado de autenticación a falso
-  };
+const NavBar = () => {
+  const {isAuthenticated} = useContext(AppContext);
+  // const handleLogout = () => {
+  //   // Limpiar el token de autenticación y actualizar el estado
+  //   localStorage.removeItem('authToken');
+  //   setAuthenticated(false); // Actualizar el estado de autenticación a falso
+  // };
 
   return (
     <Navbar bg="body-tertiary" expand="lg" className="p-0 fixed-top">

@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AppContext } from '../contexts/AppContext';
 
-export const useLogin = (setAuthenticated, username, password, userType, setError) => {
+export const useLogin = (username, password, userType, setError) => {
   const navigate = useNavigate();
+  const { setAuthenticated } = useContext(AppContext);
+  
 
   const handleLogin = async (e) => {
     e.preventDefault();

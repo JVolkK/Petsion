@@ -3,13 +3,13 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import '../styles/login.css';
 import { useLogin } from '../hooks/useLogin';
 
-const LoginPage = ({ setAuthenticated }) => {
+const LoginPage = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('user');
   const [error, setError] = useState(null);
 
-  const { handleLogin } = useLogin(setAuthenticated, emailOrUsername, password, userType, setError);
+  const { handleLogin } = useLogin(emailOrUsername, password, userType, setError);
 
   return (
     <section className="vh-100">

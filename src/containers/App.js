@@ -13,19 +13,17 @@ import NavBar from "../components/NavBar";
 import OwnerProfile from './OwnerProfile';
 
 function App() {
-  const [isAuthenticated, setAuthenticated] = useState(false);
-
+  
   return (
     <AppProvider>
       <div className="App">
-        <NavBar isAuthenticated={isAuthenticated} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/registration-select" element={<RegistrationSelect />} />
           <Route path="/registration-duenio" element={<RegistrationDuenio />} />
           <Route path="/servicios-select" element={<Servicios />} />
           <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
-          <Route path="/login" element={<LoginPage setAuthenticated={setAuthenticated} />} />
+          <Route path="/login" element={<LoginPage/>} />
           <Route path="/registration-anfitrion" element={<RegistrationAnfitrion />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/mi-perfil" element={<OwnerProfile />} /> {/* Nueva ruta para el perfil del usuario */}
