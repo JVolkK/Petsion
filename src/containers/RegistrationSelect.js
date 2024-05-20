@@ -3,11 +3,13 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import '../styles/registrationSelectStyle.css';
+import NavBar from '../components/NavBar';
 
 const RegistrationSelect = () => {
   return (
     <>
       <section className="vh-100">
+        <NavBar/>
         <Container fluid>
           <Row>
             <Col sm={6} className="px-0 d-none d-sm-block">

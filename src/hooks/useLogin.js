@@ -19,8 +19,7 @@ export const useLogin = (username, password, userType, setError) => {
       });
 
       // Si la solicitud es exitosa, guardamos el token en localStorage
-      localStorage.setItem('authToken', response.data.token);
-      console.log('Login exitoso:', response.data);
+      localStorage.setItem('authToken', response.data.data.token);
 
       // Actualizamos el estado de autenticación y redirigimos al usuario
       setAuthenticated(true);

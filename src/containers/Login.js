@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import '../styles/login.css';
 import { useLogin } from '../hooks/useLogin';
+import NavBar from "../components/NavBar";
 
 const LoginPage = () => {
   const [emailOrUsername, setEmailOrUsername] = useState('');
@@ -13,6 +14,7 @@ const LoginPage = () => {
 
   return (
     <section className="vh-100">
+      <NavBar/>
       <Container fluid>
         <Row>
           <Col sm={6} className="text-black">

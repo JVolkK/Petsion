@@ -1,12 +1,13 @@
 // OwnerProfile.js
-
 import React from 'react';
 import '../styles/OwnerProfileStyle.css';
+import NavBar from "../components/NavBar";
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
 
 export default function OwnerProfile() {
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
+      <NavBar/>
       <MDBContainer className="py-5 h-100">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="9" xl="7">
