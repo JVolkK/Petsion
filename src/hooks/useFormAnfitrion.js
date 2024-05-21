@@ -5,6 +5,8 @@ export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [submitPressed, setSubmitPressed] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState("");
+
   // const [loading, setLoading] = useState(false);
   // const [response, setResponse] = useState(null);
 
@@ -29,6 +31,14 @@ export const useForm = (initialForm, validateForm) => {
   const handleBlur = (e) => {
     handleChange(e);
     setErrors(validateForm(form));
+  };
+
+  const handleAddressSelect = (selectedOption) => {
+    // Extract the address value from the selected option
+    const address = selectedOption ? selectedOption.value : "";
+
+    // Update the form state with the selected address
+    setForm({ ...form, direccion: address });
   };
 
   const handleSubmit = async (e) => {
@@ -97,5 +107,6 @@ export const useForm = (initialForm, validateForm) => {
     handleChange,
     handleBlur,
     handleSubmit,
+    handleAddressSelect,
   };
 };

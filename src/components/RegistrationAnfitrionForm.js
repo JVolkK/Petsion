@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -5,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useForm } from "../hooks/useFormAnfitrion";
 import "../styles/DuenioFormStyle.css";
+import AutocompleteAddress from "./AutocompleteAddress";
 
 const initialForm = {
   //Valores base para el state de Form en el hook perzonalizado useForm
@@ -211,6 +213,7 @@ function RegistrationAnfitrionForm() {
     handleChange,
     handleBlur,
     handleSubmit,
+    handleAddressSelect,
   } = useForm(initialForm, validationsForm); // Llamamos a useForm y extraemos de el todos los estados y funciones que utilizaremos
 
   return (
@@ -371,21 +374,7 @@ function RegistrationAnfitrionForm() {
         </Form.Group>
         <Form.Group as={Col} md="4">
           <Form.Label>Direccion</Form.Label>
-          <Form.Control
-            className="inputStyle"
-            type="text"
-            placeholder="Direccion"
-            required
-            name="direccion"
-            minLength={2}
-            maxLength={50}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.direccion}
-          />
-          {submitPressed === true && errors.direccion && (
-            <p style={styles}>{errors.direccion}</p>
-          )}
+          <AutocompleteAddress onSelect={handleAddressSelect} />
         </Form.Group>
       </Row>
       <Row className="mb-4">
