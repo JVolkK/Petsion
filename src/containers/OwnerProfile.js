@@ -3,11 +3,14 @@ import React from 'react';
 import '../styles/OwnerProfileStyle.css';
 import NavBar from "../components/NavBar";
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
+import useLogout from '../hooks/useLogout';
 
 export default function OwnerProfile() {
+  const logout = useLogout();
+
   return (
     <div className="gradient-custom-2" style={{ backgroundColor: '#9de2ff' }}>
-      <NavBar/>
+      <NavBar />
       <MDBContainer className="py-5 h-100">
         <MDBRow className="justify-content-center align-items-center h-100">
           <MDBCol lg="9" xl="7">
@@ -74,6 +77,9 @@ export default function OwnerProfile() {
                       alt="image 1" className="w-100 rounded-3" />
                   </MDBCol>
                 </MDBRow>
+                <MDBBtn outline color="dark" style={{ height: '36px', overflow: 'visible' }} onClick={logout}>
+                  Cerrar Sesión
+                </MDBBtn>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>

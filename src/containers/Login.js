@@ -5,16 +5,16 @@ import { useLogin } from '../hooks/useLogin';
 import NavBar from "../components/NavBar";
 
 const LoginPage = () => {
-  const [emailOrUsername, setEmailOrUsername] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('user');
   const [error, setError] = useState(null);
 
-  const { handleLogin } = useLogin(emailOrUsername, password, userType, setError);
+  const { handleLogin } = useLogin(username, password, userType, setError);
 
   return (
     <section className="vh-100">
-      <NavBar/>
+      <NavBar />
       <Container fluid>
         <Row>
           <Col sm={6} className="text-black">
@@ -25,13 +25,13 @@ const LoginPage = () => {
             <div className="d-flex align-items-center h-custom-0 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
               <Form style={{ width: '23rem' }} onSubmit={handleLogin}>
                 <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Iniciar Sesión</h3>
-                <Form.Group className="mb-4" controlId="formBasicEmailOrUsername">
+                <Form.Group className="mb-4" controlId="formBasicUsername">
                   <Form.Control
                     type="text"
-                    placeholder="Correo electrónico o Usuario"
+                    placeholder="Nombre de Usuario"
                     size="lg"
-                    value={emailOrUsername}
-                    onChange={(e) => setEmailOrUsername(e.target.value)}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </Form.Group>
                 <Form.Group className="mb-4" controlId="formBasicPassword">
