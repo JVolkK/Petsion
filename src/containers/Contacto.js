@@ -1,12 +1,12 @@
-import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import React from "react";
 import FormContac from "../components/FormContac";
+import NavBar from "../components/NavBar";
 
 const Contacto = () => {
   return (
     <>
-      <NavBar />
+      <NavBar/>
       <FormContac />
       <Footer />
     </>

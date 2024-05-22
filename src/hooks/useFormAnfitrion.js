@@ -5,6 +5,8 @@ export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [submitPressed, setSubmitPressed] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState("");
+
   // const [loading, setLoading] = useState(false);
   // const [response, setResponse] = useState(null);
 
@@ -31,6 +33,15 @@ export const useForm = (initialForm, validateForm) => {
     setErrors(validateForm(form));
   };
 
+  const handleAddressSelect = (selectedOption) => {
+    // Extract the address value from the selected option
+    const address = selectedOption ? selectedOption.value : "";
+
+    setSelectedAddress(selectedOption);
+    // Update the form state with the selected address
+    setForm({ ...form, direccion: address });
+  };
+
   const handleSubmit = async (e) => {
     setSubmitPressed(true);
     e.preventDefault();
@@ -39,7 +50,7 @@ export const useForm = (initialForm, validateForm) => {
       // Validamos que el objeto errors donde guardamos los errores de las validaciones este vacio lo que significa que todos los campos han sido llenados correctamente.
       try {
         const response = await axios.post(
-          "https://apipetsion-production.up.railway.app/anfitrion",
+          "https://api-petsion.onrender.com/anfitrion/register",
           {
             username: form.username,
             password: form.password,
@@ -79,9 +90,7 @@ export const useForm = (initialForm, validateForm) => {
       } catch (error) {
         console.error("Error al enviar solicitud:", error);
         // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario
-        alert(
-          "Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo más tarde."
-        );
+        alert(error.response.data.message);
       }
     } else {
       return;
@@ -97,5 +106,7 @@ export const useForm = (initialForm, validateForm) => {
     handleChange,
     handleBlur,
     handleSubmit,
+    handleAddressSelect,
+    selectedAddress,
   };
 };

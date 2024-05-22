@@ -31,7 +31,7 @@ export const useForm = (initialForm, validateForm) => {
       // Validamos que el objeto errors donde guardamos los errores de las validaciones este vacio lo que significa que todos los campos han sido llenados correctamente.
       try {
         const response = await axios.post(
-          "https://apipetsion-production.up.railway.app/user/register",
+          "https://api-petsion.onrender.com/user/register",
           {
             username: form.username,
             password: form.password,
@@ -49,9 +49,7 @@ export const useForm = (initialForm, validateForm) => {
       } catch (error) {
         console.error("Error al enviar solicitud:", error);
         // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario
-        alert(
-          "Hubo un error al registrar el usuario. Por favor, inténtalo de nuevo más tarde."
-        );
+        alert(error.response.data.message);
       }
     } else {
       return;

@@ -1,7 +1,7 @@
+import React, { useState } from 'react'; // Importamos useState desde React
 import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import RegistrationSelect from "./RegistrationSelect";
-import "../styles/App.css";
 import RegistrationDuenio from "./RegistrationDuenio";
 import Servicios from "./Servicios";
 import BuscarCuidador from "./BuscarCuidador";
@@ -9,8 +9,12 @@ import RegistrationAnfitrion from "./RegistrationAnfitrion";
 import Contacto from "./Contacto";
 import LoginPage from "./Login";
 import { AppProvider } from "../contexts/AppContext";
+import OwnerProfile from './OwnerProfile';
+import "../styles/leaflet.css";
+
 
 function App() {
+  
   return (
     <AppProvider>
       <div className="App">
@@ -20,13 +24,10 @@ function App() {
           <Route path="/registration-duenio" element={<RegistrationDuenio />} />
           <Route path="/servicios-select" element={<Servicios />} />
           <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
-          <Route path="/login" element={<LoginPage />} />{" "}
-          {/* Mantener esta línea */}
-          <Route
-            path="/registration-anfitrion"
-            element={<RegistrationAnfitrion />}
-          />
-          <Route path="/Contacto" element={<Contacto />} />
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/registration-anfitrion" element={<RegistrationAnfitrion />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/mi-perfil" element={<OwnerProfile />} /> {/* Nueva ruta para el perfil del usuario */}
         </Routes>
       </div>
     </AppProvider>
