@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import PETSION from '../images/PETSION.png';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,15 @@ import { AppContext } from '../contexts/AppContext';
 
 const NavBar = () => {
   const { isAuthenticated } = useContext(AppContext);
+
+  useEffect(() => {
+    // Ajusta el padding-top del cuerpo para evitar que el contenido quede oculto detrás del Navbar
+    document.body.style.paddingTop = '70px'; // Ajusta este valor según la altura de tu Navbar
+    // Limpia el padding-top al desmontar el componente
+    return () => {
+      document.body.style.paddingTop = null;
+    };
+  }, []);
 
   return (
     <Navbar bg="body-tertiary" expand="lg" className="p-0 fixed-top">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import '../styles/login.css';
 import { useLogin } from '../hooks/useLogin';
 import NavBar from "../components/NavBar";
@@ -25,24 +26,7 @@ const LoginPage = () => {
             <div className="d-flex align-items-center h-custom-0 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
               <Form style={{ width: '23rem' }} onSubmit={handleLogin}>
                 <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Iniciar Sesión</h3>
-                <Form.Group className="mb-4" controlId="formBasicUsername">
-                  <Form.Control
-                    type="text"
-                    placeholder="Nombre de Usuario"
-                    size="lg"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-4" controlId="formBasicPassword">
-                  <Form.Control
-                    type="password"
-                    placeholder="Contraseña"
-                    size="lg"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </Form.Group>
+
                 <Form.Group controlId="formUserType">
                   <Form.Label>Seleccionar tipo de cuenta:</Form.Label>
                   <Form.Control
@@ -54,12 +38,33 @@ const LoginPage = () => {
                     <option value="anfitrion">Anfitrión</option>
                   </Form.Control>
                 </Form.Group>
+
+                <Form.Group className="mb-4" controlId="formBasicUsername">
+                  <Form.Control
+                    type="text"
+                    placeholder="Nombre de Usuario"
+                    size="lg"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </Form.Group>
+                
+                <Form.Group className="mb-4" controlId="formBasicPassword">
+                  <Form.Control
+                    type="password"
+                    placeholder="Contraseña"
+                    size="lg"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Form.Group>
+                
                 {error && <p className="text-danger">{error}</p>}
                 <div className="pt-1 mb-4">
                   <Button variant="info" size="lg" className="btn-block" type="submit">Iniciar sesión</Button>
                 </div>
                 <p className="small mb-5 pb-lg-2"><a className="text-muted" href="#!">Olvidaste tu contraseña?</a></p>
-                <p>No tienes cuenta? <a href="#!" className="link-info">Regístrate</a></p>
+                <p>No tienes cuenta? <Link to="/registration-select" className="link-info">Regístrate</Link></p>
               </Form>
             </div>
           </Col>
