@@ -2,6 +2,20 @@ import React, { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
+// Importa las imágenes del marcador
+import markerIconPng from 'leaflet/dist/images/marker-icon.png';
+import markerShadowPng from 'leaflet/dist/images/marker-shadow.png';
+
+// Configura el icono del marcador
+const markerIcon = new L.Icon({
+  iconUrl: markerIconPng,
+  shadowUrl: markerShadowPng,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
 const Mapa = ({ locations }) => {
   const mapRef = useRef(null);
   const markersRef = useRef([]);
@@ -31,7 +45,7 @@ const Mapa = ({ locations }) => {
         return null;
       }
 
-      return L.marker([location.lat, location.lng])
+      return L.marker([location.lat, location.lng], { icon: markerIcon }) // Utiliza el icono personalizado
         .bindPopup(`${location.nombre} ${location.apellido}`)
         .addTo(mapRef.current);
     });
