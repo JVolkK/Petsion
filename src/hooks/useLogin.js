@@ -15,7 +15,8 @@ export const useLogin = (username, password, userType, setError) => {
       
       const response = await axios.post(loginUrl, {
         username: username,
-        password: password
+        password: password,
+        userType
       });
 
       // Si la solicitud es exitosa, guardamos el token en localStorage
