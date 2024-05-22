@@ -97,7 +97,7 @@ const BuscarCuidador = () => {
 
   return (
     <>
-    <NavBar/>
+      <NavBar />
       <Container fluid>
         <Container>
           <FilterAnfitrionForm />
