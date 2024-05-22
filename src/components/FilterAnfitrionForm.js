@@ -33,9 +33,7 @@ const FilterAnfitrionForm = () => {
     <Form onSubmit={handleSubmit}>
       {loading && ( // Muestra el Spinner solo cuando loading es true
         <div className="text-center">
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
+          <Spinner animation="border" role="status"></Spinner>
         </div>
       )}
       <Row>

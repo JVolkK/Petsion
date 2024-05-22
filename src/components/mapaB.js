@@ -1,52 +1,112 @@
-import React, { useEffect, useRef } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+import React, { useEffect, useState, useContext } from "react";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "../styles/buscarCuidadorStyle.css";
+import ProfileCard from "../components/ProfileCard";
+import FilterAnfitrionForm from "../components/FilterAnfitrionForm";
+import Mapa from "../components/Mapa";
+import axios from "axios";
+import { AppContext } from "../contexts/AppContext";
 
-const Mapa = ({ locations }) => {
-  const mapRef = useRef(null);
-  const markersRef = useRef([]);
-
-  useEffect(() => {
-    if (!locations || locations.length === 0) {
-      return;
-    }
-
-    // Crea el mapa si aún no existe
-    if (!mapRef.current) {
-      mapRef.current = L.map("map").setView([locations[0].lat, locations[0].lng], 13);
-
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "© OpenStreetMap contributors",
-      }).addTo(mapRef.current);
-    }
-
-    // Elimina marcadores existentes
-    markersRef.current.forEach(marker => {
-      marker.remove();
-    });
-
-    // Agrega marcadores al mapa
-    markersRef.current = locations.map(location => (
-      L.marker([location.lat, location.lng])
-        .bindPopup(`${location.nombre} ${location.apellido}`)
-        .addTo(mapRef.current)
-    ));
-
-    // Ajusta el límite del mapa según los marcadores
-    const bounds = L.latLngBounds(locations.map(location => [location.lat, location.lng]));
-    mapRef.current.fitBounds(bounds);
-
-    // Limpia el mapa cuando el componente se desmonta
-    return () => {
-      if (mapRef.current) {
-        mapRef.current.remove();
-        mapRef.current = null;
-        markersRef.current = [];
+const geocodeAddress = async (address) => {
+  try {
+    const response = await axios.get(
+      "https://nominatim.openstreetmap.org/search",
+      {
+        params: {
+          q: address,
+          format: "json",
+          addressdetails: 1,
+          limit: 1,
+        },
       }
-    };
-  }, []); // <-- Agrega una dependencia vacía aquí
-
-  return <div id="map" className="map" style={{ height: "500px" }}></div>;
+    );
+    if (response.data && response.data.length > 0) {
+      const { lat, lon } = response.data[0];
+      return { lat: parseFloat(lat), lng: parseFloat(lon) };
+    }
+    throw new Error(
+      "No se encontraron coordenadas para la dirección proporcionada"
+    );
+  } catch (error) {
+    console.error("Error al geocodificar la dirección:", error);
+    return null;
+  }
 };
 
-export default Mapa;
+const BuscarCuidador = () => {
+  const { usuariosFiltrados } = useContext(AppContext);
+
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    const ubicaciones = [
+      {
+        nombre: "Tobey",
+        apellido: "Maguire",
+        direccion: "Carlos Gardel 2259, Yerba Buena, Tucumán",
+      },
+      {
+        nombre: "Roberto",
+        apellido: "Gonzalez",
+        direccion: "Av. Aconquija 1234, Yerba Buena, Tucumán",
+      },
+      {
+        nombre: "Julia",
+        apellido: "Roberts",
+        direccion: "San Juan 955, San Miguel de Tucumán",
+      },
+    ];
+
+    const fetchLocations = async () => {
+      const geocodedLocations = await Promise.all(
+        ubicaciones.map(async (ubicacion) => {
+          const coords = await geocodeAddress(ubicacion.direccion);
+          if (coords) {
+            return { ...ubicacion, ...coords };
+          }
+          return null;
+        })
+      );
+      setLocations(geocodedLocations.filter((loc) => loc !== null));
+    };
+
+    fetchLocations();
+  }, []); // Arreglo de dependencias vacío
+
+  return (
+    <>
+      <NavBar />
+      <Container fluid>
+        <Container>
+          <FilterAnfitrionForm />
+        </Container>
+        <Container>
+          <Row>
+            <Col>
+              {usuariosFiltrados.length > 0 ? (
+                usuariosFiltrados.map((usuario, index) => (
+                  <ProfileCard
+                    key={index}
+                    nombre={usuario.name}
+                    apellido={usuario.lastname}
+                    ubicacion={usuario.direccion}
+                  />
+                ))
+              ) : (
+                <p>No se han encontrado usuarios filtrados</p>
+              )}
+            </Col>
+            <Col md={5}><Mapa locations={locations} /></Col>
+          </Row>
+        </Container>
+      </Container>
+      <Footer />
+    </>
+  );
+};
+
+export default BuscarCuidador;
