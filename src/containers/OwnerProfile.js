@@ -1,4 +1,4 @@
-// OwnerProfile.js
+  // OwnerProfile.js
 import React from 'react';
 import '../styles/OwnerProfileStyle.css';
 import NavBar from "../components/NavBar";
