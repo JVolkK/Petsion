@@ -27,7 +27,7 @@ const loadOptions = async (inputValue) => {
   }
 };
 
-const AutocompleteAddress = ({ onSelect }) => (
+const AutocompleteAddress = ({ onSelect, selectedAddress }) => (
   <AsyncSelect loadOptions={loadOptions} onChange={onSelect} />
 );
 

@@ -37,6 +37,7 @@ export const useForm = (initialForm, validateForm) => {
     // Extract the address value from the selected option
     const address = selectedOption ? selectedOption.value : "";
 
+    setSelectedAddress(selectedOption);
     // Update the form state with the selected address
     setForm({ ...form, direccion: address });
   };
@@ -108,5 +109,6 @@ export const useForm = (initialForm, validateForm) => {
     handleBlur,
     handleSubmit,
     handleAddressSelect,
+    selectedAddress,
   };
 };

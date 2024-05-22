@@ -118,10 +118,11 @@ const validationsForm = (form) => {
   //Validaciones direccion
   if (!form.direccion.trim()) {
     errors.direccion = "El campo de direccion es requerido";
-  } else if (!addressPattern.test(form.direccion)) {
-    errors.direccion =
-      "Debe contener al menos tres letras, un numero y un espacio.";
   }
+  // else if (!addressPattern.test(form.direccion)) {
+  //   errors.direccion =
+  //     "Debe contener al menos tres letras, un numero y un espacio.";
+  // }
 
   //Validaciones tipo de mascotas que cuida
   if (
@@ -190,18 +191,10 @@ const validationsForm = (form) => {
   return errors; // Esta variable error viene y se usa en el useForm
 };
 
-let styles = {
-  // Estilo para los mensajes de error
-  fontWeight: "bold",
-  color: "#dc3545",
-};
-
 var namePattern = /^[a-zA-Z]+$/;
 var passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@.#$!%*?&]{10,15}$/; // Test para password, requiere al menos una letra minuscula, una mayuscula, un caracter especial, un numero y un largo minimo de 8 a 15 caracteres
 var emailPattern = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/;
 var numberPattern = /^[0-9]+$/;
-var addressPattern =
-  /^(?=(?:[^A-Za-z]*[A-Za-z]){3})(?=.*\d)(?=.*\s)[A-Za-z\d\s-]+$/;
 
 function RegistrationAnfitrionForm() {
   const [step, setStep] = useState(1);
@@ -224,7 +217,7 @@ function RegistrationAnfitrionForm() {
             handleBlur={handleBlur}
             errors={errors}
             submitPressed={submitPressed}
-            styles={{ color: "red" }}
+            styles={{ fontWeight: "bold", color: "#dc3545" }}
           />
         );
       case 2:
@@ -236,7 +229,8 @@ function RegistrationAnfitrionForm() {
             errors={errors}
             submitPressed={submitPressed}
             handleAddressSelect={handleAddressSelect}
-            styles={{ color: "red" }}
+            selectedAddress={selectedAddress}
+            styles={{ fontWeight: "bold", color: "#dc3545" }}
           />
         );
       case 3:
@@ -247,7 +241,7 @@ function RegistrationAnfitrionForm() {
             handleBlur={handleBlur}
             errors={errors}
             submitPressed={submitPressed}
-            styles={{ color: "red" }}
+            styles={{ fontWeight: "bold", color: "#dc3545" }}
           />
         );
       default:
@@ -263,6 +257,7 @@ function RegistrationAnfitrionForm() {
     handleBlur,
     handleSubmit,
     handleAddressSelect,
+    selectedAddress,
   } = useForm(initialForm, validationsForm); // Llamamos a useForm y extraemos de el todos los estados y funciones que utilizaremos
 
   return (
@@ -286,6 +281,11 @@ function RegistrationAnfitrionForm() {
           </Button>
         )}
       </div>
+      {submitPressed === true && errors && (
+        <p style={{ fontWeight: "bold", color: "#dc3545" }}>
+          Tienes errores por corregir
+        </p>
+      )}
     </Form>
   );
 }
