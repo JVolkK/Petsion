@@ -27,17 +27,30 @@ const LoginPage = () => {
               <Form style={{ width: '23rem' }} onSubmit={handleLogin}>
                 <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: '1px' }}>Iniciar Sesión</h3>
 
-                <Form.Group controlId="formUserType">
+                <Form.Group controlId="formUserTypeGroup">
                   <Form.Label>Seleccionar tipo de cuenta:</Form.Label>
-                  <Form.Control
-                    as="select"
-                    value={userType}
-                    onChange={(e) => setUserType(e.target.value)}
-                  >
-                    <option value="user">Usuario</option>
-                    <option value="anfitrion">Anfitrión</option>
-                  </Form.Control>
+                  <div>
+                    <Form.Check
+                      type="radio"
+                      label="Usuario"
+                      name="userType"
+                      id="formUserTypeUser"
+                      value="usuario"
+                      checked={userType === 'usuario'}
+                      onChange={(e) => setUserType(e.target.value)}
+                    />
+                    <Form.Check
+                      type="radio"
+                      label="Anfitrión"
+                      name="userType"
+                      id="formUserTypeAnfitrion"
+                      value="anfitrion"
+                      checked={userType === 'anfitrion'}
+                      onChange={(e) => setUserType(e.target.value)}
+                    />
+                  </div>
                 </Form.Group>
+
 
                 <Form.Group className="mb-4" controlId="formBasicUsername">
                   <Form.Control
