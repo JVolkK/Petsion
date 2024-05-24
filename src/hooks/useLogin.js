@@ -6,7 +6,6 @@ import { AppContext } from '../contexts/AppContext';
 export const useLogin = (username, password, userType, setError) => {
   const navigate = useNavigate();
   const { setAuthenticated } = useContext(AppContext);
-  
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,8 +36,9 @@ export const useLogin = (username, password, userType, setError) => {
       setAuthenticated(true);
       navigate('/'); // Redirigir a la página principal
     } catch (error) {
-      console.error('Error en el login:', error.response ? error.response.data.message : error.message);
-      setError(error.response ? error.response.data.message : error.message); // Mostramos el mensaje de error recibido del servidor
+      const errorMessage = error.response ? error.response.data.message : error.message;
+      console.error('Error en el login:', errorMessage);
+      setError(errorMessage); // Mostramos el mensaje de error recibido del servidor o el mensaje de error general
     }
   };
 

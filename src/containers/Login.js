@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import '../styles/login.css';
 import { useLogin } from '../hooks/useLogin';
+import useLoginState from '../hooks/useLoginState';
 import NavBar from "../components/NavBar";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('user');
-  const [error, setError] = useState(null);
+  const {
+    username,
+    setUsername,
+    password,
+    setPassword,
+    userType,
+    setUserType,
+    error,
+    setError,
+  } = useLoginState();
 
   const { handleLogin } = useLogin(username, password, userType, setError);
 
@@ -50,7 +57,6 @@ const LoginPage = () => {
                     />
                   </div>
                 </Form.Group>
-
 
                 <Form.Group className="mb-4" controlId="formBasicUsername">
                   <Form.Control

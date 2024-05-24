@@ -1,8 +1,7 @@
-  // OwnerProfile.js
 import React from 'react';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
 import '../styles/OwnerProfileStyle.css';
 import NavBar from "../components/NavBar";
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
 import useLogout from '../hooks/useLogout';
 
 export default function OwnerProfile() {
