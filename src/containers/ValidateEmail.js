@@ -5,7 +5,6 @@ import Card from "react-bootstrap/Card";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import image from "../images/email.png";
-import { useNavigate } from "react-router-dom";
 
 const ValidateEmail = () => {
   return (

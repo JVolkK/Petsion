@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm);
@@ -7,6 +8,7 @@ export const useForm = (initialForm, validateForm) => {
   const [submitPressed, setSubmitPressed] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -86,7 +88,8 @@ export const useForm = (initialForm, validateForm) => {
           }
         );
         console.log(response.data); // Maneja la respuesta de la API según tus necesidades
-        alert("Usuario registrado exitosamente");
+
+        navigate("/validate-email");
       } catch (error) {
         console.error("Error al enviar solicitud:", error);
         // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario
