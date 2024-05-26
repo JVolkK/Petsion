@@ -9,9 +9,9 @@ export const useForm = (initialForm) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(false);
 
     try {
+      setLoading(true);
       // Aquí realizas la solicitud a tu API utilizando Axios
       const response = await axios.post(
         "https://api-petsion.onrender.com/anfitrion/filtrado",
@@ -37,14 +37,13 @@ export const useForm = (initialForm) => {
     } catch (error) {
       // Manejar errores de la solicitud
       console.error("Error al enviar la solicitud a la API:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleChange = async (e) => {
     e.preventDefault();
-
-    setLoading(false); // Establecer loading como true al comenzar la petición
-
     const { name, value } = e.target;
 
     if (name === "servicio" && value === "alojamiento") {

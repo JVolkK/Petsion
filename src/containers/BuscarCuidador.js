@@ -85,7 +85,9 @@ const BuscarCuidador = () => {
                 <p>No se han encontrado usuarios filtrados</p>
               )}
             </Col>
-            <Col md={5}><Mapa locations={locations} /></Col>
+            <Col md={5}>
+              <Mapa locations={locations} />
+            </Col>
           </Row>
         </Container>
       </Container>
