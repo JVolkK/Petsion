@@ -7,6 +7,7 @@ import "../styles/DuenioFormStyle.css";
 import Step1 from "../components/Step1RegistrationAnfitrion";
 import Step2 from "../components/Step2RegistrationAnfitrion";
 import Step3 from "../components/Step3RegistrationAnfitrion";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 const initialForm = {
   //Valores base para el state de Form en el hook perzonalizado useForm
@@ -253,6 +254,7 @@ function RegistrationAnfitrionForm() {
     form,
     errors,
     submitPressed,
+    loading,
     handleChange,
     handleBlur,
     handleSubmit,
@@ -261,32 +263,47 @@ function RegistrationAnfitrionForm() {
   } = useForm(initialForm, validationsForm); // Llamamos a useForm y extraemos de el todos los estados y funciones que utilizaremos
 
   return (
-    <Form onSubmit={handleSubmit} className="p-5 mt-5">
-      <h1 className="pb-3">Registrarse como anfitrion</h1>
-      {renderStep()}
-      <div className="button-group">
-        {step > 1 && (
-          <Button variant="secondary" onClick={handlePrev}>
-            Anterior
-          </Button>
-        )}
-        {step < 3 && (
-          <Button variant="primary" onClick={handleNext} className="ms-3">
-            Siguiente
-          </Button>
-        )}
-        {step === 3 && (
-          <Button variant="success" type="submit" className="ms-3">
-            Enviar
-          </Button>
-        )}
-      </div>
-      {submitPressed === true && errors && (
-        <p style={{ fontWeight: "bold", color: "#dc3545" }}>
-          Tienes errores por corregir
-        </p>
-      )}
-    </Form>
+    <div>
+      <LoadingOverlay loading={loading} />
+      <Form onSubmit={handleSubmit} className="p-5 mt-5">
+        <h1 className="pb-3">Registrarse como anfitrion</h1>
+        {renderStep()}
+        <div className="button-group d-flex justify-content-end">
+          {step > 1 && (
+            <Button variant="secondary" onClick={handlePrev} disabled={loading}>
+              Anterior
+            </Button>
+          )}
+          {step < 3 && (
+            <Button
+              variant="primary"
+              onClick={handleNext}
+              className="ms-3"
+              disabled={loading}
+            >
+              Siguiente
+            </Button>
+          )}
+          {step === 3 && (
+            <Button
+              variant="success"
+              type="submit"
+              className="ms-3"
+              disabled={loading}
+            >
+              {loading ? "Enviando..." : "Enviar"}
+            </Button>
+          )}
+        </div>
+        <div className="d-flex justify-content-end">
+          {submitPressed === true && Object.keys(errors).length >= 1 && (
+            <p style={{ fontWeight: "bold", color: "#dc3545" }}>
+              Tienes errores por corregir
+            </p>
+          )}
+        </div>
+      </Form>
+    </div>
   );
 }
 
