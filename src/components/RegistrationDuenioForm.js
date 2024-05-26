@@ -5,6 +5,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { useForm } from "../hooks/useFormDuenio";
 import "../styles/DuenioFormStyle.css";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 const initialForm = {
   //Valores base para el state de Form en el hook perzonalizado useForm
@@ -110,198 +111,200 @@ function RegistrationDuenioForm() {
     form,
     errors,
     submitPressed,
-    // loading,
-    //response,
+    loading,
     handleChange,
     handleBlur,
     handleSubmit,
   } = useForm(initialForm, validationsForm); // Llamamos a useForm y extraemos de el todos los estados y funciones que utilizaremos
 
   return (
-    <Form onSubmit={handleSubmit} className="p-5">
-      <h1 className="pb-3">Registrarse como dueño</h1>
-      <Row className="mb-3">
-        <Form.Group as={Col} md="4">
-          <Form.Label>Nombre de Usuario</Form.Label>
-          <Form.Control
-            maxLength="15"
-            minLength={5}
-            type="text"
-            name="username"
-            placeholder="Escribe tu nombre de usuario"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.username}
-            required
-          />
-          {submitPressed === true && errors.username && (
-            <p style={styles}>{errors.username}</p>
-          )}
-        </Form.Group>
-
-        <Form.Group as={Col} md="4">
-          <Form.Label>Contraseña</Form.Label>
-          <Form.Control
-            className="inputStyle"
-            required
-            maxLength="15"
-            type="password"
-            name="password"
-            placeholder="Escribe tu contraseña"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.password}
-          />
-          {submitPressed && errors.password ? (
-            // Si hay errores, muestra el mensaje de error
-            <p style={styles}>{errors.password}</p>
-          ) : (
-            // Si no hay errores, muestra el label
-            <label>
-              {" "}
-              La contraseña debe contener al menos una mayuscula, minimo 10
-              caracteres y no contener espacios
-            </label>
-          )}
-        </Form.Group>
-        <Form.Group as={Col} md="4">
-          <Form.Label>Correo electronico</Form.Label>
-          <Form.Control
-            className="inputStyle"
-            required
-            type="email"
-            name="email"
-            placeholder="Escribe tu correo electronico"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.email}
-          />
-          {submitPressed === true && errors.email && (
-            <p style={styles}>{errors.email}</p>
-          )}
-        </Form.Group>
-      </Row>
-      <Row className="mb-3">
-        <Form.Group as={Col} md="4">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control
-            required
-            maxLength="15"
-            minLength={3}
-            type="text"
-            placeholder="Primer nombre"
-            name="nombre"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.nombre}
-          />
-          {submitPressed === true && errors.nombre && (
-            <p style={styles}>{errors.nombre}</p>
-          )}
-        </Form.Group>
-
-        <Form.Group as={Col} md="4">
-          <Form.Label>Apellido</Form.Label>
-          <Form.Control
-            maxLength="15"
-            minLength={3}
-            required
-            type="text"
-            placeholder="Apellido/s"
-            name="apellido"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.apellido}
-          />
-          {submitPressed === true && errors.apellido && (
-            <p style={styles}>{errors.apellido}</p>
-          )}
-        </Form.Group>
-
-        <Form.Group as={Col} md="4">
-          <Form.Label>DNI</Form.Label>
-          <InputGroup>
+    <div>
+      <LoadingOverlay loading={loading} />
+      <Form onSubmit={handleSubmit} className="p-5">
+        <h1 className="pb-3">Registrarse como dueño</h1>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="4">
+            <Form.Label>Nombre de Usuario</Form.Label>
             <Form.Control
-              className="inputStyle"
-              min="1000000"
-              max="70000000"
-              type="number"
-              placeholder="DNI"
-              required
-              name="dni"
+              maxLength="15"
+              minLength={5}
+              type="text"
+              name="username"
+              placeholder="Escribe tu nombre de usuario"
               onBlur={handleBlur}
               onChange={handleChange}
-              value={form.dni}
+              value={form.username}
+              required
             />
-            {submitPressed === true && errors.dni && (
-              <p style={styles}>{errors.dni}</p>
+            {submitPressed === true && errors.username && (
+              <p style={styles}>{errors.username}</p>
             )}
-          </InputGroup>
-        </Form.Group>
-      </Row>
-      <Row className="mb-3">
-        <Form.Group as={Col} md="4">
-          <Form.Label>Fecha de nacimiento</Form.Label>
-          <Form.Control
-            className="inputStyle"
-            type="date"
-            max="2005-01-01"
-            min="1920-01-01"
+          </Form.Group>
+
+          <Form.Group as={Col} md="4">
+            <Form.Label>Contraseña</Form.Label>
+            <Form.Control
+              className="inputStyle"
+              required
+              maxLength="15"
+              type="password"
+              name="password"
+              placeholder="Escribe tu contraseña"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.password}
+            />
+            {submitPressed && errors.password ? (
+              // Si hay errores, muestra el mensaje de error
+              <p style={styles}>{errors.password}</p>
+            ) : (
+              // Si no hay errores, muestra el label
+              <label>
+                {" "}
+                La contraseña debe contener al menos una mayuscula, minimo 10
+                caracteres y no contener espacios
+              </label>
+            )}
+          </Form.Group>
+          <Form.Group as={Col} md="4">
+            <Form.Label>Correo electronico</Form.Label>
+            <Form.Control
+              className="inputStyle"
+              required
+              type="email"
+              name="email"
+              placeholder="Escribe tu correo electronico"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.email}
+            />
+            {submitPressed === true && errors.email && (
+              <p style={styles}>{errors.email}</p>
+            )}
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="4">
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control
+              required
+              maxLength="15"
+              minLength={3}
+              type="text"
+              placeholder="Primer nombre"
+              name="nombre"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.nombre}
+            />
+            {submitPressed === true && errors.nombre && (
+              <p style={styles}>{errors.nombre}</p>
+            )}
+          </Form.Group>
+
+          <Form.Group as={Col} md="4">
+            <Form.Label>Apellido</Form.Label>
+            <Form.Control
+              maxLength="15"
+              minLength={3}
+              required
+              type="text"
+              placeholder="Apellido/s"
+              name="apellido"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.apellido}
+            />
+            {submitPressed === true && errors.apellido && (
+              <p style={styles}>{errors.apellido}</p>
+            )}
+          </Form.Group>
+
+          <Form.Group as={Col} md="4">
+            <Form.Label>DNI</Form.Label>
+            <InputGroup>
+              <Form.Control
+                className="inputStyle"
+                min="1000000"
+                max="70000000"
+                type="number"
+                placeholder="DNI"
+                required
+                name="dni"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={form.dni}
+              />
+              {submitPressed === true && errors.dni && (
+                <p style={styles}>{errors.dni}</p>
+              )}
+            </InputGroup>
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="4">
+            <Form.Label>Fecha de nacimiento</Form.Label>
+            <Form.Control
+              className="inputStyle"
+              type="date"
+              max="2005-01-01"
+              min="1920-01-01"
+              required
+              name="fechaDeNacimiento"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.fechaDeNacimiento}
+            />
+            {submitPressed === true && errors.fechaDeNacimiento && (
+              <p style={styles}>{errors.fechaDeNacimiento}</p>
+            )}
+          </Form.Group>
+          <Form.Group as={Col} md="4">
+            <Form.Label>Numero de telefono</Form.Label>
+            <Form.Control
+              className="inputStyle"
+              type="number"
+              placeholder="Numero de telefono"
+              required
+              name="numeroDeTelefono"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.numeroDeTelefono}
+            />
+            {submitPressed === true && errors.numeroDeTelefono && (
+              <p style={styles}>{errors.numeroDeTelefono}</p>
+            )}
+          </Form.Group>
+          <Form.Group as={Col} md="4">
+            <Form.Label>Codigo postal</Form.Label>
+            <Form.Control
+              min="100"
+              max="10000"
+              className="inputStyle"
+              type="number"
+              placeholder="Codigo Postal"
+              required
+              name="codigoPostal"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={form.codigoPostal}
+            />
+            {submitPressed === true && errors.codigoPostal && (
+              <p style={styles}>{errors.codigoPostal}</p>
+            )}
+          </Form.Group>
+        </Row>
+        <Form.Group className="mb-3">
+          <Form.Check
             required
-            name="fechaDeNacimiento"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.fechaDeNacimiento}
+            label="Aceptar terminos y condiciones"
+            feedback="Debes aceptar los terminos y condiciones antes de continuar."
+            feedbackType="invalid"
           />
-          {submitPressed === true && errors.fechaDeNacimiento && (
-            <p style={styles}>{errors.fechaDeNacimiento}</p>
-          )}
         </Form.Group>
-        <Form.Group as={Col} md="4">
-          <Form.Label>Numero de telefono</Form.Label>
-          <Form.Control
-            className="inputStyle"
-            type="number"
-            placeholder="Numero de telefono"
-            required
-            name="numeroDeTelefono"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.numeroDeTelefono}
-          />
-          {submitPressed === true && errors.numeroDeTelefono && (
-            <p style={styles}>{errors.numeroDeTelefono}</p>
-          )}
-        </Form.Group>
-        <Form.Group as={Col} md="4">
-          <Form.Label>Codigo postal</Form.Label>
-          <Form.Control
-            min="100"
-            max="10000"
-            className="inputStyle"
-            type="number"
-            placeholder="Codigo Postal"
-            required
-            name="codigoPostal"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={form.codigoPostal}
-          />
-          {submitPressed === true && errors.codigoPostal && (
-            <p style={styles}>{errors.codigoPostal}</p>
-          )}
-        </Form.Group>
-      </Row>
-      <Form.Group className="mb-3">
-        <Form.Check
-          required
-          label="Aceptar terminos y condiciones"
-          feedback="Debes aceptar los terminos y condiciones antes de continuar."
-          feedbackType="invalid"
-        />
-      </Form.Group>
-      <Button type="submit">Enviar</Button>
-    </Form>
+        <Button type="submit">Enviar</Button>
+      </Form>
+    </div>
   );
 }
 

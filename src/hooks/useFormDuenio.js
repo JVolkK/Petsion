@@ -5,9 +5,7 @@ export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [submitPressed, setSubmitPressed] = useState(false);
-
-  // const [loading, setLoading] = useState(false);
-  // const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +26,7 @@ export const useForm = (initialForm, validateForm) => {
     e.preventDefault();
     setErrors(validateForm(form));
     if (Object.keys(errors).length === 0) {
+      setLoading(true);
       // Validamos que el objeto errors donde guardamos los errores de las validaciones este vacio lo que significa que todos los campos han sido llenados correctamente.
       try {
         const response = await axios.post(
@@ -50,6 +49,8 @@ export const useForm = (initialForm, validateForm) => {
         console.error("Error al enviar solicitud:", error);
         // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario
         alert(error.response.data.message);
+      } finally {
+        setLoading(false);
       }
     } else {
       return;
@@ -60,8 +61,7 @@ export const useForm = (initialForm, validateForm) => {
     form,
     errors,
     submitPressed,
-    //loading,
-    //response,
+    loading,
     handleChange,
     handleBlur,
     handleSubmit,

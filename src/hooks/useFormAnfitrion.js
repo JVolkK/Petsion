@@ -94,6 +94,8 @@ export const useForm = (initialForm, validateForm) => {
       } finally {
         setLoading(false);
       }
+    } else {
+      return;
     }
   };
 
