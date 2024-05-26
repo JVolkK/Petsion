@@ -39,11 +39,11 @@ const LoginPage = () => {
                   <div>
                     <Form.Check
                       type="radio"
-                      label="Usuario"
+                      label="Dueño"
                       name="userType"
                       id="formUserTypeUser"
                       value="usuario"
-                      checked={userType === 'usuario'}
+                      checked={userType === 'user'}
                       onChange={(e) => setUserType(e.target.value)}
                     />
                     <Form.Check
