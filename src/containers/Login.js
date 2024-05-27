@@ -58,7 +58,7 @@ const LoginPage = () => {
                         label="Dueño"
                         name="userType"
                         id="formUserTypeUser"
-                        value="usuario"
+                        value="user"
                         checked={userType === "user"}
                         onChange={(e) => setUserType(e.target.value)}
                       />
