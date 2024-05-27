@@ -7,9 +7,10 @@ const AppProvider = ({ children }) => {
   const [homeFormValue, setHomeFormValue] = useState("alojamiento");
   const [usuariosFiltrados, setUsuariosFiltrados] = useState({});
   const [isAuthenticated, setAuthenticated] = useState(false);
+  const [usuarioLogeado, setUsuarioLogeado] = useState({});
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token = localStorage.getItem("authToken");
     if (token) {
       setAuthenticated(true);
     }
@@ -23,7 +24,9 @@ const AppProvider = ({ children }) => {
         usuariosFiltrados,
         setUsuariosFiltrados,
         setAuthenticated,
-        isAuthenticated
+        isAuthenticated,
+        usuarioLogeado,
+        setUsuarioLogeado,
       }}
     >
       {children}
