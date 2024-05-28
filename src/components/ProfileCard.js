@@ -1,16 +1,15 @@
+// ProfileCard.js
 import React from "react";
 import profileIcon from "../images/145857007_307ce493-b254-4b2d-8ba4-d12c080d6651.jpg";
 
-const ProfileCard = ({ nombre, apellido, ubicacion }) => {
+const ProfileCard = ({ nombre, apellido, ubicacion, onClick }) => {
   return (
-    <div style={styles.card}>
-      {
-        <img
-          src={profileIcon}
-          alt={`${nombre} ${apellido}`}
-          style={styles.image}
-        />
-      }
+    <div style={styles.card} onClick={onClick}>
+      <img
+        src={profileIcon}
+        alt={`${nombre} ${apellido}`}
+        style={styles.image}
+      />
       <div style={styles.content}>
         <h3>{`${nombre} ${apellido}`}</h3>
         <p>
@@ -30,6 +29,7 @@ const styles = {
     marginBottom: "20px",
     backgroundColor: "#fff",
     width: "100%",
+    cursor: "pointer", // Agrega este estilo para que el cursor sea un puntero al pasar sobre el card
   },
   image: {
     width: "150px",
