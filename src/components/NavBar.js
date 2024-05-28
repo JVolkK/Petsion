@@ -58,7 +58,7 @@ const NavBar = () => {
                   </Nav.Item>
                 ) : usuarioLogeado.rol === "anfitrion" ? (
                   <Nav.Item>
-                    <Nav.Link as={Link} to="/perfil-anfitrion">
+                    <Nav.Link as={Link} to="/perfil-duenio">
                       Mi Perfil
                     </Nav.Link>
                   </Nav.Item>
@@ -78,13 +78,15 @@ const NavBar = () => {
                 </Nav.Item>
               </>
             )}
-            {isAuthenticated && usuarioLogeado && usuarioLogeado.userType === "anfitrion" && (
-              <Nav.Item>
-                <Nav.Link as={Link} to="/mis-reservas">
-                  Mis Reservas
-                </Nav.Link>
-              </Nav.Item>
-            )}
+            {isAuthenticated &&
+              usuarioLogeado &&
+              usuarioLogeado.userType === "anfitrion" && (
+                <Nav.Item>
+                  <Nav.Link as={Link} to="/mis-reservas">
+                    Mis Reservas
+                  </Nav.Link>
+                </Nav.Item>
+              )}
           </Nav>
         </Navbar.Collapse>
       </Container>

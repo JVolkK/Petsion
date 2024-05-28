@@ -13,7 +13,7 @@ import OwnerProfile from "./OwnerProfile";
 import ValidateEmail from "./ValidateEmail";
 import "../styles/leaflet.css";
 import EmailValidated from "./EmailValidated";
-import PerfilAnfitrion from "./PerfilAnfitrion";
+import PerfilDuenio from "./PerfilDuenio";
 
 function App() {
   const { isAuthenticated } = useContext(AppContext);
@@ -34,7 +34,7 @@ function App() {
         <Route path="/validate-email" element={<ValidateEmail />} />
         <Route path="/email-validated" element={<EmailValidated />} />
         <Route path="/contacto" element={<Contacto />} />
-        <Route path="/perfil-anfitrion" element={<PerfilAnfitrion />} />
+        <Route path="/perfil-duenio" element={<PerfilDuenio />} />
         {isAuthenticated ? (
           <Route path="/mi-perfil" element={<OwnerProfile />} />
         ) : (
