@@ -1,20 +1,34 @@
-import React, { useContext, useEffect } from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import PETSION from '../images/PETSION.png';
-import { Link } from 'react-router-dom';
-import { AppContext } from '../contexts/AppContext';
+import React, { useContext, useEffect } from "react";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import PETSION from "../images/PETSION.png";
+import { Link } from "react-router-dom";
+import { AppContext } from "../contexts/AppContext";
 
 const NavBar = () => {
-  const { isAuthenticated } = useContext(AppContext);
+  const {
+    isAuthenticated,
+    usuarioLogeado,
+    setAuthenticated,
+    setUsuarioLogeado,
+  } = useContext(AppContext);
 
   useEffect(() => {
     // Ajusta el padding-top del cuerpo para evitar que el contenido quede oculto detrás del Navbar
-    document.body.style.paddingTop = '70px'; // Ajusta este valor según la altura de tu Navbar
+    document.body.style.paddingTop = "70px"; // Ajusta este valor según la altura de tu Navbar
     // Limpia el padding-top al desmontar el componente
     return () => {
       document.body.style.paddingTop = null;
     };
   }, []);
+
+  useEffect(() => {
+    const authLocal = JSON.parse(localStorage.getItem("isAuthenticated"));
+    console.log(authLocal);
+    setAuthenticated(authLocal);
+
+    const usuarioLocal = JSON.parse(localStorage.getItem("usuarioLogeado"));
+    setUsuarioLogeado(usuarioLocal);
+  }, [setAuthenticated, setUsuarioLogeado]);
 
   return (
     <Navbar bg="body-tertiary" expand="lg" className="p-0 fixed-top">
@@ -36,11 +50,21 @@ const NavBar = () => {
               </Nav.Link>
             </Nav.Item>
             {isAuthenticated ? (
-              <Nav.Item>
-                <Nav.Link as={Link} to="/mi-perfil">
-                  Mi Perfil
-                </Nav.Link>
-              </Nav.Item>
+              <>
+                {usuarioLogeado.rol === "user" ? (
+                  <Nav.Item>
+                    <Nav.Link as={Link} to="/mi-perfil">
+                      Mi Perfil
+                    </Nav.Link>
+                  </Nav.Item>
+                ) : usuarioLogeado.rol === "anfitrion" ? (
+                  <Nav.Item>
+                    <Nav.Link as={Link} to="/perfil-anfitrion">
+                      Mi Perfil
+                    </Nav.Link>
+                  </Nav.Item>
+                ) : null}
+              </>
             ) : (
               <>
                 <Nav.Item>

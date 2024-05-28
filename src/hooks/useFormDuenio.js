@@ -31,24 +31,20 @@ export const useForm = (initialForm, validateForm) => {
       setLoading(true);
       // Validamos que el objeto errors donde guardamos los errores de las validaciones este vacio lo que significa que todos los campos han sido llenados correctamente.
       try {
-        const response = await axios.post(
-          "https://api-petsion.onrender.com/user/register",
-          {
-            username: form.username,
-            password: form.password,
-            email: form.email,
-            fechaDeNacimiento: form.fechaDeNacimiento,
-            name: form.nombre,
-            lastname: form.apellido,
-            dni: form.dni,
-            telefono: form.numeroDeTelefono,
-            codigoPostal: form.codigoPostal,
-          }
-        );
-        console.log(response.data); // Maneja la respuesta de la API según tus necesidades
+        await axios.post("https://api-petsion.onrender.com/user/register", {
+          username: form.username,
+          password: form.password,
+          email: form.email,
+          fechaDeNacimiento: form.fechaDeNacimiento,
+          name: form.nombre,
+          lastname: form.apellido,
+          dni: form.dni,
+          telefono: form.numeroDeTelefono,
+          codigoPostal: form.codigoPostal,
+        });
+
         navigate("/validate-email");
       } catch (error) {
-        console.error("Error al enviar solicitud:", error);
         // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario
         alert(error.response.data.message);
       } finally {

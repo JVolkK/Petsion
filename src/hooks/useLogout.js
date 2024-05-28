@@ -1,15 +1,17 @@
-import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
-import { AppContext } from '../contexts/AppContext';
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom"; // Importa useNavigate
+import { AppContext } from "../contexts/AppContext";
 
 const useLogout = () => {
   const { setAuthenticated } = useContext(AppContext);
   const navigate = useNavigate(); // Inicializa useNavigate
 
   const logout = () => {
-    localStorage.removeItem('authToken');
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("usuarioLogeado");
     setAuthenticated(false);
-    navigate('/login'); // Usa navigate para redirigir a la página de login
+    navigate("/login"); // Usa navigate para redirigir a la página de login
   };
 
   return logout;

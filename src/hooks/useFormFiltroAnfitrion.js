@@ -36,7 +36,6 @@ export const useForm = (initialForm) => {
       setUsuariosFiltrados(response.data);
     } catch (error) {
       // Manejar errores de la solicitud
-      console.error("Error al enviar la solicitud a la API:", error);
     } finally {
       setLoading(false);
     }

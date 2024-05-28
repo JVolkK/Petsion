@@ -43,7 +43,6 @@ export const useForm = (initialForm, validateForm) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(errors);
     e.preventDefault();
     setErrors(validateForm(form));
     setSubmitPressed(true);
@@ -51,7 +50,7 @@ export const useForm = (initialForm, validateForm) => {
       setLoading(true);
       // Validamos que el objeto errors donde guardamos los errores de las validaciones este vacio lo que significa que todos los campos han sido llenados correctamente.
       try {
-        const response = await axios.post(
+        await axios.post(
           "https://api-petsion.onrender.com/anfitrion/register",
           {
             username: form.username,
@@ -87,11 +86,9 @@ export const useForm = (initialForm, validateForm) => {
             cancelaciones: form.cancelaciones,
           }
         );
-        console.log(response.data); // Maneja la respuesta de la API según tus necesidades
 
         navigate("/validate-email");
       } catch (error) {
-        console.error("Error al enviar solicitud:", error);
         // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario
         alert(error.response.data.message);
       } finally {

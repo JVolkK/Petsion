@@ -1,12 +1,9 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { AppContext } from "../contexts/AppContext";
 import { useState } from "react";
 
 export const useLogin = (username, password, userType, setError) => {
   const navigate = useNavigate();
-  const { setAuthenticated, setUsuarioLogeado } = useContext(AppContext);
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
@@ -29,24 +26,34 @@ export const useLogin = (username, password, userType, setError) => {
         username: username,
         password: password,
       });
+      console.log(userType);
 
-      if (userType === "user")
-        setUsuarioLogeado({
-          id: response.data.data.user._id,
-          rol: response.data.data.user.role,
-        });
-      else {
-        setUsuarioLogeado({
-          id: response.data.data.anfitrion._id,
-          rol: response.data.data.anfitrion.role,
-        });
+      if (userType === "user") {
+        localStorage.setItem(
+          "usuarioLogeado",
+          JSON.stringify({
+            id: response.data.data.user._id,
+            rol: response.data.data.user.role,
+          })
+        );
+      } else if (userType === "anfitrion") {
+        localStorage.setItem(
+          "usuarioLogeado",
+          JSON.stringify({
+            id: response.data.data.anfitrion._id,
+            rol: response.data.data.anfitrion.role,
+          })
+        );
+        console.log("Logeado como anfitrion");
       }
 
+      console.log("Usuario logeado post if");
       // Si la solicitud es exitosa, guardamos el token en localStorage
       localStorage.setItem("authToken", response.data.data.token);
+      localStorage.setItem("isAuthenticated", true);
 
       // Actualizamos el estado de autenticación y redirigimos al usuario
-      setAuthenticated(true);
+      // setAuthenticated(true);
       navigate("/"); // Redirigir a la página principal
     } catch (error) {
       const errorMessage = error.response
