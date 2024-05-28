@@ -78,6 +78,13 @@ const NavBar = () => {
                 </Nav.Item>
               </>
             )}
+            {isAuthenticated && usuarioLogeado && usuarioLogeado.userType === "anfitrion" && (
+              <Nav.Item>
+                <Nav.Link as={Link} to="/mis-reservas">
+                  Mis Reservas
+                </Nav.Link>
+              </Nav.Item>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
