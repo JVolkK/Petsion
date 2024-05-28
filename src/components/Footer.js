@@ -22,7 +22,7 @@ function Footer() {
     <>
       <Container fluid className="p-0">
         <footer className="footer mt-auto py-3 bg-custom-color">
-          <Row>
+          <Row className="container">
             <Col sm={12} md={4}>
               <nav className="nav flex-column">
                 <Link className="nav-link text-white" to="/">
