@@ -9,7 +9,6 @@ import axios from "axios";
 const PerfilAnfitrion = () => {
   const { usuarioLogeado, setUsuarioLogeado } = useContext(AppContext);
   const [datosAnfitrion, setDatosAnfitrion] = useState({});
-  const [error, setError] = useState(null); // Agregar estado para manejar errores
 
   const logout = useLogout();
 
@@ -20,8 +19,6 @@ const PerfilAnfitrion = () => {
     if (storedUsuarioLogeado) {
       setUsuarioLogeado(storedUsuarioLogeado);
     } else {
-      console.error("No se encontre usuario logeado en localStorage.");
-      setError("No se encontro usuario logeado");
       return;
     }
 
@@ -34,15 +31,10 @@ const PerfilAnfitrion = () => {
           // Guardar los datos en el estado
           setDatosAnfitrion(response.data);
         })
-        .catch((error) => {
-          console.error("Error en la solicitud de axios:", error);
-          setError("Error al cargar los datos del anfitrión.");
-        });
+        .catch((error) => {});
     } else {
-      console.error("El usuario logeado no tiene un ID.");
-      setError("El usuario logeado no tiene un ID.");
     }
-  }, [setUsuarioLogeado, setDatosAnfitrion, setError]);
+  }, [setUsuarioLogeado, setDatosAnfitrion]);
 
   return (
     <>

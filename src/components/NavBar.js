@@ -23,7 +23,6 @@ const NavBar = () => {
 
   useEffect(() => {
     const authLocal = JSON.parse(localStorage.getItem("isAuthenticated"));
-    console.log(authLocal);
     setAuthenticated(authLocal);
 
     const usuarioLocal = JSON.parse(localStorage.getItem("usuarioLogeado"));

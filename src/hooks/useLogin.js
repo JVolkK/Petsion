@@ -26,7 +26,6 @@ export const useLogin = (username, password, userType, setError) => {
         username: username,
         password: password,
       });
-      console.log(userType);
 
       if (userType === "user") {
         localStorage.setItem(
@@ -44,10 +43,8 @@ export const useLogin = (username, password, userType, setError) => {
             rol: response.data.data.anfitrion.role,
           })
         );
-        console.log("Logeado como anfitrion");
       }
 
-      console.log("Usuario logeado post if");
       // Si la solicitud es exitosa, guardamos el token en localStorage
       localStorage.setItem("authToken", response.data.data.token);
       localStorage.setItem("isAuthenticated", true);
@@ -59,7 +56,6 @@ export const useLogin = (username, password, userType, setError) => {
       const errorMessage = error.response
         ? error.response.data.message
         : error.message;
-      console.error("Error en el login:", errorMessage);
       setError(errorMessage); // Mostramos el mensaje de error recibido del servidor o el mensaje de error general
     } finally {
       setLoading(false);
