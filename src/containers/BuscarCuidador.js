@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Container from "react-bootstrap/Container";
+import { Modal } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../styles/buscarCuidadorStyle.css";
@@ -40,6 +41,18 @@ const geocodeAddress = async (address) => {
 const BuscarCuidador = () => {
   const { usuariosFiltrados } = useContext(AppContext);
   const [locations, setLocations] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleOpenModal = (usuario) => {
+    setSelectedUser(usuario);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => setShowModal(false);
+
+
+
 
   useEffect(() => {
     const fetchLocations = async () => {
@@ -79,6 +92,7 @@ const BuscarCuidador = () => {
                     nombre={usuario.name}
                     apellido={usuario.lastname}
                     ubicacion={usuario.direccion}
+                    onClick={() => handleOpenModal(usuario)}
                   />
                 ))
               ) : (
@@ -92,6 +106,22 @@ const BuscarCuidador = () => {
         </Container>
       </Container>
       <Footer />
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Información del Usuario</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedUser && (
+            <>
+              <p>Nombre: {selectedUser.name}</p>
+              <p>Apellido: {selectedUser.lastname}</p>
+              <p>Ubicación: {selectedUser.direccion}</p>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
