@@ -19,7 +19,7 @@ const LoginPage = () => {
     setError,
   } = useLoginState();
 
-  const { handleLogin, loading } = useLogin(
+  const { handleLogin, loading, usernameRef, passwordRef } = useLogin(
     username,
     password,
     userType,
@@ -81,6 +81,7 @@ const LoginPage = () => {
                       size="lg"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
+                      ref={usernameRef}
                     />
                   </Form.Group>
 
@@ -91,6 +92,7 @@ const LoginPage = () => {
                       size="lg"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      ref={passwordRef}
                     />
                   </Form.Group>
 

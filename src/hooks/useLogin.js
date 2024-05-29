@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export const useLogin = (username, password, userType, setError) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleLogin = async (e) => {
     setLoading(true);
@@ -49,14 +52,25 @@ export const useLogin = (username, password, userType, setError) => {
       localStorage.setItem("authToken", response.data.data.token);
       localStorage.setItem("isAuthenticated", true);
 
-      // Actualizamos el estado de autenticación y redirigimos al usuario
-      // setAuthenticated(true);
-      navigate("/"); // Redirigir a la página principal
+      // Redirigir a la página principal
+      navigate("/");
     } catch (error) {
-      const errorMessage = error.response
-        ? error.response.data.message
-        : error.message;
-      setError(errorMessage); // Mostramos el mensaje de error recibido del servidor o el mensaje de error general
+      // Manejar el error para mostrar los bordes rojos y limpiar los campos
+      const errorMessage = "Usuario o Contraseña incorrectos 😔";
+
+      // Establecer el mensaje de error
+      setError(errorMessage);
+
+      // Establecer bordes rojos en los campos de usuario y contraseña
+      if (usernameRef.current) {
+        usernameRef.current.style.border = "1px solid red";
+        usernameRef.current.value = "";
+      }
+
+      if (passwordRef.current) {
+        passwordRef.current.style.border = "1px solid red";
+        passwordRef.current.value = "";
+      }
     } finally {
       setLoading(false);
     }
@@ -65,5 +79,7 @@ export const useLogin = (username, password, userType, setError) => {
   return {
     handleLogin,
     loading,
+    usernameRef,
+    passwordRef,
   };
 };
