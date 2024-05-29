@@ -1,0 +1,20 @@
+.clickable-card {
+  cursor: pointer;
+}
+
+.clickable-card:hover {
+  background-color: #419dff;
+  transform: scale(1.01);
+}
+
+.clickable-card:active {
+  background-color: #1888ff;
+}
+
+.clickable-card:hover .hoverIcon {
+  color: #f7f7f7;
+}
+
+.clickable-card:hover .addPetCardTitle {
+  color: #f7f7f7;
+}
