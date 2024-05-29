@@ -52,13 +52,13 @@ const NavBar = () => {
               <>
                 {usuarioLogeado.rol === "user" ? (
                   <Nav.Item>
-                    <Nav.Link as={Link} to="/mi-perfil">
+                    <Nav.Link as={Link} to="/perfil-duenio">
                       Mi Perfil
                     </Nav.Link>
                   </Nav.Item>
                 ) : usuarioLogeado.rol === "anfitrion" ? (
                   <Nav.Item>
-                    <Nav.Link as={Link} to="/perfil-duenio">
+                    <Nav.Link as={Link} to="/mi-perfil">
                       Mi Perfil
                     </Nav.Link>
                   </Nav.Item>
