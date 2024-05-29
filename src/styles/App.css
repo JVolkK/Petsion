@@ -2,3 +2,16 @@
   width: 100%;
   overflow-x: hidden;
 }
+@font-face {
+  font-family: 'Espressonal';
+  src: url('../fonts/Espressonal.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+h1 {
+  font-family: 'Espressonal', sans-serif;
+}
+h2 {
+  font-family: 'Espressonal', sans-serif;
+}

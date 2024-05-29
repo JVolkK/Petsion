@@ -14,7 +14,7 @@ function HomeForm() {
       <div className="backgroundImage">
         <div className="serviceContainer">
           <Container fluid className="serviceContent">
-            <h2 className="question">¿Qué servicio buscas hoy?</h2>
+            <h1 className="question">¿Qué servicio buscas hoy?</h1>
             <div className="buttonContainer">
               <ToggleButtonGroup
                 type="radio"

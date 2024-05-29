@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 import "../styles/buscarCuidadorStyle.css";
 import ProfileCard from "../components/ProfileCard";
 import FilterAnfitrionForm from "../components/FilterAnfitrionForm";
-import Mapa from "../components/Mapa";
+import Mapa from "../components/Mapa";  // Asegúrate de que la ruta es correcta
 import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
 
@@ -51,9 +51,6 @@ const BuscarCuidador = () => {
 
   const handleCloseModal = () => setShowModal(false);
 
-
-
-
   useEffect(() => {
     const fetchLocations = async () => {
       const geocodedLocations = await Promise.all(
@@ -73,7 +70,7 @@ const BuscarCuidador = () => {
     } else {
       setLocations([]);
     }
-  }, [usuariosFiltrados]); // Dependencia a usuariosFiltrados
+  }, [usuariosFiltrados]);
 
   return (
     <>

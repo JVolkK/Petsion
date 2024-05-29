@@ -5,6 +5,7 @@ import compu from "../images/compu.jpg";
 import presente from "../images/presente.jpg";
 import varios from "../images/varios.jpg";
 import "../styles/Servicios.css";
+import "../styles/App.css";
 
 function DescServ() {
   return (

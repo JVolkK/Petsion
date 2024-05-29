@@ -5,6 +5,7 @@ import reserv from '../images/reserv.png';
 import relax from '../images/relax.png';
 import Image from 'react-bootstrap/Image';
 import "../styles/comofunciona.css";
+import "../styles/App.css";
 
 function ComoFunciona() {
   return (
