@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
+import 'leaflet/dist/leaflet.css';
 
 // Importa las imágenes del marcador
 import markerIconPng from 'leaflet/dist/images/marker-icon.png';
@@ -19,6 +19,24 @@ const markerIcon = new L.Icon({
 const Mapa = ({ locations }) => {
   const mapRef = useRef(null);
   const markersRef = useRef([]);
+  const [userLocation, setUserLocation] = useState(null);
+
+  useEffect(() => {
+    // Obtiene la ubicación actual del usuario al cargar el componente
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation({ lat: latitude, lng: longitude });
+        },
+        (error) => {
+          console.error("Error al obtener la ubicación:", error);
+        }
+      );
+    } else {
+      console.error("Geolocalización no es compatible con este navegador.");
+    }
+  }, []);
 
   useEffect(() => {
     if (!locations || locations.length === 0) {
@@ -27,7 +45,9 @@ const Mapa = ({ locations }) => {
 
     // Crea el mapa si aún no existe
     if (!mapRef.current) {
-      mapRef.current = L.map("map").setView([locations[0].lat, locations[0].lng], 13);
+      // Centra el mapa en la ubicación del usuario si está disponible, de lo contrario, usa una ubicación predeterminada
+      const center = userLocation ? [userLocation.lat, userLocation.lng] : [0, 0];
+      mapRef.current = L.map("map").setView(center, 13);
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution: "© OpenStreetMap contributors",
@@ -45,8 +65,8 @@ const Mapa = ({ locations }) => {
         return null;
       }
 
-      return L.marker([location.lat, location.lng], { icon: markerIcon }) // Utiliza el icono personalizado
-        .bindPopup(`${location.nombre} ${location.apellido}`)
+      return L.marker([location.lat, location.lng], { icon: markerIcon })
+        .bindPopup(`${location.name} ${location.lastname}`)
         .addTo(mapRef.current);
     });
 
@@ -67,7 +87,7 @@ const Mapa = ({ locations }) => {
         markersRef.current = [];
       }
     };
-  }, [locations]);
+  }, [locations, userLocation]);
 
   return <div id="map" className="map" style={{ height: "500px" }}></div>;
 };
