@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import useLogout from "../hooks/useLogout";
 import Footer from "../components/Footer";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { AppContext } from "../contexts/AppContext";
 import axios from "axios";
 import profileIcon from "../images/145857007_307ce493-b254-4b2d-8ba4-d12c080d6651.jpg";

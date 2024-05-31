@@ -1,13 +1,15 @@
-import React, { useState, useContext, forceUpdate, useEffect } from "react";
+import React, { useState, useContext, forceUpdate } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Form, InputGroup, Button, Container, Row, Col } from "react-bootstrap";
 import { FaDog, FaCat } from "react-icons/fa";
 import { GiRabbit } from "react-icons/gi";
 import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
+import LoadingOverlay from "./LoadingOverlay";
 
 const AddPetModal = ({ show, handleClose }) => {
-  const { usuarioLogeado, setUsuarioLogeado } = useContext(AppContext);
+  const { usuarioLogeado } = useContext(AppContext);
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     user: usuarioLogeado.id,
@@ -35,6 +37,7 @@ const AddPetModal = ({ show, handleClose }) => {
     e.preventDefault();
     if (validate()) {
       try {
+        setLoading(true);
         await axios.post("https://api-petsion.onrender.com/mascota/register", {
           user: formData.user,
           tipoMascota: formData.tipoMascota,
@@ -55,10 +58,9 @@ const AddPetModal = ({ show, handleClose }) => {
         handleClose();
       } catch (error) {
         // Manejo de errores
+      } finally {
+        setLoading(false);
       }
-      //  finally {
-      //   setLoading(false);
-      // }
     }
   };
 
@@ -90,6 +92,7 @@ const AddPetModal = ({ show, handleClose }) => {
 
   return (
     <Modal show={show} onHide={handleClose} size="lg">
+      <LoadingOverlay loading={loading} />
       <Modal.Header closeButton>
         <Modal.Title>Añadir mascota</Modal.Title>
       </Modal.Header>
