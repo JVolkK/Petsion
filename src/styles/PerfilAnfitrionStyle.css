@@ -1,0 +1,87 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.contact-button {
+  margin-top: 20px;
+  color: #007bff;
+  border: 2px solid #007bff;
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+
+.contact-button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.profile-icon {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.nombre-anfitrion {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.direccion-anfitrion {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.services,
+.can-host,
+.about-laura,
+.home-info {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.service-item,
+.home-item {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 10px;
+}
+
+.service-name,
+.home-description {
+  margin-left: 10px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.badge {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+
+.custom-badge {
+  margin-right: 10px; /* Espacio a la derecha */
+  margin-bottom: 10px; /* Espacio en la parte inferior */
+}
+

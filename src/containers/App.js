@@ -9,7 +9,7 @@ import RegistrationAnfitrion from "./RegistrationAnfitrion";
 import Contacto from "./Contacto";
 import LoginPage from "./Login";
 import { AppContext } from "../contexts/AppContext";
-import OwnerProfile from "./OwnerProfile";
+import PerfilAnfitrion from "./PerfilAnfitrion";
 import ValidateEmail from "./ValidateEmail";
 import "../styles/leaflet.css";
 import EmailValidated from "./EmailValidated";
@@ -36,7 +36,7 @@ function App() {
         <Route path="/contacto" element={<Contacto />} />
         <Route path="/perfil-duenio" element={<PerfilDuenio />} />
         {isAuthenticated ? (
-          <Route path="/mi-perfil" element={<OwnerProfile />} />
+          <Route path="/mi-perfil" element={<PerfilAnfitrion />} />
         ) : (
           <Route path="/mi-perfil" element={<Navigate to="/login" />} /> // Utiliza Navigate dentro de un Route
         )}
