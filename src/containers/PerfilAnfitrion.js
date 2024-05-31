@@ -103,10 +103,10 @@ const PerfilAnfitrion = () => {
                 <p className="home-description">Tiene 1 Perro</p>
               </div>
             </div>
+            <Footer />
           </Col>
         </Row>
       </Container>
-      <Footer />
     </>
   );
 };
