@@ -55,7 +55,6 @@ const AddPetModal = ({ show, handleClose }) => {
         handleClose();
       } catch (error) {
         // Manejo de errores
-        console.log(error);
       }
       //  finally {
       //   setLoading(false);

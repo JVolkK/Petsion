@@ -54,9 +54,6 @@ const PerfilDuenio = () => {
     }
   }, [setUsuarioLogeado, setDatosAnfitrion, setLoading, setMascotas]);
 
-  console.log("Mascotas");
-  console.log(mascotas);
-
   return (
     <>
       <LoadingOverlay loading={loading} />
