@@ -14,6 +14,7 @@ import ValidateEmail from "./ValidateEmail";
 import "../styles/leaflet.css";
 import EmailValidated from "./EmailValidated";
 import PerfilDuenio from "./PerfilDuenio";
+import ReservarCuidador from "./ReservarCuidador";
 
 function App() {
   const { isAuthenticated } = useContext(AppContext);
@@ -40,6 +41,13 @@ function App() {
         ) : (
           <Route path="/mi-perfil" element={<Navigate to="/login" />} /> // Utiliza Navigate dentro de un Route
         )}
+
+        {isAuthenticated ? (
+          <Route
+            path="reservar-cuidador/:cuidadorId"
+            element={<ReservarCuidador />}
+          />
+        ) : null}
       </Routes>
     </div>
   );
