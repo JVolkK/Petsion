@@ -106,7 +106,7 @@ const FilterAnfitrionForm = () => {
           </Row>
           <Row>
             <Col className="d-flex justify-content-center  m-auto pt-3">
-              <Button type="submit">Enviar</Button>
+              <Button type="submit">Buscar</Button>
             </Col>
           </Row>
         </Container>
