@@ -1,0 +1,11 @@
+.image {
+  width: 8rem;
+  height: 8rem;
+}
+
+@media (min-width: 1200px) {
+  .image {
+    width: 12rem;
+    height: 12rem;
+  }
+}

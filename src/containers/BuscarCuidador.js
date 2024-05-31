@@ -2,15 +2,15 @@ import React, { useEffect, useState, useContext } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Container from "react-bootstrap/Container";
-import { Modal } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../styles/buscarCuidadorStyle.css";
 import ProfileCard from "../components/ProfileCard";
 import FilterAnfitrionForm from "../components/FilterAnfitrionForm";
-import Mapa from "../components/Mapa";  // Asegúrate de que la ruta es correcta
+import Mapa from "../components/Mapa";
 import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
+import { Modal } from "react-bootstrap";
 
 const geocodeAddress = async (address) => {
   try {
@@ -70,18 +70,18 @@ const BuscarCuidador = () => {
     } else {
       setLocations([]);
     }
-  }, [usuariosFiltrados]);
+  }, [usuariosFiltrados]); // Dependencia a usuariosFiltrados
 
   return (
     <>
       <NavBar />
-      <Container fluid>
+      <Container fluid className="h-100">
         <Container>
           <FilterAnfitrionForm />
         </Container>
         <Container>
           <Row>
-            <Col>
+            <Col className="scrollable-col pt-3">
               {usuariosFiltrados.length > 0 ? (
                 usuariosFiltrados.map((usuario, index) => (
                   <ProfileCard
@@ -89,20 +89,23 @@ const BuscarCuidador = () => {
                     nombre={usuario.name}
                     apellido={usuario.lastname}
                     ubicacion={usuario.direccion}
+                    tipoDeVivienda={usuario.tipoDeVivienda}
+                    conPatio={usuario.conPatio}
                     onClick={() => handleOpenModal(usuario)}
                   />
                 ))
               ) : (
-                <p>No se han encontrado usuarios filtrados</p>
+                <p>
+                  No se han encontrado cuidadores con esas caracteristicas 😞
+                </p>
               )}
             </Col>
-            <Col md={5}>
+            <Col md={5} className="pt-3">
               <Mapa locations={locations} />
             </Col>
           </Row>
         </Container>
       </Container>
-      <Footer />
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Información del Usuario</Modal.Title>
@@ -116,9 +119,9 @@ const BuscarCuidador = () => {
             </>
           )}
         </Modal.Body>
-        <Modal.Footer>
-        </Modal.Footer>
+        <Modal.Footer></Modal.Footer>
       </Modal>
+      <Footer />
     </>
   );
 };
