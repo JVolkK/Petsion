@@ -16,7 +16,7 @@ const ProfileCard = ({
 }) => {
   return (
     <Card onClick={onClick} className="d-flex flex-row w-100">
-      <Card.Img variant="top" src={profileIcon} className="image" />
+      <img src={profileIcon} className="image w-25 h-25" alt="asd" />
       <Card.Body>
         <Card.Title>{`${nombre} ${apellido}`}</Card.Title>
         {conPatio ? (
