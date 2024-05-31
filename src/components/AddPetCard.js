@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import { IoIosAddCircleOutline } from "react-icons/io";
 import { Container, Row } from "react-bootstrap";
 import "../styles/addPetCard.css";
 import AddPetModal from "./AddPetModal";
 
-const AddPetCard = () => {
+const AddPetCard = ({ setUsuarioLogeado }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
@@ -17,15 +17,11 @@ const AddPetCard = () => {
     <>
       <Container
         fluid
-        className="clickable-card border rounded m-3 p-0"
+        className="clickable-card border rounded m-3 p-0 ActionCard"
         onClick={handleShow}
       >
         <Row>
-          <ControlPointIcon
-            color="primary"
-            sx={{ fontSize: 80 }}
-            className="w-100 hoverIcon"
-          />
+          <IoIosAddCircleOutline size={80} className="w-100 hoverIcon" />
         </Row>
         <Row>
           <h5 className=" w-100 addPetCardTitle justify-content-center align-items-center d-flex ">

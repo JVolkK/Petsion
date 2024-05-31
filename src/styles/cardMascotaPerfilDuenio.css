@@ -1,0 +1,4 @@
+.scrollable-row {
+  max-height: 31.5rem; /* Adjust the height as needed */
+  overflow-y: auto;
+}
