@@ -16,7 +16,11 @@ const PerfilDuenio = () => {
   const { setUsuarioLogeado } = useContext(AppContext);
   const [datosAnfitrion, setDatosAnfitrion] = useState({});
   const [mascotas, setMascotas] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [renderKey, setRenderKey] = useState(0);
+
+  // Función para forzar el re-render
+  const handleRerender = () => setRenderKey((prevKey) => prevKey + 1);
 
   const logout = useLogout();
 
@@ -31,14 +35,17 @@ const PerfilDuenio = () => {
     }
 
     if (storedUsuarioLogeado.id) {
+      setLoading(true);
       axios
         .get(`https://api-petsion.onrender.com/user/${storedUsuarioLogeado.id}`)
         .then((response) => {
           // Guardar los datos en el estado
           setDatosAnfitrion(response.data);
+          setLoading(false);
         })
         .catch((error) => {});
 
+      setLoading(true);
       axios
         .post(`https://api-petsion.onrender.com/mascota/listar`, {
           user: storedUsuarioLogeado.id,
@@ -50,9 +57,14 @@ const PerfilDuenio = () => {
         })
         .catch((error) => {});
     } else {
-      setLoading(true);
     }
-  }, [setUsuarioLogeado, setDatosAnfitrion, setLoading, setMascotas]);
+  }, [
+    setUsuarioLogeado,
+    setDatosAnfitrion,
+    setLoading,
+    setMascotas,
+    renderKey,
+  ]);
 
   return (
     <>
@@ -68,12 +80,13 @@ const PerfilDuenio = () => {
             <h6>Dni: {datosAnfitrion.dni}</h6>
           </Col>
           <Col
+            key={renderKey}
             xl={2}
             xs={6}
             md={4}
             className="h-100 justify-content-center d-flex"
           >
-            <AddPetCard setUsuarioLogeado={setUsuarioLogeado} />
+            <AddPetCard handleRerender={handleRerender} />
           </Col>
           <Col
             xl={2}

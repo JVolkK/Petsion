@@ -4,7 +4,7 @@ import { Container, Row } from "react-bootstrap";
 import "../styles/addPetCard.css";
 import AddPetModal from "./AddPetModal";
 
-const AddPetCard = ({ setUsuarioLogeado }) => {
+const AddPetCard = ({ handleRerender }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
@@ -30,7 +30,11 @@ const AddPetCard = ({ setUsuarioLogeado }) => {
         </Row>
       </Container>
       <div>
-        <AddPetModal show={show} handleClose={handleClose} />
+        <AddPetModal
+          show={show}
+          handleClose={handleClose}
+          handleRerender={handleRerender}
+        />
       </div>
     </>
   );

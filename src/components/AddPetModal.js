@@ -1,18 +1,19 @@
-import React, { useState, useContext, forceUpdate } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Form, InputGroup, Button, Container, Row, Col } from "react-bootstrap";
 import { FaDog, FaCat } from "react-icons/fa";
 import { GiRabbit } from "react-icons/gi";
 import axios from "axios";
-import { AppContext } from "../contexts/AppContext";
 import LoadingOverlay from "./LoadingOverlay";
+import { useNavigate } from "react-router-dom";
 
-const AddPetModal = ({ show, handleClose }) => {
-  const { usuarioLogeado } = useContext(AppContext);
+const AddPetModal = ({ show, handleClose, handleRerender }) => {
   const [loading, setLoading] = useState(false);
+  const [usuarioLogeadoLocal, setUsuarioLogeadoLocal] = useState(null);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    user: usuarioLogeado.id,
+    user: null,
     nombre: "",
     tipoMascota: "Perro",
     edad: "",
@@ -45,24 +46,45 @@ const AddPetModal = ({ show, handleClose }) => {
           edad: formData.edad,
           peso: formData.edad,
         });
-
+        setLoading(false);
+        handleRerender();
+        handleClose();
+      } catch (error) {
+        // Manejo de errores
+      } finally {
+        setErrors({});
         setFormData({
-          user: usuarioLogeado.id,
+          user: usuarioLogeadoLocal.id,
           nombre: "",
           tipoMascota: "Perro",
           edad: "",
           peso: "",
         });
-        setErrors({});
-        forceUpdate();
-        handleClose();
-      } catch (error) {
-        // Manejo de errores
-      } finally {
-        setLoading(false);
       }
     }
   };
+
+  useEffect(() => {
+    //Traer usuario logeado local con localstorage
+    const storedUsuarioLogeado = JSON.parse(
+      localStorage.getItem("usuarioLogeado")
+    );
+    if (storedUsuarioLogeado) {
+      setUsuarioLogeadoLocal(storedUsuarioLogeado);
+    } else {
+      navigate("/"); //Volver al home si no hay usuario logeado.
+    }
+  }, [navigate]);
+
+  // Este useEffect es clave para guardar el id del usuario dueño que sera usado en el formulario, este detecta si ya fue tomado por el useEffect de arriba, lo guarde en el state y actualiza el componente
+  useEffect(() => {
+    if (usuarioLogeadoLocal) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        user: usuarioLogeadoLocal.id,
+      }));
+    }
+  }, [usuarioLogeadoLocal, setFormData]);
 
   const validate = () => {
     let newErrors = {};
