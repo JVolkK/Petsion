@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import {
@@ -12,21 +12,21 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingOverlay from "../components/LoadingOverlay";
-import { AppContext } from "../contexts/AppContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import CardMascotaReserva from "../components/CardMascotaReserva";
 
 const ReservarCuidador = () => {
   const navigate = useNavigate();
   const { cuidadorId } = useParams();
   const [datosCuidador, setDatosCuidador] = useState({});
-  const [usuarioLogeadoLocal, setUsuarioLogeadoLocal] = useState({});
+  const [usuarioLogeadoLocal, setUsuarioLogeadoLocal] = useState({
+    mascotas: {},
+  });
   const [loading, setLoading] = useState(false);
-  console.log(cuidadorId);
 
   const [formData, setFormData] = useState({
-    user: usuarioLogeadoLocal.id,
-    usuarioNombre: usuarioLogeadoLocal.name,
+    user: null,
     anfitrion: cuidadorId,
     tipoDeServicio: "Alojamiento",
     fechaDeEntrada: null,
@@ -65,7 +65,6 @@ const ReservarCuidador = () => {
         setLoading(true);
         await axios.post("https://api-petsion.onrender.com/reservas/crear", {
           user: formData.user,
-          usuarioNombre: formData.usuarioNombre,
           anfitrion: formData.anfitrion,
           tipoDeServicio: formData.tipoDeServicio,
           fechaDeEntrada: formData.fechaDeEntrada,
@@ -78,7 +77,6 @@ const ReservarCuidador = () => {
 
         setFormData({
           user: usuarioLogeadoLocal.id,
-          usuarioNombre: usuarioLogeadoLocal.name,
           anfitrion: cuidadorId,
           tipoDeServicio: "Alojamiento",
           fechaDeEntrada: null,
@@ -130,6 +128,8 @@ const ReservarCuidador = () => {
     );
     if (storedUsuarioLogeado) {
       setUsuarioLogeadoLocal(storedUsuarioLogeado);
+    } else {
+      navigate("/"); //Volver al home si no hay usuario logeado.
     }
 
     if (cuidadorId) {
@@ -150,6 +150,44 @@ const ReservarCuidador = () => {
     }
   }, [cuidadorId, navigate]);
 
+  // Este useEffect es clave para guardar el id del usuario dueño que sera usado en el formulario, este detecta si ya fue tomado por el useEffect de arriba, lo guarde en el state y actualiza el componente
+  useEffect(() => {
+    if (usuarioLogeadoLocal && usuarioLogeadoLocal.id !== formData.user) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        user: usuarioLogeadoLocal.id,
+      }));
+    }
+  }, [usuarioLogeadoLocal, formData.user]);
+
+  // Realizar la solicitud Axios para obtener las mascotas cuando el ID del usuario esté disponible
+  useEffect(() => {
+    if (usuarioLogeadoLocal && usuarioLogeadoLocal.id !== formData.user) {
+      axios
+        .post(`https://api-petsion.onrender.com/mascota/listar`, {
+          user: usuarioLogeadoLocal.id,
+        })
+        .then((response) => {
+          setUsuarioLogeadoLocal(() => ({
+            id: usuarioLogeadoLocal.id,
+            rol: usuarioLogeadoLocal.rol,
+            mascotas: response.data,
+          }));
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        })
+        .finally();
+    }
+  }, [usuarioLogeadoLocal, formData.user]);
+
+  useEffect(() => {
+    if (usuarioLogeadoLocal.mascotas) {
+      console.log(usuarioLogeadoLocal.mascotas.length);
+    }
+  }, [usuarioLogeadoLocal]);
+
   return (
     <>
       <NavBar />
@@ -158,8 +196,7 @@ const ReservarCuidador = () => {
         <LoadingOverlay loading={loading} />
         <Row>
           <h1>
-            Reservar a {datosCuidador.name} {datosCuidador.lastname}{" "}
-            {usuarioLogeadoLocal.id}
+            Reservar a {datosCuidador.name} {datosCuidador.lastname}
           </h1>
         </Row>
         <Row>
@@ -264,6 +301,37 @@ const ReservarCuidador = () => {
                       minDate={new Date()} // Restringe la selección a fechas a partir de hoy
                     />
                   </InputGroup>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col xl={12}>
+                <Form.Group className="mb-3" controlId="formGroupMascotas">
+                  <Form.Label>¿A que mascota cuidará?</Form.Label>
+                  <Row>
+                    {usuarioLogeadoLocal.mascotas &&
+                    usuarioLogeadoLocal.mascotas.length > 0 ? (
+                      usuarioLogeadoLocal.mascotas.map((mascota, index) => (
+                        <Col>
+                          <Form.Check
+                            className="border"
+                            inline
+                            label={
+                              <CardMascotaReserva
+                                nombre={mascota.nombre}
+                                tipoMascota={mascota.tipoMascota}
+                              />
+                            }
+                            name={mascota.nombre}
+                            type="checkbox"
+                            id={index}
+                          ></Form.Check>
+                        </Col>
+                      ))
+                    ) : (
+                      <h1>No hay mascota</h1>
+                    )}
+                  </Row>
                 </Form.Group>
               </Col>
             </Row>
