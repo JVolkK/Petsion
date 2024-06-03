@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 import "../styles/buscarCuidadorStyle.css";
 import ProfileCard from "../components/ProfileCard";
 import FilterAnfitrionForm from "../components/FilterAnfitrionForm";
@@ -11,6 +12,7 @@ import Mapa from "../components/Mapa";
 import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
 import { Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const geocodeAddress = async (address) => {
   try {
@@ -43,6 +45,7 @@ const BuscarCuidador = () => {
   const [locations, setLocations] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const navigate = useNavigate();
 
   const handleOpenModal = (usuario) => {
     setSelectedUser(usuario);
@@ -116,6 +119,14 @@ const BuscarCuidador = () => {
               <p>Nombre: {selectedUser.name}</p>
               <p>Apellido: {selectedUser.lastname}</p>
               <p>Ubicación: {selectedUser.direccion}</p>
+              <Button
+                className="contact-button"
+                onClick={() => {
+                  navigate(`/reservar-cuidador/${selectedUser._id}`);
+                }}
+              >
+                Contactar a {`${selectedUser.name}`}
+              </Button>
             </>
           )}
         </Modal.Body>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import {
   Container,
   Row,
@@ -8,6 +8,7 @@ import {
   Form,
   FloatingLabel,
   InputGroup,
+  Button,
 } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -28,7 +29,11 @@ const ReservarCuidador = () => {
   const [formData, setFormData] = useState({
     user: null,
     anfitrion: cuidadorId,
-    tipoDeServicio: "Alojamiento",
+    tipoDeServicio: datosCuidador.disponibilidadAlojamiento
+      ? "Alojamiento"
+      : datosCuidador.disponibilidadVisita
+      ? "Cuidado de día"
+      : "Paseo",
     fechaDeEntrada: null,
     fechaDeSalida: null,
     horarioDeEntrada: null,
@@ -37,11 +42,11 @@ const ReservarCuidador = () => {
     mensaje: "",
   });
 
-  const [errors, setErrors] = useState({
-    nombre: "",
-    edad: "",
-    peso: "",
-  });
+  // const [errors, setErrors] = useState({
+  //   nombre: "",
+  //   edad: "",
+  //   peso: "",
+  // });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -78,7 +83,7 @@ const ReservarCuidador = () => {
         setFormData({
           user: usuarioLogeadoLocal.id,
           anfitrion: cuidadorId,
-          tipoDeServicio: "Alojamiento",
+          tipoDeServicio: null,
           fechaDeEntrada: null,
           fechaDeSalida: null,
           horarioDeEntrada: null,
@@ -86,7 +91,7 @@ const ReservarCuidador = () => {
           mascotasCuidado: [],
           mensaje: "",
         });
-        setErrors({});
+        // setErrors({});
       } catch (error) {
         // Manejo de errores
       } finally {
@@ -117,8 +122,8 @@ const ReservarCuidador = () => {
       newErrors.peso = "El peso debe ser un número entre 0.001 y 100.";
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // setErrors(newErrors);
+    // return Object.keys(newErrors).length === 0;
   };
 
   useEffect(() => {
@@ -182,12 +187,6 @@ const ReservarCuidador = () => {
     }
   }, [usuarioLogeadoLocal, formData.user]);
 
-  useEffect(() => {
-    if (usuarioLogeadoLocal.mascotas) {
-      console.log(usuarioLogeadoLocal.mascotas.length);
-    }
-  }, [usuarioLogeadoLocal]);
-
   return (
     <>
       <NavBar />
@@ -200,22 +199,28 @@ const ReservarCuidador = () => {
           </h1>
         </Row>
         <Row>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Row>
               <Col>
                 <Form.Group className="mb-3" controlId="formGroupTipoMascota">
                   <FloatingLabel
                     controlId="floatingSelect"
-                    label="Works with selects"
+                    label={`Servicios que ofrece ${datosCuidador.name}`}
                   >
                     <Form.Select
                       onChange={handleChange}
                       value={formData.tipoDeServicio}
                       name="tipoDeServicio"
                     >
-                      <option value="Alojamiento">Alojamiento</option>
-                      <option value="Cuidado de día">Cuidado de día</option>
-                      <option value="Paseo">Paseo</option>
+                      {datosCuidador.disponibilidadAlojamiento ? (
+                        <option value="Alojamiento">Alojamiento</option>
+                      ) : null}
+                      {datosCuidador.disponibilidadVisita ? (
+                        <option value="Cuidado de día">Cuidado de día</option>
+                      ) : null}
+                      {datosCuidador.disponibilidadPaseo ? (
+                        <option value="Paseo">Paseo</option>
+                      ) : null}
                     </Form.Select>
                   </FloatingLabel>
                 </Form.Group>
@@ -322,23 +327,62 @@ const ReservarCuidador = () => {
                                 tipoMascota={mascota.tipoMascota}
                               />
                             }
-                            name={mascota.nombre}
+                            name="mascotasCuidado"
                             type="checkbox"
-                            id={index}
+                            id={mascota._id}
+                            value={mascota._id}
+                            onChange={(e) => {
+                              const { checked, value } = e.target;
+                              setFormData((prevFormData) => {
+                                const updatedMascotas = checked
+                                  ? [...prevFormData.mascotasCuidado, value]
+                                  : prevFormData.mascotasCuidado.filter(
+                                      (id) => id !== value
+                                    );
+                                return {
+                                  ...prevFormData,
+                                  mascotasCuidado: updatedMascotas,
+                                };
+                              });
+                            }}
                           ></Form.Check>
                         </Col>
                       ))
                     ) : (
-                      <h1>No hay mascota</h1>
+                      <h4>No tienes ninguna mascota, carga una.</h4>
                     )}
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlTextarea1"
+                      >
+                        <Form.Label>
+                          Mensaje para el cuidador (opcional)
+                        </Form.Label>
+                        <Form.Control
+                          name="mensaje"
+                          onChange={handleChange}
+                          value={formData.mensaje}
+                          as="textarea"
+                          placeholder="Indica cuidados especiales, si llevas o no su propio alimento, cosas a tener en cuenta, etc"
+                          rows={4}
+                          style={{ resize: "none" }}
+                        />
+                      </Form.Group>
+                    </Col>
                   </Row>
                 </Form.Group>
               </Col>
             </Row>
+            <Row>
+              <Button type="submit">Enviar</Button>
+            </Row>
           </Form>
         </Row>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
