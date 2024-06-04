@@ -17,6 +17,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CardMascotaReserva from "../components/CardMascotaReserva";
 import AddPetCard from "../components/AddPetCard";
+import "../styles/ReservarCuidador.css";
 
 const ReservarCuidador = () => {
   const navigate = useNavigate();
@@ -97,13 +98,13 @@ const ReservarCuidador = () => {
 
   const validate = () => {
     let newErrors = {};
-    const mensajeTest = /^[a-zA-Z0-9\s-]+$/;
+    const mensajeTest = /^[a-zA-Z0-9\s\-!@#$%^&*(),.?"':;]+$/;
 
     if (formData.tipoDeServicio === null && "") {
       newErrors.tipoDeServicio = "Ingrese un tipo de servicio";
     }
     if (formData.fechaDeEntrada === null) {
-      newErrors.tipoDeServicio = "Seleccione una fecha de entrada.";
+      newErrors.fechaDeEntrada = "Seleccione una fecha de entrada.";
     }
     if (formData.fechaDeSalida === null) {
       newErrors.fechaDeSalida = "Seleccione una fecha de salida";
@@ -123,8 +124,10 @@ const ReservarCuidador = () => {
       newErrors.mascotasCuidado = `${datosCuidador.name} cuida un maximo de ${datosCuidador.cantidadDeAnimales} mascotas.`;
     }
 
-    if (!mensajeTest.test(formData.mensaje)) {
-      newErrors.mensaje = "Solo puedes ingresar letras,numeros y guiones.";
+    if (formData.mensaje === null || formData.mensaje === "") {
+      newErrors.mensaje = "Debe ingresar un mensaje.";
+    } else if (!mensajeTest.test(formData.mensaje)) {
+      newErrors.mensaje = "No se aceptan caracteres especiales.";
     }
 
     setErrors(newErrors);
@@ -154,15 +157,6 @@ const ReservarCuidador = () => {
           setLoading(false);
           navigate("/");
         });
-      // .finally(
-      //   setDatosCuidador({
-      //     tipoDeServicio: datosCuidador.disponibilidadAlojamiento
-      //       ? "Alojamiento"
-      //       : datosCuidador.disponibilidadVisita
-      //       ? "Cuidado de día"
-      //       : "Paseo",
-      //   })
-      // );
     } else {
       setLoading(false);
       navigate("/");
@@ -253,6 +247,19 @@ const ReservarCuidador = () => {
     }
   }, [datosCuidador]);
 
+  const CustomInput = React.forwardRef(
+    ({ value, onClick, onChange, isInvalid }, ref) => (
+      <Form.Control
+        type="text"
+        onClick={onClick}
+        onChange={onChange}
+        value={value}
+        isInvalid={isInvalid}
+        ref={ref}
+      />
+    )
+  );
+
   return (
     <>
       <NavBar />
@@ -261,14 +268,15 @@ const ReservarCuidador = () => {
         <LoadingOverlay loading={loading} />
 
         <Row>
-          <h1>
+          <h1 className="my-4">
             Reservar a {datosCuidador.name} {datosCuidador.lastname}
           </h1>
         </Row>
         <Row>
           <Form onSubmit={handleSubmit}>
-            <Row>
+            <Row className="my-2">
               <Col>
+                <h5>Selecciona un servicio:</h5>
                 <Form.Group className="mb-3" controlId="formGroupTipoMascota">
                   <FloatingLabel
                     controlId="floatingSelect"
@@ -293,12 +301,21 @@ const ReservarCuidador = () => {
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
+            <Row className="my-2">
+              <h5>Selecciona fechas:</h5>
+              <Form.Text id="passwordHelpBlock" muted>
+                En verde podras ver los dias en los que trabaja{" "}
+                {datosCuidador.name} {datosCuidador.lastname}
+              </Form.Text>
               <Col xl={5}>
-                <Form.Group className="mb-3" controlId="formGroupFechaEntrada">
+                <Form.Group
+                  className="mb-3 my-2"
+                  controlId="formGroupFechaEntrada"
+                >
                   <Form.Label>Fecha de entrada</Form.Label>
-                  <InputGroup className="mb-3 " name="fechaDeEntrada">
+                  <InputGroup className="mb-3" name="fechaDeEntrada">
                     <DatePicker
+                      showIcon
                       selected={formData.fechaDeEntrada}
                       onChange={(date) =>
                         handleDateChange("fechaDeEntrada", date)
@@ -308,15 +325,22 @@ const ReservarCuidador = () => {
                       name="fechaDeEntrada"
                       minDate={new Date()}
                       highlightDates={highlightedDates}
+                      customInput={
+                        <CustomInput isInvalid={!!errors.fechaDeEntrada} />
+                      }
                     />
                   </InputGroup>
                 </Form.Group>
               </Col>
               <Col xl={5}>
-                <Form.Group className="mb-3" controlId="formGroupFechaEntrada">
+                <Form.Group
+                  className="mb-3 my-2"
+                  controlId="formGroupFechaSalida"
+                >
                   <Form.Label>Fecha de salida</Form.Label>
                   <InputGroup className="mb-3" name="fechaDeSalida">
                     <DatePicker
+                      showIcon
                       selected={formData.fechaDeSalida}
                       onChange={(date) =>
                         handleDateChange("fechaDeSalida", date)
@@ -326,12 +350,16 @@ const ReservarCuidador = () => {
                       name="fechaDeSalida"
                       minDate={new Date()}
                       highlightDates={highlightedDates}
+                      customInput={
+                        <CustomInput isInvalid={!!errors.fechaDeSalida} />
+                      }
                     />
                   </InputGroup>
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
+            <Row className="my-2">
+              <h5>Selecciona los horarios:</h5>
               <Col xl={5} className="">
                 <Form.Group
                   className="mb-3 "
@@ -352,6 +380,9 @@ const ReservarCuidador = () => {
                       className="form-control"
                       name="horarioDeEntrada"
                       minDate={new Date()} // Restringe la selección a fechas a partir de hoy
+                      customInput={
+                        <CustomInput isInvalid={!!errors.horarioDeEntrada} />
+                      }
                     />
                   </InputGroup>
                 </Form.Group>
@@ -361,6 +392,7 @@ const ReservarCuidador = () => {
                   <Form.Label>Horario de salida</Form.Label>
                   <InputGroup className="mb-3">
                     <DatePicker
+                      isInvalid={!!errors.horarioDeSalida}
                       selected={formData.horarioDeSalida}
                       onChange={(date) =>
                         handleDateChange("horarioDeSalida", date)
@@ -373,15 +405,21 @@ const ReservarCuidador = () => {
                       className="form-control"
                       name="horarioDeSalida"
                       minDate={new Date()} // Restringe la selección a fechas a partir de hoy
+                      customInput={
+                        <CustomInput isInvalid={!!errors.horarioDeSalida} />
+                      }
                     />
                   </InputGroup>
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
+            <Row className="my-2">
               <Col xl={12} className="">
                 <Form.Group className="mb-3" controlId="formGroupMascotas">
-                  <Form.Label>¿A que mascota cuidará?</Form.Label>
+                  <h5>¿A que mascota cuidará?</h5>
+
+                  <p className="text-error">{errors.mascotasCuidado}</p>
+
                   <Row className="w-100 scrollable-row">
                     {usuarioLogeadoLocal.mascotas &&
                     usuarioLogeadoLocal.mascotas.length > 0 ? (
@@ -421,37 +459,35 @@ const ReservarCuidador = () => {
                       <AddPetCard />
                     )}
                   </Row>
-                  <Form.Control.Feedback type="invalid">
-                    {errors.mascotasCuidado}
-                  </Form.Control.Feedback>
                 </Form.Group>
-                <Row>
-                  <Col>
-                    <Form.Group className="mb-3">
-                      <Form.Label>
-                        Mensaje para el cuidador (opcional)
-                      </Form.Label>
-                      <Form.Control
-                        maxLength={100}
-                        name="mensaje"
-                        onChange={handleChange}
-                        value={formData.mensaje}
-                        as="textarea"
-                        placeholder="Indica cuidados especiales, si llevas o no su propio alimento, cosas a tener en cuenta, etc"
-                        rows={4}
-                        style={{ resize: "none" }}
-                        isInvalid={!!errors.nombre}
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        {errors.mensaje}
-                      </Form.Control.Feedback>
-                    </Form.Group>
-                  </Col>
-                </Row>
               </Col>
+              <Row className="my-4">
+                <Col>
+                  <Form.Group className="mb-3">
+                    <div className="d-flex justify-content-start">
+                      <h5>Mensaje para el cuidador</h5>
+                      {/* <Form.Text muted> (opcional)</Form.Text> */}
+                    </div>
+                    <Form.Control
+                      maxLength={100}
+                      name="mensaje"
+                      onChange={handleChange}
+                      value={formData.mensaje}
+                      as="textarea"
+                      placeholder="Indica cuidados especiales, si llevas o no su propio alimento, cosas a tener en cuenta, etc"
+                      rows={4}
+                      style={{ resize: "none" }}
+                      isInvalid={!!errors.mensaje}
+                    />
+                    <p className="text-error">{errors.mensaje}</p>
+                  </Form.Group>
+                </Col>
+              </Row>
             </Row>
-            <Row>
-              <Button type="submit">Enviar</Button>
+            <Row className="d-flex justify-content-center">
+              <Col xl={6} className="d-flex justify-content-center">
+                <Button type="submit">Enviar reserva</Button>
+              </Col>
             </Row>
           </Form>
         </Row>
