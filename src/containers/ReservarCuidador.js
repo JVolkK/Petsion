@@ -16,6 +16,7 @@ import LoadingOverlay from "../components/LoadingOverlay";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CardMascotaReserva from "../components/CardMascotaReserva";
+import AddPetCard from "../components/AddPetCard";
 
 const ReservarCuidador = () => {
   const navigate = useNavigate();
@@ -24,16 +25,13 @@ const ReservarCuidador = () => {
   const [usuarioLogeadoLocal, setUsuarioLogeadoLocal] = useState({
     mascotas: {},
   });
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-
+  const [highlightedDates, setHighlightedDates] = useState([]);
   const [formData, setFormData] = useState({
-    user: null,
+    user: usuarioLogeadoLocal.id,
     anfitrion: cuidadorId,
-    tipoDeServicio: datosCuidador.disponibilidadAlojamiento
-      ? "Alojamiento"
-      : datosCuidador.disponibilidadVisita
-      ? "Cuidado de día"
-      : "Paseo",
+    tipoDeServicio: null,
     fechaDeEntrada: null,
     fechaDeSalida: null,
     horarioDeEntrada: null,
@@ -41,12 +39,6 @@ const ReservarCuidador = () => {
     mascotasCuidado: [],
     mensaje: "",
   });
-
-  // const [errors, setErrors] = useState({
-  //   nombre: "",
-  //   edad: "",
-  //   peso: "",
-  // });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,6 +58,8 @@ const ReservarCuidador = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
+      console.log("Validate dio:");
+      console.log(validate());
       try {
         setLoading(true);
         await axios.post("https://api-petsion.onrender.com/reservas/crear", {
@@ -91,8 +85,9 @@ const ReservarCuidador = () => {
           mascotasCuidado: [],
           mensaje: "",
         });
-        // setErrors({});
+        setErrors({});
       } catch (error) {
+        setLoading(false);
         // Manejo de errores
       } finally {
         setLoading(false);
@@ -102,28 +97,38 @@ const ReservarCuidador = () => {
 
   const validate = () => {
     let newErrors = {};
-    const nombreRegex = /^[a-zA-Z0-9]+$/;
-    const edadRegex = /^[0-9]+$/;
-    const pesoRegex = /^(?:100(\.0{1,2})?|[1-9]?\d(\.\d{1,2})?|0\.[1-9]\d?)$/;
+    const mensajeTest = /^[a-zA-Z0-9\s-]+$/;
 
-    if (!nombreRegex.test(formData.nombre)) {
-      newErrors.nombre = "El nombre solo puede contener letras y números.";
+    if (formData.tipoDeServicio === null && "") {
+      newErrors.tipoDeServicio = "Ingrese un tipo de servicio";
     }
-    if (formData.nombre.length < 1 || formData.nombre.length > 20) {
-      newErrors.nombre = "El nombre debe ser de entre 1 y 20 caracteres.";
+    if (formData.fechaDeEntrada === null) {
+      newErrors.tipoDeServicio = "Seleccione una fecha de entrada.";
     }
-    if (!edadRegex.test(formData.edad)) {
-      newErrors.edad = "La edad solo puede contener números del 0 al 9.";
+    if (formData.fechaDeSalida === null) {
+      newErrors.fechaDeSalida = "Seleccione una fecha de salida";
     }
-    if (formData.edad < 1 || formData.edad >= 31) {
-      newErrors.edad = "La edad debe ser un número entre 1 y 31.";
+    if (formData.horarioDeEntrada === null) {
+      newErrors.horarioDeEntrada = "Seleccione un horario de entrada";
     }
-    if (!pesoRegex.test(formData.peso)) {
-      newErrors.peso = "El peso debe ser un número entre 0.001 y 100.";
+    if (formData.horarioDeSalida === null) {
+      newErrors.horarioDeSalida = "Seleccione un horario de salida";
     }
 
-    // setErrors(newErrors);
-    // return Object.keys(newErrors).length === 0;
+    if (formData.mascotasCuidado.length === 0) {
+      newErrors.mascotasCuidado = "Elige una mascota para tu reserva.";
+    } else if (
+      formData.mascotasCuidado.length > datosCuidador.cantidadDeAnimales
+    ) {
+      newErrors.mascotasCuidado = `${datosCuidador.name} cuida un maximo de ${datosCuidador.cantidadDeAnimales} mascotas.`;
+    }
+
+    if (!mensajeTest.test(formData.mensaje)) {
+      newErrors.mensaje = "Solo puedes ingresar letras,numeros y guiones.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   useEffect(() => {
@@ -144,11 +149,20 @@ const ReservarCuidador = () => {
         .then((response) => {
           // Guardar los datos en el estado
           setDatosCuidador(response.data);
-          setLoading(false);
         })
         .catch(() => {
+          setLoading(false);
           navigate("/");
         });
+      // .finally(
+      //   setDatosCuidador({
+      //     tipoDeServicio: datosCuidador.disponibilidadAlojamiento
+      //       ? "Alojamiento"
+      //       : datosCuidador.disponibilidadVisita
+      //       ? "Cuidado de día"
+      //       : "Paseo",
+      //   })
+      // );
     } else {
       setLoading(false);
       navigate("/");
@@ -187,12 +201,65 @@ const ReservarCuidador = () => {
     }
   }, [usuarioLogeadoLocal, formData.user]);
 
+  useEffect(() => {
+    if (
+      datosCuidador.disponibilidadAlojamiento ||
+      datosCuidador.disponibilidadPaseo ||
+      datosCuidador.disponibilidadVisita
+    ) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        tipoDeServicio: datosCuidador.disponibilidadAlojamiento
+          ? "Alojamiento"
+          : datosCuidador.disponibilidadVisita
+          ? "Cuidado de día"
+          : datosCuidador.disponibilidadPaseo
+          ? "Paseo"
+          : "",
+      }));
+    }
+  }, [datosCuidador]);
+
+  useEffect(() => {
+    if (datosCuidador) {
+      const daysMap = {
+        disponibilidadlunes: 1,
+        disponibilidadmartes: 2,
+        disponibilidadmiercoles: 3,
+        disponibilidadjueves: 4,
+        disponibilidadviernes: 5,
+        disponibilidadsabado: 6,
+        disponibilidaddomingo: 0,
+      };
+
+      const today = new Date();
+      const highlighted = [];
+
+      Object.keys(daysMap).forEach((key) => {
+        if (datosCuidador[key] === true) {
+          // Verificación explícita de true
+          for (let i = 0; i < 60; i++) {
+            // Asumiendo que deseamos resaltar los días en los próximos 30 días
+            const current = new Date();
+            current.setDate(today.getDate() + i);
+            if (current.getDay() === daysMap[key]) {
+              highlighted.push(new Date(current)); // Crear nueva instancia para evitar problemas de referencia
+            }
+          }
+        }
+      });
+
+      setHighlightedDates(highlighted);
+    }
+  }, [datosCuidador]);
+
   return (
     <>
       <NavBar />
 
-      <Container className="vh-100">
+      <Container className="h-100">
         <LoadingOverlay loading={loading} />
+
         <Row>
           <h1>
             Reservar a {datosCuidador.name} {datosCuidador.lastname}
@@ -240,6 +307,7 @@ const ReservarCuidador = () => {
                       className="form-control"
                       name="fechaDeEntrada"
                       minDate={new Date()}
+                      highlightDates={highlightedDates}
                     />
                   </InputGroup>
                 </Form.Group>
@@ -257,6 +325,7 @@ const ReservarCuidador = () => {
                       className="form-control"
                       name="fechaDeSalida"
                       minDate={new Date()}
+                      highlightDates={highlightedDates}
                     />
                   </InputGroup>
                 </Form.Group>
@@ -310,10 +379,10 @@ const ReservarCuidador = () => {
               </Col>
             </Row>
             <Row>
-              <Col xl={12}>
+              <Col xl={12} className="">
                 <Form.Group className="mb-3" controlId="formGroupMascotas">
                   <Form.Label>¿A que mascota cuidará?</Form.Label>
-                  <Row>
+                  <Row className="w-100 scrollable-row">
                     {usuarioLogeadoLocal.mascotas &&
                     usuarioLogeadoLocal.mascotas.length > 0 ? (
                       usuarioLogeadoLocal.mascotas.map((mascota, index) => (
@@ -349,31 +418,36 @@ const ReservarCuidador = () => {
                         </Col>
                       ))
                     ) : (
-                      <h4>No tienes ninguna mascota, carga una.</h4>
+                      <AddPetCard />
                     )}
                   </Row>
-                  <Row>
-                    <Col>
-                      <Form.Group
-                        className="mb-3"
-                        controlId="exampleForm.ControlTextarea1"
-                      >
-                        <Form.Label>
-                          Mensaje para el cuidador (opcional)
-                        </Form.Label>
-                        <Form.Control
-                          name="mensaje"
-                          onChange={handleChange}
-                          value={formData.mensaje}
-                          as="textarea"
-                          placeholder="Indica cuidados especiales, si llevas o no su propio alimento, cosas a tener en cuenta, etc"
-                          rows={4}
-                          style={{ resize: "none" }}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.mascotasCuidado}
+                  </Form.Control.Feedback>
                 </Form.Group>
+                <Row>
+                  <Col>
+                    <Form.Group className="mb-3">
+                      <Form.Label>
+                        Mensaje para el cuidador (opcional)
+                      </Form.Label>
+                      <Form.Control
+                        maxLength={100}
+                        name="mensaje"
+                        onChange={handleChange}
+                        value={formData.mensaje}
+                        as="textarea"
+                        placeholder="Indica cuidados especiales, si llevas o no su propio alimento, cosas a tener en cuenta, etc"
+                        rows={4}
+                        style={{ resize: "none" }}
+                        isInvalid={!!errors.nombre}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.mensaje}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
               </Col>
             </Row>
             <Row>
@@ -382,7 +456,6 @@ const ReservarCuidador = () => {
           </Form>
         </Row>
       </Container>
-      {/* <Footer /> */}
     </>
   );
 };
