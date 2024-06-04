@@ -16,6 +16,17 @@ const AppProvider = ({ children }) => {
     }
   }, []);
 
+  useEffect(() => {
+    const usuarioLocal = JSON.parse(localStorage.getItem("usuarioLogeado"));
+    if (usuarioLocal) {
+      setUsuarioLogeado(usuarioLocal);
+    } else {
+      setUsuarioLogeado({
+        rol: "guess",
+      });
+    }
+  }, []);
+
   return (
     <AppContext.Provider
       value={{
