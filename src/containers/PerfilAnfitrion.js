@@ -51,7 +51,7 @@ const PerfilAnfitrion = () => {
     <>
       <LoadingOverlay loading={loading} />
       <NavBar />
-      <Container className="vh-100">
+      <Container className="vh-100 p-auto m-auto">
         <Row className="justify-content-start custom-row-padding">
           <Col className="profile-container" md="6">
             <img
@@ -61,10 +61,6 @@ const PerfilAnfitrion = () => {
             />
             <h1 className="nombre-anfitrion">{`${datosAnfitrion.name} ${datosAnfitrion.lastname}`}</h1>
             <h2 className="direccion-anfitrion">{datosAnfitrion.direccion}</h2>
-            <Button className="contact-button">
-              {" "}
-              Contactar a {`${datosAnfitrion.name}`}
-            </Button>
             <div className="services">
               <h3 className="section-title">Servicios</h3>
               <div className="service-item">

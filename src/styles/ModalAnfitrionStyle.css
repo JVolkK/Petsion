@@ -7,6 +7,20 @@
   padding: 20px 20px;
 }
 
+/* Estilos para el botón de contacto */
+.contact-button {
+  margin-top: 20px;
+  color: #ffffff;
+  border: 2px solid #007bff;
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+
+.contact-button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
 /* Estilos para el ícono de perfil */
 .profile-icon {
   width: 150px;
