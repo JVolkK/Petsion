@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import { AppContext } from "../contexts/AppContext";
-import axios from "axios";
-import LoadingOverlay from "../components/LoadingOverlay";
+// import axios from "axios";
+// import LoadingOverlay from "../components/LoadingOverlay";
 
 const MisReservasAnfitrion = () => {
   const { setUsuarioLogeado } = useContext(AppContext);
-  const [datosAnfitrion, setDatosAnfitrion] = useState({});
-  const [loading, setLoading] = useState(false);
+  //   const [datosAnfitrion, setDatosAnfitrion] = useState({});
+  //   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const storedUsuarioLogeado = JSON.parse(
@@ -22,14 +22,15 @@ const MisReservasAnfitrion = () => {
 
   return (
     <>
-      <LoadingOverlay loading={loading} />
+      {/* <LoadingOverlay loading={loading} /> */}
       <NavBar />
       {/* <Grid container spacing={2}>
-  <Grid item xs={8}>
-    <Item>xs=8</Item>
-  </Grid>
-  
-</Grid> */}
+        <Grid item xs={8}>
+          <Item>
+            <h1>MisReservasAnfitrion</h1>
+          </Item>
+        </Grid>
+      </Grid> */}
       <h1>MisReservasAnfitrion</h1>
     </>
   );
