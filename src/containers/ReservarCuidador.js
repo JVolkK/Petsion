@@ -263,7 +263,7 @@ const ReservarCuidador = () => {
     <>
       <NavBar />
 
-      <Container className="h-100">
+      <Container className="h-100 p-auto m-auto">
         <LoadingOverlay loading={loading} />
 
         <Row>
