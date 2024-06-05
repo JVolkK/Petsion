@@ -15,6 +15,7 @@ import "../styles/leaflet.css";
 import EmailValidated from "./EmailValidated";
 import PerfilDuenio from "./PerfilDuenio";
 import ReservarCuidador from "./ReservarCuidador";
+import ProtectedRoute from '../components/ProtectedRoute';
 
 function App() {
   const { isAuthenticated } = useContext(AppContext);
@@ -35,7 +36,9 @@ function App() {
         <Route path="/validate-email" element={<ValidateEmail />} />
         <Route path="/email-validated" element={<EmailValidated />} />
         <Route path="/contacto" element={<Contacto />} />
-        <Route path="/perfil-duenio" element={<PerfilDuenio />} />
+        <Route element={<ProtectedRoute rolDeseado="user" />}>
+         <Route path="/perfil-duenio" element={PerfilDuenio} rolDeseado="user" />
+        </Route>
         {isAuthenticated ? (
           <Route path="/mi-perfil" element={<PerfilAnfitrion />} />
         ) : (
