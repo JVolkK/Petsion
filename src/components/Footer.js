@@ -21,9 +21,9 @@ function Footer() {
 
   return (
     <>
-      <Container fluid className="p-0">
+      <Container fluid className="p-0 p-auto m-auto">
         <footer className="footer mt-auto py-3 bg-custom-color">
-          <Row className="container">
+          <Row className="container p-auto m-auto">
             <Col sm={12} md={4}>
               <nav className="nav flex-column">
                 <Link className="nav-link text-white" to="/">

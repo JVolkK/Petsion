@@ -71,7 +71,7 @@ const PerfilDuenio = () => {
     <>
       <LoadingOverlay loading={loading} />
       <NavBar />
-      <Container className="">
+      <Container className="m-auto p-auto ">
         <Row className="pb-4">
           <Col className="border rounded" xl={4} xs={12} md={10}>
             <img src={profileIcon} className="w-25" alt="profile_icon" />

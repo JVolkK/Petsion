@@ -11,7 +11,7 @@ import "../styles/App.css";
 function ComoFunciona() {
   return (
     <Container fluid className="p-0">
-      <Container>
+      <Container className="m-auto p-auto">
         <h1
           style={{
             textAlign: "center",

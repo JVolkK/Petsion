@@ -79,11 +79,11 @@ const BuscarCuidador = () => {
   return (
     <>
       <NavBar />
-      <Container fluid className="h-100">
-        <Container>
+      <Container fluid className="h-100 m-auto p-auto">
+        <Container className="m-auto p-auto">
           <FilterAnfitrionForm />
         </Container>
-        <Container>
+        <Container className="m-auto p-auto">
           <Row>
             <Col className="scrollable-col pt-3">
               {usuariosFiltrados.length > 0 ? (

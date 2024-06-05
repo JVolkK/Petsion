@@ -59,8 +59,6 @@ const ReservarCuidador = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      console.log("Validate dio:");
-      console.log(validate());
       try {
         setLoading(true);
         await axios.post("https://api-petsion.onrender.com/reservas/crear", {
@@ -87,6 +85,7 @@ const ReservarCuidador = () => {
           mensaje: "",
         });
         setErrors({});
+        navigate("/");
       } catch (error) {
         setLoading(false);
         // Manejo de errores
