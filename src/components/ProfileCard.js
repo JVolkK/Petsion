@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import profileIcon from "../images/145857007_307ce493-b254-4b2d-8ba4-d12c080d6651.jpg";
 import { Card } from "react-bootstrap";
 import "../styles/profileCard.css";
@@ -16,7 +17,7 @@ const ProfileCard = ({
 }) => {
   return (
     <Card onClick={onClick} className="d-flex flex-row w-100">
-      <Card.Img variant="top" src={profileIcon} className="image" />
+      <img src={profileIcon} className="image w-25 h-25" alt="asd" />
       <Card.Body>
         <Card.Title>{`${nombre} ${apellido}`}</Card.Title>
         {conPatio ? (

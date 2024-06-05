@@ -3,12 +3,12 @@
 }
 
 .clickable-card:hover {
-  background-color: #419dff;
-  transform: scale(1.01);
+  background-color: rgb(0, 123, 255);
+  transform: scale(1.03);
 }
 
 .clickable-card:active {
-  background-color: #1888ff;
+  background-color: #005abb;
 }
 
 .clickable-card:hover .hoverIcon {
@@ -16,5 +16,11 @@
 }
 
 .clickable-card:hover .addPetCardTitle {
+  color: #ffffff;
+}
+
+.clickable-card {
+  border-color: #1888ff !important;
+  background-color: #1888ff;
   color: #f7f7f7;
 }

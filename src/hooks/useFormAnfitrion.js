@@ -90,7 +90,12 @@ export const useForm = (initialForm, validateForm) => {
         navigate("/validate-email");
       } catch (error) {
         // Puedes manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario
-        alert(error.response.data.message);
+        if (error.response.data.message === undefined) {
+          console.log(error.response);
+          alert("Algo salio mal, intentalo mas tarde.");
+        } else {
+          alert(error.response.data.message);
+        }
       } finally {
         setLoading(false);
       }

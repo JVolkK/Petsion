@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Container from "react-bootstrap/Container";
@@ -10,7 +11,7 @@ import FilterAnfitrionForm from "../components/FilterAnfitrionForm";
 import Mapa from "../components/Mapa";
 import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
-import { Modal } from "react-bootstrap";
+import AnfitrionModal from "../components/AnfitrionModal";
 
 const geocodeAddress = async (address) => {
   try {
@@ -75,11 +76,11 @@ const BuscarCuidador = () => {
   return (
     <>
       <NavBar />
-      <Container fluid className="h-100">
-        <Container>
+      <Container fluid className="h-100 m-auto p-auto">
+        <Container className="m-auto p-auto">
           <FilterAnfitrionForm />
         </Container>
-        <Container>
+        <Container className="m-auto p-auto">
           <Row>
             <Col className="scrollable-col pt-3">
               {usuariosFiltrados.length > 0 ? (
@@ -106,21 +107,11 @@ const BuscarCuidador = () => {
           </Row>
         </Container>
       </Container>
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Información del Usuario</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedUser && (
-            <>
-              <p>Nombre: {selectedUser.name}</p>
-              <p>Apellido: {selectedUser.lastname}</p>
-              <p>Ubicación: {selectedUser.direccion}</p>
-            </>
-          )}
-        </Modal.Body>
-        <Modal.Footer></Modal.Footer>
-      </Modal>
+      <AnfitrionModal
+        show={showModal}
+        onHide={handleCloseModal}
+        datosAnfitrion={selectedUser}
+      />
       <Footer />
     </>
   );

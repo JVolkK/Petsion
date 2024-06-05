@@ -1,4 +1,3 @@
-// AppContext.js
 import React, { createContext, useState, useEffect } from "react";
 
 const AppContext = createContext();
@@ -8,6 +7,15 @@ const AppProvider = ({ children }) => {
   const [usuariosFiltrados, setUsuariosFiltrados] = useState({});
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [usuarioLogeado, setUsuarioLogeado] = useState({});
+
+  useEffect(() => {
+    const usuarioLogeado = {
+      id: null,
+      rol: "guest",
+    };
+    setUsuarioLogeado(usuarioLogeado);
+    localStorage.setItem("usuarioLogeado", JSON.stringify(usuarioLogeado));
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");

@@ -15,7 +15,6 @@ export const useLogin = (username, password, userType, setError) => {
     try {
       let loginUrl = "";
 
-      // Seleccionar la URL de inicio de sesión según el userType
       if (userType === "user") {
         loginUrl = "https://api-petsion.onrender.com/user/login";
       } else if (userType === "anfitrion") {

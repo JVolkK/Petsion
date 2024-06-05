@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import RegistrationSelect from "./RegistrationSelect";
 import RegistrationDuenio from "./RegistrationDuenio";
@@ -8,40 +8,73 @@ import BuscarCuidador from "./BuscarCuidador";
 import RegistrationAnfitrion from "./RegistrationAnfitrion";
 import Contacto from "./Contacto";
 import LoginPage from "./Login";
-import { AppContext } from "../contexts/AppContext";
-import OwnerProfile from "./OwnerProfile";
+import PerfilAnfitrion from "./PerfilAnfitrion";
 import ValidateEmail from "./ValidateEmail";
 import "../styles/leaflet.css";
 import EmailValidated from "./EmailValidated";
 import PerfilDuenio from "./PerfilDuenio";
+import ReservarCuidador from "./ReservarCuidador";
+import ProtectedRoute from "../components/ProtectedRoute";
+import { AppProvider } from "../contexts/AppContext";
+import MisReservasAnfitrion from "./MisReservasAnfitrion";
 
 function App() {
-  const { isAuthenticated } = useContext(AppContext);
-
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/registration-select" element={<RegistrationSelect />} />
-        <Route path="/registration-duenio" element={<RegistrationDuenio />} />
-        <Route path="/servicios-select" element={<Servicios />} />
-        <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/registration-anfitrion"
-          element={<RegistrationAnfitrion />}
-        />
-        <Route path="/validate-email" element={<ValidateEmail />} />
-        <Route path="/email-validated" element={<EmailValidated />} />
-        <Route path="/contacto" element={<Contacto />} />
-        <Route path="/perfil-duenio" element={<PerfilDuenio />} />
-        {isAuthenticated ? (
-          <Route path="/mi-perfil" element={<OwnerProfile />} />
-        ) : (
-          <Route path="/mi-perfil" element={<Navigate to="/login" />} /> // Utiliza Navigate dentro de un Route
-        )}
-      </Routes>
-    </div>
+    <AppProvider>
+      <div className="App">
+        <Routes>
+          {/* Rutas para Guest */}
+          <Route path="/" element={<Home />} />
+          <Route path="/registration-select" element={<RegistrationSelect />} />
+          <Route path="/registration-duenio" element={<RegistrationDuenio />} />
+          <Route
+            path="/registration-anfitrion"
+            element={<RegistrationAnfitrion />}
+          />
+          <Route path="/validate-email" element={<ValidateEmail />} />
+          <Route path="/email-validated" element={<EmailValidated />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
+
+          {/* Rutas para User */}
+          <Route
+            // Utilizamos el formato regular para rutas que solo permiten un rol
+            element={<ProtectedRoute rolDeseado="user" />}
+          >
+            <Route path="/" element={<Home />} />
+            <Route path="/perfil-duenio" element={<PerfilDuenio />} />
+            <Route path="/servicios-select" element={<Servicios />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route
+              path="reservar-cuidador/:cuidadorId"
+              element={<ReservarCuidador />}
+            />
+          </Route>
+
+          {/* Rutas para Anfitrion */}
+          <Route element={<ProtectedRoute rolDeseado="anfitrion" />}>
+            <Route path="/mi-perfil" element={<PerfilAnfitrion />} />
+            <Route
+              path="/reservas-anfitrion"
+              element={<MisReservasAnfitrion />}
+            />
+          </Route>
+
+          {/* Utilizamos el formato especial para rutas que permiten múltiples roles */}
+          <Route element={<ProtectedRoute rolDeseado={["guest", "user"]} />}>
+            <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
+          </Route>
+
+          <Route
+            element={<ProtectedRoute rolDeseado={["anfitrion", "user"]} />}
+          >
+            <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
+            <Route path="/servicios-select" element={<Servicios />} />
+            <Route path="/contacto" element={<Contacto />} />
+          </Route>
+        </Routes>
+      </div>
+    </AppProvider>
   );
 }
 

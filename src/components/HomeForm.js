@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { AppContext } from "../contexts/AppContext";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";

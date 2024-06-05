@@ -1,6 +1,7 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 function Politicas({ show, handleClose }) {
   return (
@@ -8,9 +9,7 @@ function Politicas({ show, handleClose }) {
       <Modal.Header closeButton>
         <Modal.Title>Políticas de Privacidad</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        {/* Contenido del modal de políticas */}
-      </Modal.Body>
+      <Modal.Body>{/* Contenido del modal de políticas */}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Cerrar

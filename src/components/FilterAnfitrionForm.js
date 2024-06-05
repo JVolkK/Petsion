@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { AppContext } from "../contexts/AppContext";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -106,7 +107,7 @@ const FilterAnfitrionForm = () => {
           </Row>
           <Row>
             <Col className="d-flex justify-content-center  m-auto pt-3">
-              <Button type="submit">Enviar</Button>
+              <Button type="submit">Buscar</Button>
             </Col>
           </Row>
         </Container>
