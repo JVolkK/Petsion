@@ -43,24 +43,24 @@ const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
               </Button>
               <div className="services">
                 <h3 className="section-title">Servicios</h3>
-                <div className="service-item">
+                <div className="service-item py-2">
                   <FaHome className="icon" />
-                  <p className="service-name">Alojamiento:</p>
-                  <p className="service-price">
+                  <p className="service-name m-0">Alojamiento:</p>
+                  <p className="service-price m-0">
                     ${`${datosAnfitrion.tarifaBase}`} por Noche
                   </p>
                 </div>
-                <div className="service-item">
+                <div className="service-item py-2">
                   <IoTennisball className="icon" />
-                  <p className="service-name">Cuidado de Dia:</p>
-                  <p className="service-price">
+                  <p className="service-name m-0">Cuidado de Dia:</p>
+                  <p className="service-price m-0">
                     ${`${datosAnfitrion.tarifaBase}`} por Semana
                   </p>
                 </div>
-                <div className="service-item">
+                <div className="service-item py-2">
                   <MdOutlinePets className="icon" />
-                  <p className="service-name">Paseo:</p>
-                  <p className="service-price">Acordar con el Cuidador</p>
+                  <p className="service-name m-0">Paseo:</p>
+                  <p className="service-price m-0">Acordar con el Cuidador</p>
                 </div>
               </div>
               <div className="can-host">
@@ -95,32 +95,32 @@ const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
               </div>
               <div className="home-info">
                 <h3 className="section-title">Hogar</h3>
-                <div className="home-item">
+                <div className="home-item py-2">
                   <BiSolidBuildingHouse className="icon" />
-                  <p className="home-description">
+                  <p className="home-description m-0">
                     Vive en un {`${datosAnfitrion.tipoDeVivienda}`}
                   </p>
                 </div>
 
-                <div className="home-item center-align">
+                <div className="home-item py-2">
                   <GiHighGrass className="icon" />
-                  <p className="home-description">
+                  <p className="home-description m-0">
                     {datosAnfitrion.conPatio ? "Con Patio" : "Sin Patio"}
                   </p>
                 </div>
 
-                <div className="home-item">
+                <div className="home-item py-2">
                   <FaUserGroup className="icon" />
-                  <p className="home-description">
+                  <p className="home-description m-0">
                     {datosAnfitrion.distintoDueño
                       ? "Acepta distinto dueño"
                       : "No acepta distinto dueño"}
                   </p>
                 </div>
 
-                <div className="home-item">
+                <div className="home-item py-2">
                   <FaShieldDog className="icon" />
-                  <p className="home-description">
+                  <p className="home-description m-0">
                     Acepta hasta {datosAnfitrion.cantidadDeAnimales} Mascotas
                   </p>
                 </div>
