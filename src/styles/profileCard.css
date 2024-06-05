@@ -9,3 +9,12 @@
     height: 3rem;
   }
 }
+.Card.profile-card {
+  cursor: pointer;
+}
+
+.profile-card-hover {
+  background-color: rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease; 
+  cursor: pointer; 
+}
