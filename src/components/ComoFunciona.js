@@ -11,7 +11,7 @@ function ComoFunciona() {
   return (
     <Container fluid className="p-0">
       <Container>
-      <h1 style={{textAlign: 'center', fontFamily: 'Dish Out', color: '#4C78B5'}}>Como funciona Petsion</h1>
+      <h1 style={{textAlign: 'center', color: '#4C78B5'}}>Como funciona Petsion</h1>
         <Row>
           <Col xs={12} sm={6}>
             <Row>
