@@ -27,9 +27,9 @@ const validationsForm = (form) => {
   //Validaciones username
   if (!form.username.trim()) {
     errors.username = "El campo nombre de usuario es requerido.";
-  } else if (!namePattern.test(form.username)) {
+  } else if (!usernamePattern.test(form.username)) {
     errors.username =
-      "El campo de nombre de usuario no acepta caracteres especiales ni numeros.";
+      "El campo de nombre de usuario no acepta caracteres especiales.";
   }
 
   //Validaciones password
@@ -101,9 +101,10 @@ let styles = {
   color: "#dc3545",
 };
 
-var namePattern = /^[a-zA-Z]+$/;
+var usernamePattern = /^[a-zA-Z0-9]+$/;
+var namePattern = /^[a-zA-Z]+(?: [a-zA-Z]+)?$/;
 var passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@.#$!%*?&]{10,15}$/; // Test para password, requiere al menos una letra minuscula, una mayuscula, un caracter especial, un numero y un largo minimo de 8 a 15 caracteres
-var emailPattern = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/;
+var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 var numberPattern = /^[0-9]+$/;
 
 function RegistrationDuenioForm() {
@@ -191,7 +192,7 @@ function RegistrationDuenioForm() {
               maxLength="15"
               minLength={3}
               type="text"
-              placeholder="Primer nombre"
+              placeholder="Nombre/s"
               name="nombre"
               onBlur={handleBlur}
               onChange={handleChange}

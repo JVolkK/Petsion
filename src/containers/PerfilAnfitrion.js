@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import useLogout from "../hooks/useLogout";
-import Footer from "../components/Footer";
 import { Container, Row, Col, Button, Badge } from "react-bootstrap"; // Asegúrate de importar Badge desde react-bootstrap
 import { AppContext } from "../contexts/AppContext";
 import axios from "axios";
