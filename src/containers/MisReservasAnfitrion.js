@@ -1,13 +1,13 @@
-import React, { useContext, useEffect } from "react"; //useState
+import React, { useContext, useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { AppContext } from "../contexts/AppContext";
-//import axios from "axios";
-//import LoadingOverlay from "../components/LoadingOverlay";
+import axios from "axios";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 const MisReservasAnfitrion = () => {
   const { setUsuarioLogeado } = useContext(AppContext);
-  //const [datosAnfitrion, setDatosAnfitrion] = useState({});
-  //const [loading, setLoading] = useState(false);
+  const [datosAnfitrion, setDatosAnfitrion] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const storedUsuarioLogeado = JSON.parse(
@@ -19,9 +19,10 @@ const MisReservasAnfitrion = () => {
       return;
     }
   }, [setUsuarioLogeado]);
-  //<LoadingOverlay loading={loading} />
+
   return (
     <>
+      <LoadingOverlay loading={loading} />
       <NavBar />
       {/* <Grid container spacing={2}>
   <Grid item xs={8}>
