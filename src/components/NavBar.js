@@ -1,16 +1,13 @@
 import React, { useContext, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import PETSION from "../images/PETSION.png";
 import { Link } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 
 const NavBar = () => {
-  const {
-    isAuthenticated,
-    usuarioLogeado,
-    setAuthenticated,
-    setUsuarioLogeado,
-  } = useContext(AppContext);
+  const { usuarioLogeado, setAuthenticated, setUsuarioLogeado } =
+    useContext(AppContext);
 
   useEffect(() => {
     // Ajusta el padding-top del cuerpo para evitar que el contenido quede oculto detrás del Navbar
@@ -57,11 +54,18 @@ const NavBar = () => {
                 </Nav.Link>
               </Nav.Item>
             ) : usuarioLogeado.rol === "anfitrion" ? (
-              <Nav.Item>
-                <Nav.Link as={Link} to="/mi-perfil">
-                  Mi Perfil
-                </Nav.Link>
-              </Nav.Item>
+              <>
+                <Nav.Item>
+                  <Nav.Link as={Link} to="/mi-perfil">
+                    Mi Perfil
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link as={Link} to="/reservas-anfitrion">
+                    Mis reservas
+                  </Nav.Link>
+                </Nav.Item>
+              </>
             ) : usuarioLogeado.rol === "guest" ? (
               <>
                 <Nav.Item>
@@ -76,16 +80,6 @@ const NavBar = () => {
                 </Nav.Item>
               </>
             ) : null}
-
-            {isAuthenticated &&
-              usuarioLogeado &&
-              usuarioLogeado.userType === "anfitrion" && (
-                <Nav.Item>
-                  <Nav.Link as={Link} to="/mis-reservas">
-                    Mis Reservas
-                  </Nav.Link>
-                </Nav.Item>
-              )}
           </Nav>
         </Navbar.Collapse>
       </Container>

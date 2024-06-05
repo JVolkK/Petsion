@@ -1,7 +1,7 @@
-import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
 import { useForm } from "../hooks/useFormAnfitrion";
 import "../styles/DuenioFormStyle.css";
 import Step1 from "../components/Step1RegistrationAnfitrion";

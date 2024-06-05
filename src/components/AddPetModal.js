@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "react-bootstrap/Modal";
 import { Form, InputGroup, Button, Container, Row, Col } from "react-bootstrap";
 import { FaDog, FaCat } from "react-icons/fa";

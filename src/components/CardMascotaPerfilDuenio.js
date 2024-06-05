@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, ListGroup } from "react-bootstrap";
 import { FaDog, FaCat } from "react-icons/fa";
 import { GiRabbit } from "react-icons/gi";

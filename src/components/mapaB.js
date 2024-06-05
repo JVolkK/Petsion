@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import Container from "react-bootstrap/Container";
@@ -100,7 +101,9 @@ const BuscarCuidador = () => {
                 <p>No se han encontrado usuarios filtrados</p>
               )}
             </Col>
-            <Col md={5}><Mapa locations={locations} /></Col>
+            <Col md={5}>
+              <Mapa locations={locations} />
+            </Col>
           </Row>
         </Container>
       </Container>

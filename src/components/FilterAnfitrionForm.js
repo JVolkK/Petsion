@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { AppContext } from "../contexts/AppContext";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

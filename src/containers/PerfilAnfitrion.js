@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "../components/NavBar";
 import useLogout from "../hooks/useLogout";
 import { Container, Row, Col, Button, Badge } from "react-bootstrap"; // Asegúrate de importar Badge desde react-bootstrap

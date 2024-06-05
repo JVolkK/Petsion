@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Row, Col, InputGroup, Container } from "react-bootstrap";
 
 import AutocompleteAddress from "./AutocompleteAddress";

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { Container, Row } from "react-bootstrap";
 import "../styles/addPetCard.css";

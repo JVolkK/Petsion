@@ -16,6 +16,7 @@ import PerfilDuenio from "./PerfilDuenio";
 import ReservarCuidador from "./ReservarCuidador";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { AppProvider } from "../contexts/AppContext";
+import MisReservasAnfitrion from "./MisReservasAnfitrion";
 
 function App() {
   return (
@@ -53,6 +54,10 @@ function App() {
           {/* Rutas para Anfitrion */}
           <Route element={<ProtectedRoute rolDeseado="anfitrion" />}>
             <Route path="/mi-perfil" element={<PerfilAnfitrion />} />
+            <Route
+              path="/reservas-anfitrion"
+              element={<MisReservasAnfitrion />}
+            />
           </Route>
 
           {/* Utilizamos el formato especial para rutas que permiten múltiples roles */}
