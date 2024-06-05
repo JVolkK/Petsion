@@ -33,6 +33,7 @@ function App() {
           <Route path="/validate-email" element={<ValidateEmail />} />
           <Route path="/email-validated" element={<EmailValidated />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
 
           {/* Rutas para User */}
           <Route
@@ -40,7 +41,6 @@ function App() {
             element={<ProtectedRoute rolDeseado="user" />}
           >
             <Route path="/" element={<Home />} />
-            <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
             <Route path="/perfil-duenio" element={<PerfilDuenio />} />
             <Route path="/servicios-select" element={<Servicios />} />
             <Route path="/contacto" element={<Contacto />} />

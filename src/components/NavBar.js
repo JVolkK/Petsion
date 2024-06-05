@@ -38,33 +38,31 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="navbarSupportedContent" />
         <Navbar.Collapse id="navbarSupportedContent">
           <Nav className="ms-auto mb-2 mb-lg-0">
-            <Nav.Item>
-              <Nav.Link as={Link} to="/buscar-cuidador">
-                Buscar cuidador
-              </Nav.Link>
-            </Nav.Item>
+            {usuarioLogeado.rol === "user" || usuarioLogeado.rol === "guest" ? (
+              <Nav.Item>
+                <Nav.Link as={Link} to="/buscar-cuidador">
+                  Buscar cuidador
+                </Nav.Link>
+              </Nav.Item>
+            ) : null}
             <Nav.Item>
               <Nav.Link as={Link} to="/servicios-select">
                 Servicios
               </Nav.Link>
             </Nav.Item>
-            {isAuthenticated ? (
-              <>
-                {usuarioLogeado.rol === "user" ? (
-                  <Nav.Item>
-                    <Nav.Link as={Link} to="/perfil-duenio">
-                      Mi Perfil
-                    </Nav.Link>
-                  </Nav.Item>
-                ) : usuarioLogeado.rol === "anfitrion" ? (
-                  <Nav.Item>
-                    <Nav.Link as={Link} to="/mi-perfil">
-                      Mi Perfil
-                    </Nav.Link>
-                  </Nav.Item>
-                ) : null}
-              </>
-            ) : (
+            {usuarioLogeado.rol === "user" ? (
+              <Nav.Item>
+                <Nav.Link as={Link} to="/perfil-duenio">
+                  Mi Perfil
+                </Nav.Link>
+              </Nav.Item>
+            ) : usuarioLogeado.rol === "anfitrion" ? (
+              <Nav.Item>
+                <Nav.Link as={Link} to="/mi-perfil">
+                  Mi Perfil
+                </Nav.Link>
+              </Nav.Item>
+            ) : usuarioLogeado.rol === "guest" ? (
               <>
                 <Nav.Item>
                   <Nav.Link as={Link} to="/login">
@@ -77,7 +75,8 @@ const NavBar = () => {
                   </Nav.Link>
                 </Nav.Item>
               </>
-            )}
+            ) : null}
+
             {isAuthenticated &&
               usuarioLogeado &&
               usuarioLogeado.userType === "anfitrion" && (
