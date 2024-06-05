@@ -57,3 +57,7 @@ footer {
   max-height: 31.5rem; /* Adjust the height as needed */
   overflow-y: auto;
 }
+
+.profile-card {
+  cursor: pointer;
+}

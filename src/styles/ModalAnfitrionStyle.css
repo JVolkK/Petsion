@@ -1,3 +1,7 @@
+.modal-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 /* Estilos para el contenedor del perfil */
 .profile-container,
 .info-container {
