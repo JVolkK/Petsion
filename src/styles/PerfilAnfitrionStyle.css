@@ -31,6 +31,10 @@
   margin-right: 5px; /* Ajustado para dar un poco más de espacio */
 }
 
+.large-icon {
+  font-size: 1.7rem; /* Ajusta el tamaño según sea necesario */
+}
+
 /* Estilos para el nombre del anfitrión */
 .nombre-anfitrion {
   font-size: 30px;
@@ -38,7 +42,6 @@
   margin-top: 10px;
 }
 
-/* Estilos para la dirección del anfitrión */
 .direccion-anfitrion {
   font-size: 20px;
   font-weight: bold;
@@ -46,7 +49,6 @@
   text-align: center;
 }
 
-/* Estilos para las secciones */
 .services,
 .can-host,
 .user-description,
@@ -55,25 +57,22 @@
   width: 100%;
 }
 
-/* Estilos para los títulos de sección */
 .section-title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-/* Estilos para los nombres de servicio y descripciones de hogar */
 .service-name,
 .home-description {
   margin-left: 10px;
 }
 
-/* Estilos para el contenedor de badges */
 .badges {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  font-size: 1.3em; /* Modifica el tamaño de la fuente para hacer el badge más grande */
+  font-size: 1.3em;
 }
 
 /* Estilos para los badges */
@@ -82,19 +81,16 @@
   color: #ffffff;
   border: 2px solid #007bff;
   border-radius: 20px;
-  padding: 12px 24px; /* Aumenta el padding para que el badge sea más grande */
 }
 
-/* Estilos adicionales para los badges personalizados */
 .custom-badge {
-  margin-right: 10px; /* Espacio a la derecha */
-  margin-bottom: 10px; /* Espacio en la parte inferior */
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .boton-col {
-  /* Define el ancho de la columna para diferentes tamaños de pantalla */
   width: 100%;
-  max-width: 240px; /* Define el ancho máximo para evitar que el botón se extienda demasiado */
+  max-width: 240px;
 }
 
 .BotonLogout {
