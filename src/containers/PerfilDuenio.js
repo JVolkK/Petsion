@@ -3,20 +3,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "../components/NavBar";
 import useLogout from "../hooks/useLogout";
 import Footer from "../components/Footer";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { AppContext } from "../contexts/AppContext";
 import axios from "axios";
-import profileIcon from "../images/145857007_307ce493-b254-4b2d-8ba4-d12c080d6651.jpg";
 import LoadingOverlay from "../components/LoadingOverlay";
 import AddPetCard from "../components/AddPetCard";
 import CardMascotaPerfilDuenio from "../components/CardMascotaPerfilDuenio";
 import "../styles/cardMascotaPerfilDuenio.css";
 import { CiLogout } from "react-icons/ci";
+import CustomAvatar from "../components/CustomAvatar";
 
 const PerfilDuenio = () => {
   const { setUsuarioLogeado } = useContext(AppContext);
   const [datosAnfitrion, setDatosAnfitrion] = useState({});
-  const [mascotas, setMascotas] = useState({});
+  const [mascotas, setMascotas] = useState([]);
   const [loading, setLoading] = useState(false);
   const [renderKey, setRenderKey] = useState(0);
 
@@ -72,63 +72,57 @@ const PerfilDuenio = () => {
       <LoadingOverlay loading={loading} />
       <NavBar />
       <Container className="m-auto p-auto ">
-        <Row className="pb-4">
-          <Col className="border rounded" xl={4} xs={12} md={10}>
-            <img src={profileIcon} className="w-25" alt="profile_icon" />
-            <h1>{`${datosAnfitrion.name} ${datosAnfitrion.lastname}`}</h1>
+        <Row className="pb-4 justify-content-center">
+          <Col xl={4} xs={12} md={10} className="border rounded p-4 text-center">
+            <div className="text-center">
+              <CustomAvatar
+                nombre={datosAnfitrion.name}
+                apellido={datosAnfitrion.lastname}
+              />
+            </div>
+            <h1 className="mt-2">{`${datosAnfitrion.name} ${datosAnfitrion.lastname}`}</h1>
             <h6>{datosAnfitrion.email}</h6>
             <h6>Telefono: {datosAnfitrion.telefono}</h6>
             <h6>Dni: {datosAnfitrion.dni}</h6>
           </Col>
-          <Col
-            key={renderKey}
-            xl={2}
-            xs={6}
-            md={4}
-            className="h-100 justify-content-center d-flex"
-          >
-            <AddPetCard handleRerender={handleRerender} />
-          </Col>
-          <Col
-            xl={2}
-            md={4}
-            xs={6}
-            className="h-100 justify-content-center d-flex"
-            onClick={logout}
-          >
-            <Container
-              fluid
-              className="clickable-card border rounded m-3 p-0 rounded border"
-            >
-              <Row>
-                <CiLogout size={80} className="w-100 hoverIcon" />
-              </Row>
-              <Row>
-                <h5 className=" w-100 addPetCardTitle justify-content-center align-items-center d-flex ">
-                  Cerrar Sesión
-                </h5>
-              </Row>
-            </Container>
-          </Col>
         </Row>
 
-        <Row className="w-100 justify-content-start vh-100 scrollable-row ">
+        <Row className="pb-4 justify-content-center">
+          <Col xl={2} md={4} xs={6} className="text-center">
+            <Button variant="primary" onClick={logout} className="text-center">
+              <CiLogout size={30} className="mr-2" />
+              Cerrar Sesión
+            </Button>
+          </Col>
+        </Row>
+        
+        <Row className="w-100 justify-content-center">
           {mascotas.length > 0 ? (
-            mascotas.map((mascota, index) => (
-              <Col xl={2} md={3} sm={2} className="pb-3">
-                <CardMascotaPerfilDuenio
-                  key={index}
-                  nombre={mascota.nombre}
-                  tipoMascota={mascota.tipoMascota}
-                  edad={mascota.edad}
-                  peso={mascota.peso}
-                />
+            <>
+              <h1 className="mt-4">Mis Mascotas</h1>
+              {mascotas.map((mascota, index) => (
+                <Col key={index} xl={2} md={3} sm={2} className="pb-3">
+                  <CardMascotaPerfilDuenio
+                    nombre={mascota.nombre}
+                    tipoMascota={mascota.tipoMascota}
+                    edad={mascota.edad}
+                    peso={mascota.peso}
+                  />
+                </Col>
+              ))}
+              <Col xl={2} md={3} sm={2} className="pb-3 d-flex justify-content-center">
+                <AddPetCard handleRerender={handleRerender} />
               </Col>
-            ))
+            </>
           ) : (
-            <></>
+            <Col className="text-center">
+              <h1 className="mt-4">Añade tu primer mascota</h1>
+              <AddPetCard handleRerender={handleRerender} />
+            </Col>
           )}
         </Row>
+
+        
       </Container>
       <Footer />
     </>

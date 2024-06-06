@@ -5,7 +5,6 @@ import useLogout from "../hooks/useLogout";
 import { Container, Row, Col, Button, Badge } from "react-bootstrap"; // Asegúrate de importar Badge desde react-bootstrap
 import { AppContext } from "../contexts/AppContext";
 import axios from "axios";
-import profileIcon from "../images/145857007_307ce493-b254-4b2d-8ba4-d12c080d6651.jpg";
 import LoadingOverlay from "../components/LoadingOverlay";
 import "../styles/PerfilAnfitrionStyle.css";
 import { FaHome } from "react-icons/fa"; // Importa el archivo CSS
@@ -18,6 +17,7 @@ import { FaUserGroup, FaShieldDog } from "react-icons/fa6";
 import { GiRabbit } from "react-icons/gi";
 import { PiCatBold } from "react-icons/pi";
 import { PiDogBold } from "react-icons/pi";
+import CustomAvatar from "../components/CustomAvatar";
 
 const PerfilAnfitrion = () => {
   const { setUsuarioLogeado } = useContext(AppContext);
@@ -58,11 +58,13 @@ const PerfilAnfitrion = () => {
       <Container className="vh-100 p-auto m-auto">
         <Row className="justify-content-start custom-row-padding">
           <Col className="profile-container" md="6">
-            <img
-              src={profileIcon}
-              className="profile-icon"
-              alt="profile_icon"
-            />
+            <CustomAvatar
+                nombre={datosAnfitrion.name}
+                apellido={datosAnfitrion.lastname}
+                onClick={() => {
+                  // Agrega la lógica de clic si es necesaria
+                }}
+              />
             <h1 className="nombre-anfitrion">{`${datosAnfitrion.name} ${datosAnfitrion.lastname}`}</h1>
             <h2 className="direccion-anfitrion">{datosAnfitrion.direccion}</h2>
             <Button className="edit-button d-flex align-items-center justify-content-center">

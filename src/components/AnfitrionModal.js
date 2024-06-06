@@ -1,7 +1,6 @@
 import React from "react";
 import "../styles/ModalAnfitrionStyle.css";
 import { Modal, Button, Badge, Col, Row, Container } from "react-bootstrap";
-import profileIcon from "../images/145857007_307ce493-b254-4b2d-8ba4-d12c080d6651.jpg";
 import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { IoTennisball } from "react-icons/io5";
@@ -9,6 +8,7 @@ import { MdOutlinePets } from "react-icons/md";
 import { BiSolidBuildingHouse } from "react-icons/bi";
 import { GiHighGrass } from "react-icons/gi";
 import { FaUserGroup, FaShieldDog } from "react-icons/fa6";
+import CustomAvatar from "./CustomAvatar"; // Importa el componente CustomAvatar
 
 const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
   const navigate = useNavigate();
@@ -24,10 +24,12 @@ const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
         <Container className="vh-100">
           <Row className="justify-content-start custom-row-padding">
             <Col className="profile-container" md="6">
-              <img
-                src={profileIcon}
-                className="profile-icon"
-                alt="profile_icon"
+              <CustomAvatar
+                nombre={datosAnfitrion.name}
+                apellido={datosAnfitrion.lastname}
+                onClick={() => {
+                  // Agrega la lógica de clic si es necesaria
+                }}
               />
               <h1 className="nombre-anfitrion">{`${datosAnfitrion.name} ${datosAnfitrion.lastname}`}</h1>
               <h2 className="direccion-anfitrion">

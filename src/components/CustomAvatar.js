@@ -2,7 +2,7 @@ import React from "react";
 import Avatar from "@mui/material/Avatar";
 
 const CustomAvatar = ({ nombre, apellido, onClick }) => {
-  const initials = `${nombre.charAt(0)}${apellido.charAt(0)}`;
+  const initials = nombre && apellido ? `${nombre.charAt(0)}${apellido.charAt(0)}` : '';
 
   // Genera un color aleatorio en formato hexadecimal
   const randomColor = () => {
@@ -24,6 +24,7 @@ const CustomAvatar = ({ nombre, apellido, onClick }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        marginTop: "1rem",
       }}
     >
       {initials}
