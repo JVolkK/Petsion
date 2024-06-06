@@ -11,7 +11,7 @@ const ProtectedRoute = ({ rolDeseado }) => {
     ? rolDeseado.includes(usuarioLogeado.rol)
     : usuarioLogeado.rol === rolDeseado;
 
-  return rolValido ? <Outlet /> : <Navigate to="/login" />;
+  return rolValido ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default ProtectedRoute;

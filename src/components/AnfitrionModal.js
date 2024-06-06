@@ -8,6 +8,9 @@ import { MdOutlinePets } from "react-icons/md";
 import { BiSolidBuildingHouse } from "react-icons/bi";
 import { GiHighGrass } from "react-icons/gi";
 import { FaUserGroup, FaShieldDog } from "react-icons/fa6";
+import { GiRabbit } from "react-icons/gi";
+import { PiCatBold } from "react-icons/pi";
+import { PiDogBold } from "react-icons/pi";
 import CustomAvatar from "./CustomAvatar"; // Importa el componente CustomAvatar
 
 const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
@@ -17,9 +20,6 @@ const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
 
   return (
     <Modal show={show} onHide={onHide} dialogClassName="modal-xl">
-      <Modal.Header closeButton>
-        <Modal.Title>Información del Usuario</Modal.Title>
-      </Modal.Header>
       <Modal.Body>
         <Container className="vh-100">
           <Row className="justify-content-start custom-row-padding">
@@ -71,10 +71,28 @@ const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
                 </h3>
                 <div className="badges">
                   {datosAnfitrion.admiteGato ? (
-                    <Badge variant="custom-badge">Gato</Badge>
+                    <Badge
+                      variant="custom-badge"
+                      className="d-flex align-items-center justify-content-center py-1 px-2"
+                    >
+                      <PiCatBold className="large-icon" />
+                    </Badge>
                   ) : null}
                   {datosAnfitrion.admitePerro ? (
-                    <Badge variant="custom-badge">Perro</Badge>
+                    <Badge
+                      variant="custom-badge"
+                      className="d-flex align-items-center justify-content-center py-1 px-2"
+                    >
+                      <PiDogBold className="large-icon" />
+                    </Badge>
+                  ) : null}
+                  {datosAnfitrion.admitAlltypesMascotas ? (
+                    <Badge
+                      variant="custom-badge"
+                      className="d-flex align-items-center justify-content-center py-1 px-2"
+                    >
+                      <GiRabbit className="large-icon" />
+                    </Badge>
                   ) : null}
                 </div>
               </div>

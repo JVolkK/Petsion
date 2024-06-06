@@ -46,7 +46,6 @@
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  margin-right: 5px; /* Ajustado para dar un poco más de espacio */
 }
 
 /* Estilos para el nombre del anfitrión */

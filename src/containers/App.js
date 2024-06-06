@@ -23,24 +23,29 @@ function App() {
     <AppProvider>
       <div className="App">
         <Routes>
-          {/* Rutas para Guest */}
           <Route path="/" element={<Home />} />
-          <Route path="/registration-select" element={<RegistrationSelect />} />
-          <Route path="/registration-duenio" element={<RegistrationDuenio />} />
-          <Route
-            path="/registration-anfitrion"
-            element={<RegistrationAnfitrion />}
-          />
-          <Route path="/validate-email" element={<ValidateEmail />} />
-          <Route path="/email-validated" element={<EmailValidated />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
+          {/* Rutas para Guest */}
+          <Route element={<ProtectedRoute rolDeseado="guest" />}>
+            <Route
+              path="/registration-select"
+              element={<RegistrationSelect />}
+            />
+            <Route
+              path="/registration-duenio"
+              element={<RegistrationDuenio />}
+            />
+            <Route
+              path="/registration-anfitrion"
+              element={<RegistrationAnfitrion />}
+            />
+            <Route path="/validate-email" element={<ValidateEmail />} />
+            <Route path="/email-validated" element={<EmailValidated />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
+          </Route>
 
           {/* Rutas para User */}
-          <Route
-            // Utilizamos el formato regular para rutas que solo permiten un rol
-            element={<ProtectedRoute rolDeseado="user" />}
-          >
+          <Route element={<ProtectedRoute rolDeseado="user" />}>
             <Route path="/" element={<Home />} />
             <Route path="/perfil-duenio" element={<PerfilDuenio />} />
             <Route path="/servicios-select" element={<Servicios />} />
@@ -60,15 +65,15 @@ function App() {
             />
           </Route>
 
-          {/* Utilizamos el formato especial para rutas que permiten múltiples roles */}
+          {/* Rutas para múltiples roles: guest y user */}
           <Route element={<ProtectedRoute rolDeseado={["guest", "user"]} />}>
             <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
           </Route>
 
+          {/* Rutas compartidas entre anfitrion y user */}
           <Route
             element={<ProtectedRoute rolDeseado={["anfitrion", "user"]} />}
           >
-            <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
             <Route path="/servicios-select" element={<Servicios />} />
             <Route path="/contacto" element={<Contacto />} />
           </Route>
