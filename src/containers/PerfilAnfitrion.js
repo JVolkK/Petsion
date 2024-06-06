@@ -5,6 +5,7 @@ import useLogout from "../hooks/useLogout";
 import { Container, Row, Col, Button, Badge } from "react-bootstrap"; // Asegúrate de importar Badge desde react-bootstrap
 import { AppContext } from "../contexts/AppContext";
 import axios from "axios";
+import { Form, Modal } from "react-bootstrap";
 import LoadingOverlay from "../components/LoadingOverlay";
 import "../styles/PerfilAnfitrionStyle.css";
 import { FaHome } from "react-icons/fa"; // Importa el archivo CSS
@@ -18,12 +19,14 @@ import { GiRabbit } from "react-icons/gi";
 import { PiCatBold } from "react-icons/pi";
 import { PiDogBold } from "react-icons/pi";
 import CustomAvatar from "../components/CustomAvatar";
+import { InputGroup } from "react-bootstrap";
 
 const PerfilAnfitrion = () => {
   const { setUsuarioLogeado } = useContext(AppContext);
   const [datosAnfitrion, setDatosAnfitrion] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [editedData, setEditedData] = useState({});
   const [loading, setLoading] = useState(true);
-
   const logout = useLogout();
 
   useEffect(() => {
@@ -51,6 +54,38 @@ const PerfilAnfitrion = () => {
     }
   }, [setUsuarioLogeado, setDatosAnfitrion, setLoading]);
 
+  const openModal = () => {
+    setShowModal(true);
+    setEditedData(datosAnfitrion);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const confirmChanges = () => {
+    const storedUsuarioLogeado = JSON.parse(
+      localStorage.getItem("usuarioLogeado")
+    );
+    axios
+      .put(
+        `https://api-petsion.onrender.com/anfitrion/${storedUsuarioLogeado.id}`,
+        { editedData }
+      )
+      .then((response) => {
+        console.log("Datos actualizados:", response.data);
+        setShowModal(false);
+      })
+      .catch((error) => {
+        console.error("Error al actualizar datos:", error);
+      });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditedData({ ...editedData, [name]: value });
+  };
+
   return (
     <>
       <LoadingOverlay loading={loading} />
@@ -59,17 +94,189 @@ const PerfilAnfitrion = () => {
         <Row className="justify-content-start custom-row-padding">
           <Col className="profile-container" md="6">
             <CustomAvatar
-                nombre={datosAnfitrion.name}
-                apellido={datosAnfitrion.lastname}
-                onClick={() => {
-                  // Agrega la lógica de clic si es necesaria
-                }}
-              />
+              nombre={datosAnfitrion.name}
+              apellido={datosAnfitrion.lastname}
+              onClick={openModal}
+            />
             <h1 className="nombre-anfitrion">{`${datosAnfitrion.name} ${datosAnfitrion.lastname}`}</h1>
             <h2 className="direccion-anfitrion">{datosAnfitrion.direccion}</h2>
-            <Button className="edit-button d-flex align-items-center justify-content-center">
+            <Button
+              onClick={openModal}
+              className="edit-button d-flex align-items-center justify-content-center"
+            >
               <MdModeEdit className="inbox-icon me-2" /> Editar Perfil
             </Button>
+            <Modal show={showModal} onHide={handleCloseModal}>
+              <Modal.Body>
+                <Form>
+                  <Row>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="formNombre">
+                        <Form.Label>Nombre</Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder={datosAnfitrion.name}
+                          value={editedData.name}
+                          onChange={handleChange}
+                          name="name"
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formDireccion">
+                        <Form.Label>Dirección</Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder={datosAnfitrion.direccion}
+                          value={editedData.direccion}
+                          onChange={handleChange}
+                          name="direccion"
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formPatio">
+                        <Form.Label>¿Tienes patio?</Form.Label>
+                        <Form.Select
+                          value={editedData.conPatio}
+                          onChange={handleChange}
+                          name="conPatio"
+                        >
+                          <option value="true">Tengo patio</option>
+                          <option value="false">No tengo patio</option>
+                        </Form.Select>
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formCantidadAnimales"
+                      >
+                        <Form.Label>¿Cuántas mascotas aceptas?</Form.Label>
+                        <Form.Control
+                          type="number"
+                          placeholder={datosAnfitrion.cantidadDeAnimales}
+                          value={editedData.cantidadDeAnimales}
+                          onChange={(e) => {
+                            const value = parseInt(e.target.value); // Convierte el valor a un número entero
+                            if (!isNaN(value) && value >= 0 && value <= 10) {
+                              setEditedData({
+                                ...editedData,
+                                cantidadDeAnimales: value,
+                              });
+                            }
+                          }}
+                          name="cantidadDeAnimales"
+                          max={10}
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formAdmiteGato">
+                        <Form.Label>¿Aceptas Gatos?</Form.Label>
+                        <Form.Select
+                          value={editedData.admiteGato}
+                          onChange={handleChange}
+                          name="admiteGato"
+                        >
+                          <option value="true">Acepto Gatos</option>
+                          <option value="false">No acepto Gatos</option>
+                        </Form.Select>
+                      </Form.Group>
+                    </Col>
+                    <Col md={6}>
+                      <Form.Group className="mb-3" controlId="formApellido">
+                        <Form.Label>Apellido</Form.Label>
+                        <Form.Control
+                          type="text"
+                          placeholder={datosAnfitrion.apellido}
+                          value={editedData.lastname}
+                          onChange={handleChange}
+                          name="lastname"
+                        />
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formTipoVivienda">
+                        <Form.Label>Tipo de Vivienda</Form.Label>
+                        <Form.Select
+                          value={editedData.tipoDeVivienda}
+                          onChange={handleChange}
+                          name="tipoDeVivienda"
+                        >
+                          <option value="departamento">Departamento</option>
+                          <option value="casa">Casa</option>
+                        </Form.Select>
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formDistintoDuenio"
+                      >
+                        <Form.Label>¿Aceptas distinto dueño?</Form.Label>
+                        <Form.Select
+                          value={editedData.distintoDueño}
+                          onChange={handleChange}
+                          name="distintoDueño"
+                        >
+                          <option value="true">Acepto distintos dueños</option>
+                          <option value="false">
+                            No acepto distintos dueños
+                          </option>
+                        </Form.Select>
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formAdmitePerro">
+                        <Form.Label>¿Aceptas Perros?</Form.Label>
+                        <Form.Select
+                          value={editedData.admitePerro}
+                          onChange={handleChange}
+                          name="admitePerro"
+                        >
+                          <option value="true">Acepto Perros</option>
+                          <option value="false">No acepto Perros</option>
+                        </Form.Select>
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formAdmiteOtros">
+                        <Form.Label>¿Aceptas otras mascotas?</Form.Label>
+                        <Form.Select
+                          value={editedData.admitAlltypesMascotas}
+                          onChange={handleChange}
+                          name="admitAlltypesMascotas"
+                        >
+                          <option value="true">Acepto otras mascotas</option>
+                          <option value="false">
+                            No acepto otras mascotas
+                          </option>
+                        </Form.Select>
+                      </Form.Group>
+                      <Form.Group className="mb-3" controlId="formTarifaBase">
+                        <Form.Label>¿Cuánto valdrá tu tarifa base?</Form.Label>
+                        <InputGroup>
+                          <InputGroup.Text>$</InputGroup.Text>
+                          <Form.Control
+                            type="number"
+                            placeholder={datosAnfitrion.tarifaBase}
+                            value={editedData.tarifaBase}
+                            onChange={(e) => {
+                              const value = parseInt(e.target.value); // Convierte el valor a un número entero
+                              if (
+                                !isNaN(value) &&
+                                value >= 0 &&
+                                value <= 99999
+                              ) {
+                                setEditedData({
+                                  ...editedData,
+                                  tarifaBase: value,
+                                });
+                              }
+                            }}
+                            name="tarifaBase"
+                            max={99999}
+                          />
+                        </InputGroup>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleCloseModal}>
+                  Cerrar
+                </Button>
+                <Button variant="primary" onClick={confirmChanges}>
+                  Confirmar Cambios
+                </Button>
+              </Modal.Footer>
+            </Modal>
             <div className="services">
               <h3 className="section-title">Servicios</h3>
               <div className="service-item py-2">
@@ -81,7 +288,7 @@ const PerfilAnfitrion = () => {
               </div>
               <div className="service-item py-2">
                 <IoTennisball className="icon" />
-                <p className="service-name m-0">Cuidado de Dia:</p>
+                <p className="service-name m-0">Cuidado de Día:</p>
                 <p className="service-price m-0">
                   ${`${datosAnfitrion.tarifaBase}`} por Semana
                 </p>
@@ -151,14 +358,12 @@ const PerfilAnfitrion = () => {
                   Vive en un {`${datosAnfitrion.tipoDeVivienda}`}
                 </p>
               </div>
-
               <div className="home-item py-2">
                 <GiHighGrass className="icon" />
                 <p className="home-description m-0">
                   {datosAnfitrion.conPatio ? "Con Patio" : "Sin Patio"}
                 </p>
               </div>
-
               <div className="home-item py-2">
                 <FaUserGroup className="icon" />
                 <p className="home-description m-0">
@@ -167,7 +372,6 @@ const PerfilAnfitrion = () => {
                     : "No acepta distinto dueño"}
                 </p>
               </div>
-
               <div className="home-item py-2">
                 <FaShieldDog className="icon" />
                 <p className="home-description m-0">
