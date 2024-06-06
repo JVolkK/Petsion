@@ -9,12 +9,17 @@ const AppProvider = ({ children }) => {
   const [usuarioLogeado, setUsuarioLogeado] = useState({});
 
   useEffect(() => {
-    const usuarioLogeado = {
-      id: null,
-      rol: "guest",
-    };
-    setUsuarioLogeado(usuarioLogeado);
-    localStorage.setItem("usuarioLogeado", JSON.stringify(usuarioLogeado));
+    const savedUsuario = localStorage.getItem("usuarioLogeado");
+    if (savedUsuario) {
+      setUsuarioLogeado(JSON.parse(savedUsuario));
+    } else {
+      const usuarioLogeado = {
+        id: null,
+        rol: "guest",
+      };
+      setUsuarioLogeado(usuarioLogeado);
+      localStorage.setItem("usuarioLogeado", JSON.stringify(usuarioLogeado));
+    }
   }, []);
 
   useEffect(() => {

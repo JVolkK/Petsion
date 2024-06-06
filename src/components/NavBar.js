@@ -56,13 +56,13 @@ const NavBar = () => {
             ) : usuarioLogeado.rol === "anfitrion" ? (
               <>
                 <Nav.Item>
-                  <Nav.Link as={Link} to="/mi-perfil">
-                    Mi Perfil
+                  <Nav.Link as={Link} to="/reservas-anfitrion">
+                    Mis reservas
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link as={Link} to="/reservas-anfitrion">
-                    Mis reservas
+                  <Nav.Link as={Link} to="/mi-perfil">
+                    Mi Perfil
                   </Nav.Link>
                 </Nav.Item>
               </>
