@@ -94,6 +94,9 @@ const PerfilAnfitrion = () => {
         <Row className="justify-content-start custom-row-padding">
           <Col className="profile-container" md="6">
             <CustomAvatar
+              width="6rem"
+              height="6rem"
+              fontSize="2rem"
               nombre={datosAnfitrion.name}
               apellido={datosAnfitrion.lastname}
               onClick={openModal}

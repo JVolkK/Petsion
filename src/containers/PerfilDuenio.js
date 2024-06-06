@@ -73,9 +73,17 @@ const PerfilDuenio = () => {
       <NavBar />
       <Container className="m-auto p-auto ">
         <Row className="pb-4 justify-content-center">
-          <Col xl={4} xs={12} md={10} className="border rounded p-4 text-center">
+          <Col
+            xl={4}
+            xs={12}
+            md={10}
+            className="border rounded p-4 text-center"
+          >
             <div className="text-center">
               <CustomAvatar
+                width="6rem"
+                height="6rem"
+                fontSize="2rem"
                 nombre={datosAnfitrion.name}
                 apellido={datosAnfitrion.lastname}
               />
@@ -95,7 +103,7 @@ const PerfilDuenio = () => {
             </Button>
           </Col>
         </Row>
-        
+
         <Row className="w-100 justify-content-center">
           {mascotas.length > 0 ? (
             <>
@@ -110,7 +118,12 @@ const PerfilDuenio = () => {
                   />
                 </Col>
               ))}
-              <Col xl={2} md={3} sm={2} className="pb-3 d-flex justify-content-center">
+              <Col
+                xl={2}
+                md={3}
+                sm={2}
+                className="pb-3 d-flex justify-content-center"
+              >
                 <AddPetCard handleRerender={handleRerender} />
               </Col>
             </>
@@ -121,8 +134,6 @@ const PerfilDuenio = () => {
             </Col>
           )}
         </Row>
-
-        
       </Container>
       <Footer />
     </>
