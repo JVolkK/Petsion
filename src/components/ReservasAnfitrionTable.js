@@ -8,28 +8,31 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   IconButton,
   Collapse,
-  Box,
   Typography,
   Chip,
   Button,
   Grid,
+  Stack,
+  Paper,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { AppContext } from "../contexts/AppContext"; // Asume que tienes un contexto definido
+import LoadingOverlay from "./LoadingOverlay";
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
   width: "auto",
   padding: theme.spacing(0),
   textAlign: "center",
-  color: theme.palette.text.secondary,
+  boxShadow: "none",
 }));
+
+function formatTime(date) {
+  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
 
 function Row(props) {
   const { row } = props;
@@ -38,7 +41,7 @@ function Row(props) {
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
+        <TableCell sx={{ p: 0, pl: 1 }}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -47,77 +50,189 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.user.name} {row.user.lastname}
+        <TableCell component="th" align="left">
+          <Typography
+            variant="subtitle2"
+            gutterBottom
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              ml: 1,
+              fontWeight: "bold",
+            }}
+          >
+            {row.user.name} {row.user.lastname}
+          </Typography>
         </TableCell>
+
         <TableCell align="left">{row.tipoDeServicio}</TableCell>
-        <TableCell align="left" className=" d-flex justify-content-start">
+        <TableCell align="left" sx={{ height: "100%" }}>
           {row.reservaActiva ? (
-            <Chip label="Pendiente" />
+            <Chip label="Pendiente" color="warning" />
           ) : (
             <Chip label="Pendiente" color="warning" />
           )}
-        </TableCell>
-        <TableCell align="left">
-          <Button
-            variant="contained"
-            color="success"
-            size="small"
-            sx={{ mx: 1 }}
-          >
-            Aceptar
-          </Button>
-          <Button variant="contained" color="error" size="small">
-            Rechazar
-          </Button>
         </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Detalles
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                Mensaje: {row.mensaje}
-              </Typography>
-              <Typography variant="body1" gutterBottom>
-                Fecha de entrada y salida:{" "}
-                <Typography variant="subtitle2" gutterBottom>
-                  {new Date(row.fechaDeEntrada).toLocaleDateString()} -{" "}
-                  {new Date(row.fechaDeSalida).toLocaleDateString()}
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ fontWeight: "bold", pt: 3 }}
+            >
+              Detalles
+            </Typography>
+            <Grid sx={{ margin: 1, display: "column" }}>
+              <Stack direction="column" alignItems="start">
+                <Item
+                  sx={{
+                    display: {
+                      xs: "column",
+                      xl: "flex",
+                      md: "flex",
+                      sm: "flex",
+                    },
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    gutterBottom
+                    sx={{ fontWeight: "bold", pl: 0 }}
+                  >
+                    Id de la reserva
+                  </Typography>
+                  <Typography variant="subtitle2" gutterBottom>
+                    {row._id}
+                  </Typography>
+                </Item>
+
+                <Item
+                  sx={{
+                    display: {
+                      xs: "column",
+                      xl: "flex",
+                      md: "flex",
+                      sm: "flex",
+                    },
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    gutterBottom
+                    sx={{ fontWeight: "bold", pl: 0 }}
+                  >
+                    Mensaje:
+                  </Typography>
+                  <Typography variant="subtitle2" gutterBottom>
+                    {row.mensaje}
+                  </Typography>
+                </Item>
+                <Item
+                  sx={{
+                    display: {
+                      xs: "column",
+                      xl: "flex",
+                      md: "flex",
+                      sm: "flex",
+                    },
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    gutterBottom
+                    sx={{ fontWeight: "bold", pl: 0 }}
+                  >
+                    Fecha de entrada y salida:{" "}
+                  </Typography>
+                  <Typography variant="subtitle2" gutterBottom>
+                    {new Date(row.fechaDeEntrada).toLocaleDateString()} -{" "}
+                    {new Date(row.fechaDeSalida).toLocaleDateString()}
+                  </Typography>
+                </Item>
+
+                <Item
+                  sx={{
+                    display: {
+                      xs: "column",
+                      xl: "flex",
+                      md: "flex",
+                      sm: "flex",
+                    },
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    gutterBottom
+                    sx={{ fontWeight: "bold", pl: 0 }}
+                  >
+                    Horario de entrada y salida:{" "}
+                  </Typography>
+                  <Typography variant="subtitle2" gutterBottom>
+                    {formatTime(new Date(row.horarioDeEntrada))} -{" "}
+                    {formatTime(new Date(row.horarioDeSalida))}
+                  </Typography>
+                </Item>
+              </Stack>
+
+              <Stack>
+                <Typography
+                  variant="body1"
+                  gutterBottom
+                  sx={{ fontWeight: "bold", pl: 0, pb: 0 }}
+                >
+                  Mascotas
                 </Typography>
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                Horario de entrada y salida:{" "}
-                {new Date(row.horarioDeEntrada).toLocaleTimeString()} -{" "}
-                {new Date(row.horarioDeSalida).toLocaleTimeString()}
-              </Typography>
-              <Typography variant="body2" gutterBottom>
-                Mascotas a Cuidar:
-              </Typography>
-              <Table size="small" aria-label="mascotas">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Tipo</TableCell>
-                    <TableCell>Nombre</TableCell>
-                    <TableCell>Edad</TableCell>
-                    <TableCell>Peso</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.mascotasCuidado.map((mascota) => (
-                    <TableRow key={mascota._id}>
-                      <TableCell>{mascota.tipoMascota}</TableCell>
-                      <TableCell>{mascota.nombre}</TableCell>
-                      <TableCell>{mascota.edad}</TableCell>
-                      <TableCell>{mascota.peso}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
+                <Paper
+                  sx={{
+                    width: "50%",
+                  }}
+                >
+                  <Table aria-label="mascotas">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell sx={{ fontWeight: "bold" }}>Tipo</TableCell>
+                        <TableCell sx={{ fontWeight: "bold" }}>
+                          Nombre
+                        </TableCell>
+                        <TableCell sx={{ fontWeight: "bold" }}>Edad</TableCell>
+                        <TableCell sx={{ fontWeight: "bold" }}>Peso</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {row.mascotasCuidado.map((mascota) => (
+                        <TableRow key={mascota._id}>
+                          <TableCell>{mascota.tipoMascota}</TableCell>
+                          <TableCell>{mascota.nombre}</TableCell>
+                          <TableCell>{mascota.edad}</TableCell>
+                          <TableCell>{mascota.peso}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </Paper>
+              </Stack>
+              <Item
+                sx={{ display: "flex", justifyContent: "start", mt: 4, mb: 2 }}
+              >
+                <Button
+                  variant="contained"
+                  color="success"
+                  size="small"
+                  sx={{ mx: 1 }}
+                >
+                  Aceptar
+                </Button>
+                <Button variant="contained" color="error" size="small">
+                  Rechazar
+                </Button>
+              </Item>
+            </Grid>
           </Collapse>
         </TableCell>
       </TableRow>
@@ -173,6 +288,7 @@ export default function ReservasAnfitrionTable() {
         })
         .then((response) => {
           setDatosReserva(response.data);
+          console.log(response.data);
           setLoading(false);
         })
         .catch((error) => {
@@ -183,15 +299,14 @@ export default function ReservasAnfitrionTable() {
   }, [setUsuarioLogeado]);
 
   if (loading) {
-    return <p>Cargando...</p>;
+    return <LoadingOverlay loading={loading} />;
   }
 
   return (
     <>
-      <h1>Mis reservas</h1>
       <Grid>
         <Item sx={{ m: 3 }}>
-          <TableContainer component={Paper} container>
+          <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
               <TableHead>
                 <TableRow>
@@ -205,9 +320,6 @@ export default function ReservasAnfitrionTable() {
                   </TableCell>
                   <TableCell align="left" sx={{ fontWeight: "bold" }}>
                     Estado de la reserva
-                  </TableCell>
-                  <TableCell align="left" sx={{ fontWeight: "bold" }}>
-                    Actualizar estado
                   </TableCell>
                 </TableRow>
               </TableHead>
