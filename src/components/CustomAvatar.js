@@ -32,7 +32,7 @@ const CustomAvatar = ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "1rem",
+        marginTop: "0",
       }}
     >
       {initials}
