@@ -484,8 +484,14 @@ const ReservarCuidador = () => {
               </Row>
             </Row>
             <Row className="d-flex justify-content-center">
-              <Col xl={6} className="d-flex justify-content-center">
-                <Button type="submit">Enviar reserva</Button>
+              <Col xl={6} className="d-flex justify-content-center pt-3 py-5">
+                <Button
+                  type="submit"
+                  style={{ backgroundColor: "#4E75B5", borderColor: "#324c75" }}
+                  className="w-100"
+                >
+                  Enviar reserva
+                </Button>
               </Col>
             </Row>
           </Form>
