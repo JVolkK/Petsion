@@ -79,7 +79,7 @@ const PerfilDuenio = () => {
             md={10}
             className="border rounded p-4 text-center"
           >
-            <div className="text-center">
+            <div className="d-flex justify-content-center">
               <CustomAvatar
                 width="6rem"
                 height="6rem"
