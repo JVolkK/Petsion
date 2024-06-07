@@ -303,9 +303,6 @@ export default function ReservasConfirmadasAnfitrionTable() {
   const { setUsuarioLogeado } = useContext(AppContext);
   const [datosReserva, setDatosReserva] = useState();
   const [loading, setLoading] = useState(false);
-  const [renderKey, setRenderKey] = useState(0);
-
-  const handleRerender = () => setRenderKey((prevKey) => prevKey + 1);
 
   useEffect(() => {
     const storedUsuarioLogeado = JSON.parse(
@@ -331,7 +328,7 @@ export default function ReservasConfirmadasAnfitrionTable() {
           setLoading(false);
         });
     }
-  }, [setUsuarioLogeado, renderKey]);
+  }, [setUsuarioLogeado]);
 
   if (loading) {
     return <LoadingOverlay loading={loading} />;
