@@ -11,8 +11,10 @@ import "../styles/App.css";
 function ComoFunciona() {
   return (
     <Container fluid className="p-0">
-      <Container>
-        <h1 style={{ textAlign: "center" }}>Como funciona Petsion</h1>
+      <Container className="p-auto m-auto">
+        <h1 style={{ textAlign: "center" }} className="pt-3">
+          Como funciona Petsion
+        </h1>
         <Row>
           <Col xs={12} sm={6}>
             <Row>
