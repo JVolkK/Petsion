@@ -97,7 +97,12 @@ const PerfilDuenio = () => {
 
         <Row className="pb-4 justify-content-center">
           <Col xl={2} md={4} xs={6} className="text-center">
-            <Button variant="primary" onClick={logout} className="text-center">
+            <Button
+              variant="primary"
+              onClick={logout}
+              className="text-center"
+              style={{ backgroundColor: "#4E75B5", borderColor: "#324c75" }}
+            >
               <CiLogout size={30} className="mr-2" />
               Cerrar Sesión
             </Button>
