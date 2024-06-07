@@ -41,7 +41,6 @@ function App() {
             <Route path="/validate-email" element={<ValidateEmail />} />
             <Route path="/email-validated" element={<EmailValidated />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/buscar-cuidador" element={<BuscarCuidador />} />
           </Route>
 
           {/* Rutas para User */}
