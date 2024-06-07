@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
-
 import { Navigate, Outlet } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
 
 const ProtectedRoute = ({ rolDeseado }) => {
   const { usuarioLogeado } = useContext(AppContext);
 
-  // Verificar si el rol del usuario está en la lista de roles deseados
+  if (usuarioLogeado === null) {
+    return null;
+  }
+
   const rolValido = Array.isArray(rolDeseado)
     ? rolDeseado.includes(usuarioLogeado.rol)
     : usuarioLogeado.rol === rolDeseado;
