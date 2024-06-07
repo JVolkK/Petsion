@@ -22,22 +22,22 @@ const ProfileCard = ({
       onMouseOver={(e) => e.currentTarget.classList.add("profile-card-hover")}
       onMouseOut={(e) => e.currentTarget.classList.remove("profile-card-hover")}
     >
-      <Col
-        xs={3}
-        className="d-flex align-items-center justify-content-center"
-      >
-        <CustomAvatar nombre={nombre} apellido={apellido} onClick={onClick} />
+      <Col xs={3} className="d-flex align-items-center justify-content-center">
+        <CustomAvatar
+          width="6rem"
+          height="6rem"
+          fontSize="2rem"
+          nombre={nombre}
+          apellido={apellido}
+          onClick={onClick}
+        />
       </Col>
       <Col xs={9}>
         <Card.Body>
           <Card.Title>{`${nombre} ${apellido}`}</Card.Title>
           {conPatio ? (
             <div className="d-flex align-items-center">
-              <GiGrass
-                color="green"
-                className="align-items-center"
-                size={30}
-              />
+              <GiGrass color="green" className="align-items-center" size={30} />
               <Card.Text>Tiene patio</Card.Text>
             </div>
           ) : (
