@@ -6,7 +6,7 @@ const AppProvider = ({ children }) => {
   const [homeFormValue, setHomeFormValue] = useState("alojamiento");
   const [usuariosFiltrados, setUsuariosFiltrados] = useState({});
   const [isAuthenticated, setAuthenticated] = useState(false);
-  const [usuarioLogeado, setUsuarioLogeado] = useState({});
+  const [usuarioLogeado, setUsuarioLogeado] = useState(null);
 
   useEffect(() => {
     const savedUsuario = localStorage.getItem("usuarioLogeado");
