@@ -12,19 +12,20 @@ import {
   Collapse,
   Typography,
   Chip,
-  Button,
   Grid,
   Stack,
   Paper,
   Box,
 } from "@mui/material";
+import { Link as LinkUI } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { AppContext } from "../contexts/AppContext"; // Asume que tienes un contexto definido
 import LoadingOverlay from "./LoadingOverlay";
-import image from "../images/SinReservasPendientes.jpg";
-import { useNavigate } from "react-router-dom";
+import { FaPhoneAlt } from "react-icons/fa";
+import { IoIosMail } from "react-icons/io";
+import image from "../images/SinReservasConfirmadas.jpg";
 
 const Item = styled(Paper)(({ theme }) => ({
   width: "auto",
@@ -39,36 +40,11 @@ function formatTime(date) {
 
 function Row(props) {
   const { row } = props;
-  const { handleRerender } = props;
-  const { setDatosReserva } = props;
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  const aceptarReserva = () => {
-    try {
-      axios.post(`https://api-petsion.onrender.com/reservas/confirmar`, {
-        confirmado: true,
-        id: row._id,
-      });
-      handleRerender();
-    } catch (error) {
-    } finally {
-      handleRerender();
-    }
-  };
-
-  const rechazarReserva = () => {
-    try {
-      axios.post(`https://api-petsion.onrender.com/reservas/rechazar`, {
-        id: row._id,
-      });
-      handleRerender();
-    } catch (error) {
-    } finally {
-      handleRerender();
-      navigate("/reservas-anfitrion");
-      setDatosReserva();
-    }
-  };
+  const phoneNumber = row.user.telefono;
+  const whatsappLink = `https://wa.me/${phoneNumber}`;
+  const email = row.user.email;
+  const mailtoLink = `mailto:${email}`;
 
   return (
     <React.Fragment>
@@ -99,10 +75,10 @@ function Row(props) {
 
         <TableCell align="left">{row.tipoDeServicio}</TableCell>
         <TableCell align="left" sx={{ height: "100%" }}>
-          {row.reservaActiva ? (
-            <Chip label="Pendiente" color="warning" />
+          {row.confirmado ? (
+            <Chip label="Aceptada" color="success" />
           ) : (
-            <Chip label="Pendiente" color="warning" />
+            <Chip label="Aceptada" color="success" />
           )}
         </TableCell>
       </TableRow>
@@ -134,11 +110,48 @@ function Row(props) {
                     gutterBottom
                     sx={{ fontWeight: "bold", pl: 0 }}
                   >
-                    Id de la reserva
+                    Id de la reserva:
                   </Typography>
                   <Typography variant="subtitle2" gutterBottom>
                     {row._id}
                   </Typography>
+                </Item>
+                <Item
+                  sx={{
+                    display: {
+                      xs: "column",
+                      xl: "flex",
+                      md: "flex",
+                      sm: "flex",
+                    },
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    gutterBottom
+                    sx={{ fontWeight: "bold", pl: 0 }}
+                  >
+                    Contacto:
+                  </Typography>
+                  <Box sx={{ display: "flex", pl: 2 }}>
+                    <Box sx={{ pr: 1 }}>
+                      <FaPhoneAlt size={20} />
+                    </Box>
+                    <LinkUI
+                      href={whatsappLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {phoneNumber}
+                    </LinkUI>
+                  </Box>
+                  <Box sx={{ display: "flex", pl: 2 }}>
+                    <Box sx={{ pr: 1 }}>
+                      <IoIosMail size={20} />
+                    </Box>
+                    <LinkUI href={mailtoLink}>{email}</LinkUI>
+                  </Box>
                 </Item>
 
                 <Item
@@ -253,27 +266,6 @@ function Row(props) {
                   </Table>
                 </Paper>
               </Stack>
-              <Item
-                sx={{ display: "flex", justifyContent: "start", mt: 4, mb: 2 }}
-              >
-                <Button
-                  variant="contained"
-                  color="success"
-                  size="small"
-                  sx={{ mx: 1 }}
-                  onClick={aceptarReserva}
-                >
-                  Aceptar
-                </Button>
-                <Button
-                  variant="contained"
-                  color="error"
-                  size="small"
-                  onClick={rechazarReserva}
-                >
-                  Rechazar
-                </Button>
-              </Item>
             </Grid>
           </Collapse>
         </TableCell>
@@ -307,7 +299,7 @@ Row.propTypes = {
   }).isRequired,
 };
 
-export default function ReservasAnfitrionTable() {
+export default function ReservasConfirmadasAnfitrionTable() {
   const { setUsuarioLogeado } = useContext(AppContext);
   const [datosReserva, setDatosReserva] = useState();
   const [loading, setLoading] = useState(false);
@@ -328,17 +320,15 @@ export default function ReservasAnfitrionTable() {
     if (storedUsuarioLogeado.id) {
       setLoading(true);
       axios
-        .post(`https://api-petsion.onrender.com/reservas/anfitrion`, {
+        .post(`https://api-petsion.onrender.com/reservas/anfitrionconfirm`, {
           anfitrion: storedUsuarioLogeado.id,
         })
         .then((response) => {
           setDatosReserva(response.data);
           setLoading(false);
-          console.log(response.data);
         })
         .catch((error) => {
           setLoading(false);
-          console.log(error);
         });
     }
   }, [setUsuarioLogeado, renderKey]);
@@ -371,12 +361,7 @@ export default function ReservasAnfitrionTable() {
                 </TableHead>
                 <TableBody>
                   {datosReserva.map((row) => (
-                    <Row
-                      key={row._id}
-                      row={row}
-                      handleRerender={handleRerender}
-                      setDatosReserva={setDatosReserva}
-                    />
+                    <Row key={row._id} row={row} />
                   ))}
                 </TableBody>
               </Table>
