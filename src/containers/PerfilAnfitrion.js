@@ -20,6 +20,7 @@ import { PiCatBold } from "react-icons/pi";
 import { PiDogBold } from "react-icons/pi";
 import CustomAvatar from "../components/CustomAvatar";
 import { InputGroup } from "react-bootstrap";
+import { CiLogout } from "react-icons/ci";
 
 const PerfilAnfitrion = () => {
   const { setUsuarioLogeado } = useContext(AppContext);
@@ -103,12 +104,23 @@ const PerfilAnfitrion = () => {
             />
             <h1 className="nombre-anfitrion">{`${datosAnfitrion.name} ${datosAnfitrion.lastname}`}</h1>
             <h2 className="direccion-anfitrion">{datosAnfitrion.direccion}</h2>
-            <Button
-              onClick={openModal}
-              className="edit-button d-flex align-items-center justify-content-center"
-            >
-              <MdModeEdit className="inbox-icon me-2" /> Editar Perfil
-            </Button>
+            <div className="d-flex">
+              <Button
+                onClick={openModal}
+                className="edit-button d-flex align-items-center justify-content-center mx-1"
+                style={{ backgroundColor: "#4E75B5", borderColor: "#324c75" }}
+              >
+                <MdModeEdit className="inbox-icon me-2" /> Editar Perfil
+              </Button>
+              <Button
+                onClick={logout}
+                className="mx-1"
+                style={{ backgroundColor: "#4E75B5", borderColor: "#324c75" }}
+              >
+                <CiLogout size={20} className="inbox-icon me-2" />
+                Cerrar Sesión
+              </Button>
+            </div>
             <Modal show={showModal} onHide={handleCloseModal}>
               <Modal.Body>
                 <Form>
@@ -384,11 +396,7 @@ const PerfilAnfitrion = () => {
             </div>
           </Col>
         </Row>
-        <Col className="boton-col">
-          <Button onClick={logout} className="BotonLogout">
-            Cerrar Sesión
-          </Button>
-        </Col>
+        <Col className="boton-col"></Col>
       </Container>
     </>
   );
