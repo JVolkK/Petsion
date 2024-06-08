@@ -103,13 +103,13 @@ const ReservarCuidador = () => {
     const mensajeTest = /^[a-zA-Z0-9\s\-!@#$%^&*(),.?"':;]+$/;
 
     if (formData.tipoDeServicio === null && "") {
-      newErrors.tipoDeServicio = "Ingrese un tipo de servicio";
+      newErrors.tipoDeServicio = "Ingrese un tipo de servicio.";
     }
     if (formData.fechaDeEntrada === null) {
       newErrors.fechaDeEntrada = "Seleccione una fecha de entrada.";
     }
     if (formData.fechaDeSalida === null) {
-      newErrors.fechaDeSalida = "Seleccione una fecha de salida";
+      newErrors.fechaDeSalida = "Seleccione una fecha de salida.";
     }
 
     if (
@@ -118,23 +118,30 @@ const ReservarCuidador = () => {
       formData.fechaDeEntrada > formData.fechaDeSalida
     ) {
       newErrors.fechaDeSalida =
-        "La fecha de salida debe ser posterior o igual a la fecha de entrada";
+        "La fecha de salida debe ser posterior o igual a la fecha de entrada.";
     }
 
     if (formData.horarioDeEntrada === null) {
-      newErrors.horarioDeEntrada = "Seleccione un horario de entrada";
+      newErrors.horarioDeEntrada = "Seleccione un horario de entrada.";
     }
     if (formData.horarioDeSalida === null) {
-      newErrors.horarioDeSalida = "Seleccione un horario de salida";
+      newErrors.horarioDeSalida = "Seleccione un horario de salida.";
     }
 
     if (
+      formData.fechaDeEntrada &&
+      formData.fechaDeSalida &&
       formData.horarioDeEntrada &&
-      formData.horarioDeSalida &&
-      formData.horarioDeEntrada > formData.horarioDeSalida
+      formData.horarioDeSalida
     ) {
-      newErrors.horarioDeSalida =
-        "El horario de salida debe ser posterior o igual al horario de entrada";
+      if (
+        formData.fechaDeEntrada.toDateString() ===
+          formData.fechaDeSalida.toDateString() &&
+        formData.horarioDeEntrada >= formData.horarioDeSalida
+      ) {
+        newErrors.horarioDeSalida =
+          "El horario de salida debe ser posterior al horario de entrada si la fecha es la misma.";
+      }
     }
 
     if (formData.mascotasCuidado.length === 0) {
