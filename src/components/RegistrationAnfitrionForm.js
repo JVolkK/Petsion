@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useForm } from "../hooks/useFormAnfitrion";
 import "../styles/DuenioFormStyle.css";
+import "../styles/globalStyles.css";
 import Step1 from "../components/Step1RegistrationAnfitrion";
 import Step2 from "../components/Step2RegistrationAnfitrion";
 import Step3 from "../components/Step3RegistrationAnfitrion";
@@ -61,7 +62,7 @@ const validationsForm = (form) => {
     errors.password = "El campo contraseña es requerido";
   } else if (!passwordPattern.test(form.password)) {
     errors.password =
-      " La contraseña debe contener al menos una mayuscula, numeros, minimo 10 caracteres y no contener espacios";
+      " La contraseña debe contener letras y numeros y al menos 8 caracteres.";
   }
 
   //Validaciones
@@ -196,7 +197,7 @@ const validationsForm = (form) => {
 var usernamePattern = /^[a-zA-Z0-9]+$/;
 
 var namePattern = /^[a-zA-Z]+(?: [a-zA-Z]+)?$/;
-var passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@.#$!%*?&]{10,15}$/; // Test para password, requiere al menos una letra minuscula, una mayuscula, un caracter especial, un numero y un largo minimo de 8 a 15 caracteres
+var passwordPattern = /^(?=.*[a-zA-Z])[a-zA-Z\d!@#$%^&*()\-_=+{};:,<.>.]{8,}$/;
 var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 var numberPattern = /^[0-9]+$/;
 
@@ -281,7 +282,7 @@ function RegistrationAnfitrionForm() {
             <Button
               variant="primary"
               onClick={handleNext}
-              className="ms-3"
+              className="ms-3 buttonPetsion"
               disabled={loading}
             >
               Siguiente
@@ -291,7 +292,7 @@ function RegistrationAnfitrionForm() {
             <Button
               variant="success"
               type="submit"
-              className="ms-3"
+              className="ms-3 buttonPetsion"
               disabled={loading}
             >
               {loading ? "Enviando..." : "Enviar"}

@@ -6,6 +6,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { useForm } from "../hooks/useFormDuenio";
 import "../styles/DuenioFormStyle.css";
+import "../styles/globalStyles.css";
 import LoadingOverlay from "../components/LoadingOverlay";
 
 const initialForm = {
@@ -38,7 +39,7 @@ const validationsForm = (form) => {
     errors.password = "El campo contraseña es requerido";
   } else if (!passwordPattern.test(form.password)) {
     errors.password =
-      " La contraseña debe contener al menos una mayuscula, minimo 10 caracteres y no contener espacios";
+      " La contraseña debe contener letras y numeros y al menos 8 caracteres.";
   }
 
   //Validaciones
@@ -104,7 +105,7 @@ let styles = {
 
 var usernamePattern = /^[a-zA-Z0-9]+$/;
 var namePattern = /^[a-zA-Z]+(?: [a-zA-Z]+)?$/;
-var passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@.#$!%*?&]{10,15}$/; // Test para password, requiere al menos una letra minuscula, una mayuscula, un caracter especial, un numero y un largo minimo de 8 a 15 caracteres
+var passwordPattern = /^(?=.*[a-zA-Z])[a-zA-Z\d!@#$%^&*()\-_=+{};:,<.>.]{8,}$/;
 var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 var numberPattern = /^[0-9]+$/;
 
@@ -163,8 +164,8 @@ function RegistrationDuenioForm() {
               // Si no hay errores, muestra el label
               <label>
                 {" "}
-                La contraseña debe contener al menos una mayuscula, minimo 10
-                caracteres y no contener espacios
+                La contraseña debe contener letras y numeros y al menos 8
+                caracteres.
               </label>
             )}
           </Form.Group>
@@ -304,7 +305,9 @@ function RegistrationDuenioForm() {
             feedbackType="invalid"
           />
         </Form.Group>
-        <Button type="submit">Enviar</Button>
+        <Button type="submit" className="buttonPetsion">
+          Enviar
+        </Button>
       </Form>
     </div>
   );

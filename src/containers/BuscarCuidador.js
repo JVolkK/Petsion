@@ -12,6 +12,7 @@ import Mapa from "../components/Mapa";
 import axios from "axios";
 import { AppContext } from "../contexts/AppContext";
 import AnfitrionModal from "../components/AnfitrionModal";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 const geocodeAddress = async (address) => {
   try {
@@ -44,6 +45,7 @@ const BuscarCuidador = () => {
   const [locations, setLocations] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleOpenModal = (usuario) => {
     setSelectedUser(usuario);
@@ -76,9 +78,10 @@ const BuscarCuidador = () => {
   return (
     <>
       <NavBar />
+      <LoadingOverlay loading={loading} />
       <Container fluid className="h-100 m-auto p-auto">
         <Container className="m-auto p-auto">
-          <FilterAnfitrionForm />
+          <FilterAnfitrionForm loading={loading} setLoading={setLoading} />
         </Container>
         <Container className="m-auto p-auto">
           <Row>
