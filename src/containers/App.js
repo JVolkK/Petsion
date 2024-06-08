@@ -24,7 +24,6 @@ function App() {
     <AppProvider>
       <div className="App">
         <Routes>
-          <Route path="/" element={<Home />} />
           {/* Rutas para Guest */}
           <Route element={<ProtectedRoute rolDeseado="guest" />}>
             <Route
@@ -46,7 +45,6 @@ function App() {
 
           {/* Rutas para User */}
           <Route element={<ProtectedRoute rolDeseado="user" />}>
-            <Route path="/" element={<Home />} />
             <Route path="/perfil-duenio" element={<PerfilDuenio />} />
             <Route path="/servicios-select" element={<Servicios />} />
             <Route path="/contacto" element={<Contacto />} />
@@ -77,6 +75,14 @@ function App() {
           >
             <Route path="/servicios-select" element={<Servicios />} />
             <Route path="/contacto" element={<Contacto />} />
+          </Route>
+          {/* Rutas compartidas entre anfitrion, user y guest */}
+          <Route
+            element={
+              <ProtectedRoute rolDeseado={["anfitrion", "user", "guest"]} />
+            }
+          >
+            <Route path="/" element={<Home />} />
           </Route>
         </Routes>
       </div>
