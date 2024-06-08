@@ -7,9 +7,8 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import { useForm } from "../hooks/useFormFiltroAnfitrion";
 import Button from "react-bootstrap/Button";
-import LoadingOverlay from "../components/LoadingOverlay";
 
-const FilterAnfitrionForm = () => {
+const FilterAnfitrionForm = ({ loading, setLoading }) => {
   const { homeFormValue } = useContext(AppContext);
 
   const initialForm = {
@@ -29,11 +28,10 @@ const FilterAnfitrionForm = () => {
     disponibilidadHoraria: "Mañana",
   };
 
-  const { handleSubmit, handleChange, loading } = useForm(initialForm);
+  const { handleSubmit, handleChange } = useForm(initialForm, setLoading);
 
   return (
     <div>
-      <LoadingOverlay loading={loading} />
       <Form onSubmit={handleSubmit}>
         <Container>
           <Row className="justify-content-center">
