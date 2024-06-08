@@ -51,8 +51,8 @@ const Step1RegistrationAnfitrion = ({
           ) : (
             // Si no hay errores, muestra el label
             <p className="text-muted password-condition">
-              La contraseña debe contener al menos una mayuscula, numeros,
-              minimo 10 caracteres y no contener espacios
+              La contraseña debe contener letras y numeros y al menos 8
+              caracteres.
             </p>
           )}
         </Form.Group>

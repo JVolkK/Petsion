@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import { useForm } from "../hooks/useFormFiltroAnfitrion";
+import "../styles/globalStyles.css";
 import Button from "react-bootstrap/Button";
 
 const FilterAnfitrionForm = ({ loading, setLoading }) => {
@@ -105,7 +106,9 @@ const FilterAnfitrionForm = ({ loading, setLoading }) => {
           </Row>
           <Row>
             <Col className="d-flex justify-content-center  m-auto pt-3">
-              <Button type="submit">Buscar</Button>
+              <Button type="submit" className="buttonPetsion">
+                Buscar
+              </Button>
             </Col>
           </Row>
         </Container>
