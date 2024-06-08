@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { IoIosAddCircleOutline } from "react-icons/io";
 import { Container, Row } from "react-bootstrap";
 import "../styles/addPetCard.css";
 import AddPetModal from "./AddPetModal";
 
-const AddPetCard = () => {
+const AddPetCard = ({ handleRerender }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
@@ -17,24 +18,19 @@ const AddPetCard = () => {
     <>
       <Container
         fluid
-        className="clickable-card border rounded m-3 p-0"
+        className="clickable-card border rounded m-3 p-0 ActionCard bg-secondary d-flex justify-content-center align-items-center"
         onClick={handleShow}
       >
         <Row>
-          <ControlPointIcon
-            color="primary"
-            sx={{ fontSize: 80 }}
-            className="w-100 hoverIcon"
-          />
-        </Row>
-        <Row>
-          <h5 className=" w-100 addPetCardTitle justify-content-center align-items-center d-flex ">
-            Añadir mascota
-          </h5>
+          <IoIosAddCircleOutline size={80} className="hoverIcon" />
         </Row>
       </Container>
       <div>
-        <AddPetModal show={show} handleClose={handleClose} />
+        <AddPetModal
+          show={show}
+          handleClose={handleClose}
+          handleRerender={handleRerender}
+        />
       </div>
     </>
   );

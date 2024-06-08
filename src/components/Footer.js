@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import Terminos from "./Terminos";
 import Politicas from "./Politicas";
-import { AiOutlineMail, AiOutlineInstagram } from 'react-icons/ai';
+import { AiOutlineMail, AiOutlineInstagram } from "react-icons/ai";
 import "../styles/HomeForm.css";
 
 function Footer() {
@@ -20,9 +21,9 @@ function Footer() {
 
   return (
     <>
-      <Container fluid className="p-0">
+      <Container fluid className="p-0 p-auto m-auto">
         <footer className="footer mt-auto py-3 bg-custom-color">
-          <Row className="container">
+          <Row className="container p-auto m-auto">
             <Col sm={12} md={4}>
               <nav className="nav flex-column">
                 <Link className="nav-link text-white" to="/">
@@ -81,7 +82,10 @@ function Footer() {
           </Row>
           <hr style={{ borderTop: "1px solid white", margin: "10px auto" }} />
           <div className="text-center text-white">
-            <span>© 2024 PETSION | Todos los derechos reservados | Proyecto con fines educativos | UNSTA 2024</span>
+            <span>
+              © 2024 PETSION | Todos los derechos reservados | Proyecto con
+              fines educativos | UNSTA 2024
+            </span>
           </div>
         </footer>
       </Container>

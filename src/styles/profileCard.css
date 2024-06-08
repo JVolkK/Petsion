@@ -1,0 +1,20 @@
+.image {
+  width: 3rem;
+  height: 3rem;
+}
+
+@media (min-width: 1200px) {
+  .image {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+.Card.profile-card {
+  cursor: pointer;
+}
+
+.profile-card-hover {
+  background-color: rgba(0, 0, 0, 0.1); 
+  transition: background-color 0.3s ease; 
+  cursor: pointer; 
+}

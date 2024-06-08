@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import L from "leaflet";
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
 
 // Importa las imágenes del marcador
-import markerIconPng from 'leaflet/dist/images/marker-icon.png';
-import markerShadowPng from 'leaflet/dist/images/marker-shadow.png';
+import markerIconPng from "leaflet/dist/images/marker-icon.png";
+import markerShadowPng from "leaflet/dist/images/marker-shadow.png";
 
 // Configura el icono del marcador
 const markerIcon = new L.Icon({
@@ -46,7 +47,9 @@ const Mapa = ({ locations }) => {
     // Crea el mapa si aún no existe
     if (!mapRef.current) {
       // Centra el mapa en la ubicación del usuario si está disponible, de lo contrario, usa una ubicación predeterminada
-      const center = userLocation ? [userLocation.lat, userLocation.lng] : [0, 0];
+      const center = userLocation
+        ? [userLocation.lat, userLocation.lng]
+        : [0, 0];
       mapRef.current = L.map("map").setView(center, 13);
 
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -55,12 +58,12 @@ const Mapa = ({ locations }) => {
     }
 
     // Elimina marcadores existentes
-    markersRef.current.forEach(marker => {
+    markersRef.current.forEach((marker) => {
       marker.remove();
     });
 
     // Agrega marcadores al mapa
-    markersRef.current = locations.map(location => {
+    markersRef.current = locations.map((location) => {
       if (!location.lat || !location.lng) {
         return null;
       }
@@ -72,9 +75,10 @@ const Mapa = ({ locations }) => {
 
     // Ajusta el límite del mapa según los marcadores si hay al menos una ubicación
     if (locations.length > 0) {
-      const bounds = L.latLngBounds(locations
-        .filter(location => location.lat && location.lng)
-        .map(location => [location.lat, location.lng])
+      const bounds = L.latLngBounds(
+        locations
+          .filter((location) => location.lat && location.lng)
+          .map((location) => [location.lat, location.lng])
       );
       mapRef.current.fitBounds(bounds);
     }
