@@ -18,7 +18,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import CardMascotaReserva from "../components/CardMascotaReserva";
 import AddPetCard from "../components/AddPetCard";
 import "../styles/ReservarCuidador.css";
-import { FaClock } from "react-icons/fa"; // Icono reloj
 
 const ReservarCuidador = () => {
   const navigate = useNavigate();
