@@ -18,6 +18,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import CardMascotaReserva from "../components/CardMascotaReserva";
 import AddPetCard from "../components/AddPetCard";
 import "../styles/ReservarCuidador.css";
+import { FaClock } from "react-icons/fa"; // Icono reloj
 
 const ReservarCuidador = () => {
   const navigate = useNavigate();
@@ -110,11 +111,30 @@ const ReservarCuidador = () => {
     if (formData.fechaDeSalida === null) {
       newErrors.fechaDeSalida = "Seleccione una fecha de salida";
     }
+
+    if (
+      formData.fechaDeEntrada &&
+      formData.fechaDeSalida &&
+      formData.fechaDeEntrada > formData.fechaDeSalida
+    ) {
+      newErrors.fechaDeSalida =
+        "La fecha de salida debe ser posterior o igual a la fecha de entrada";
+    }
+
     if (formData.horarioDeEntrada === null) {
       newErrors.horarioDeEntrada = "Seleccione un horario de entrada";
     }
     if (formData.horarioDeSalida === null) {
       newErrors.horarioDeSalida = "Seleccione un horario de salida";
+    }
+
+    if (
+      formData.horarioDeEntrada &&
+      formData.horarioDeSalida &&
+      formData.horarioDeEntrada > formData.horarioDeSalida
+    ) {
+      newErrors.horarioDeSalida =
+        "El horario de salida debe ser posterior o igual al horario de entrada";
     }
 
     if (formData.mascotasCuidado.length === 0) {
@@ -256,7 +276,9 @@ const ReservarCuidador = () => {
         onChange={onChange}
         value={value}
         isInvalid={isInvalid}
+        className="mb-0"
         ref={ref}
+        autoComplete="off"
       />
     )
   );
@@ -314,7 +336,7 @@ const ReservarCuidador = () => {
                   controlId="formGroupFechaEntrada"
                 >
                   <Form.Label>Fecha de entrada</Form.Label>
-                  <InputGroup className="mb-3" name="fechaDeEntrada">
+                  <InputGroup className="" name="fechaDeEntrada">
                     <DatePicker
                       showIcon
                       selected={formData.fechaDeEntrada}
@@ -322,7 +344,7 @@ const ReservarCuidador = () => {
                         handleDateChange("fechaDeEntrada", date)
                       }
                       dateFormat="dd/MM/yyyy"
-                      className="form-control"
+                      className="form-control mb-0"
                       name="fechaDeEntrada"
                       minDate={new Date()}
                       highlightDates={highlightedDates}
@@ -331,6 +353,7 @@ const ReservarCuidador = () => {
                       }
                     />
                   </InputGroup>
+                  <p className="text-error mt-0">{errors.fechaDeEntrada}</p>
                 </Form.Group>
               </Col>
               <Col xl={5}>
@@ -339,7 +362,7 @@ const ReservarCuidador = () => {
                   controlId="formGroupFechaSalida"
                 >
                   <Form.Label>Fecha de salida</Form.Label>
-                  <InputGroup className="mb-3" name="fechaDeSalida">
+                  <InputGroup className="" name="fechaDeSalida">
                     <DatePicker
                       showIcon
                       selected={formData.fechaDeSalida}
@@ -356,6 +379,7 @@ const ReservarCuidador = () => {
                       }
                     />
                   </InputGroup>
+                  <p className="text-error mt-0">{errors.fechaDeSalida}</p>
                 </Form.Group>
               </Col>
             </Row>
@@ -363,11 +387,11 @@ const ReservarCuidador = () => {
               <h5>Selecciona los horarios:</h5>
               <Col xl={5} className="">
                 <Form.Group
-                  className="mb-3 "
+                  className="mb-3 my-2"
                   controlId="formGroupHorarioEntrada"
                 >
                   <Form.Label>Horario de entrada</Form.Label>
-                  <InputGroup className="mb-3">
+                  <InputGroup>
                     <DatePicker
                       selected={formData.horarioDeEntrada}
                       onChange={(date) =>
@@ -386,12 +410,16 @@ const ReservarCuidador = () => {
                       }
                     />
                   </InputGroup>
+                  <p className="text-error mt-0">{errors.horarioDeEntrada}</p>
                 </Form.Group>
               </Col>
               <Col xl={5}>
-                <Form.Group className="mb-3" controlId="formGroupHorarioSalida">
+                <Form.Group
+                  className="mb-3 my-2"
+                  controlId="formGroupHorarioSalida"
+                >
                   <Form.Label>Horario de salida</Form.Label>
-                  <InputGroup className="mb-3">
+                  <InputGroup>
                     <DatePicker
                       isInvalid={!!errors.horarioDeSalida}
                       selected={formData.horarioDeSalida}
@@ -411,6 +439,7 @@ const ReservarCuidador = () => {
                       }
                     />
                   </InputGroup>
+                  <p className="text-error mt-0">{errors.horarioDeSalida}</p>
                 </Form.Group>
               </Col>
             </Row>
