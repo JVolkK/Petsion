@@ -395,7 +395,7 @@ export default function ReservasConfirmadasDuenioTable() {
                 gutterBottom
                 sx={{ pl: 0, m: "auto" }}
               >
-                Cuando confirmes una reserva pendiente podras verla aquí.
+                Debes esperar a que un anfitrion confirme tu reserva 😞.
               </Typography>
             </Item>
           </Box>

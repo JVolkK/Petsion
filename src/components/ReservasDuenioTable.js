@@ -363,14 +363,14 @@ export default function ReservasDuenioTable() {
                 gutterBottom
                 sx={{ fontWeight: "bold", fontSize: "1.5rem", p: 2, pb: 1 }}
               >
-                Sin reservaciones pendientes aún
+                No tienes ninguna reserva pendiente
               </Typography>
               <Typography
                 variant="subtitle2"
                 gutterBottom
                 sx={{ pl: 0, m: "auto" }}
               >
-                Cuando alguien elija reservarte lo veras aquí.
+                Puedes reservar un anfitrion en Buscar Cuidador 😊
               </Typography>
             </Item>
           </Box>
