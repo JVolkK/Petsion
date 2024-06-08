@@ -41,9 +41,9 @@ function formatTime(date) {
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = useState(false);
-  const phoneNumber = row.user.telefono;
+  const phoneNumber = row.anfitrion.telefono;
   const whatsappLink = `https://wa.me/${phoneNumber}`;
-  const email = row.user.email;
+  const email = row.anfitrion.email;
   const mailtoLink = `mailto:${email}`;
 
   return (
@@ -69,7 +69,7 @@ function Row(props) {
               fontWeight: "bold",
             }}
           >
-            {row.user.name} {row.user.lastname}
+            {row.anfitrion.name} {row.anfitrion.lastname}
           </Typography>
         </TableCell>
 
@@ -299,7 +299,7 @@ Row.propTypes = {
   }).isRequired,
 };
 
-export default function ReservasConfirmadasAnfitrionTable() {
+export default function ReservasConfirmadasDuenioTable() {
   const { setUsuarioLogeado } = useContext(AppContext);
   const [datosReserva, setDatosReserva] = useState();
   const [loading, setLoading] = useState(false);
@@ -317,8 +317,8 @@ export default function ReservasConfirmadasAnfitrionTable() {
     if (storedUsuarioLogeado.id) {
       setLoading(true);
       axios
-        .post(`https://api-petsion.onrender.com/reservas/anfitrionconfirm`, {
-          anfitrion: storedUsuarioLogeado.id,
+        .post(`https://api-petsion.onrender.com/reservas/userconfirm`, {
+          user: storedUsuarioLogeado.id,
         })
         .then((response) => {
           setDatosReserva(response.data);
@@ -345,7 +345,7 @@ export default function ReservasConfirmadasAnfitrionTable() {
                   <TableRow>
                     <TableCell />
                     <TableCell align="left" sx={{ fontWeight: "bold" }}>
-                      Usuario
+                      Nombre del anfitrion
                     </TableCell>
 
                     <TableCell align="left" sx={{ fontWeight: "bold" }}>

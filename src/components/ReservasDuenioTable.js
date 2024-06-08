@@ -17,15 +17,12 @@ import {
   Paper,
   Box,
 } from "@mui/material";
-import { Link as LinkUI } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { AppContext } from "../contexts/AppContext"; // Asume que tienes un contexto definido
 import LoadingOverlay from "./LoadingOverlay";
-import { FaPhoneAlt } from "react-icons/fa";
-import { IoIosMail } from "react-icons/io";
-import image from "../images/SinReservasConfirmadas.jpg";
+import image from "../images/SinReservasPendientes.jpg";
 
 const Item = styled(Paper)(({ theme }) => ({
   width: "auto",
@@ -41,10 +38,11 @@ function formatTime(date) {
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = useState(false);
-  const phoneNumber = row.user.telefono;
-  const whatsappLink = `https://wa.me/${phoneNumber}`;
-  const email = row.user.email;
-  const mailtoLink = `mailto:${email}`;
+
+  const getShortAddress = (direccion) => {
+    const parts = direccion.split(",");
+    return parts.slice(0, 4).join(",");
+  };
 
   return (
     <React.Fragment>
@@ -69,16 +67,18 @@ function Row(props) {
               fontWeight: "bold",
             }}
           >
-            {row.user.name} {row.user.lastname}
+            {row.anfitrion.name} {row.anfitrion.lastname}
           </Typography>
         </TableCell>
 
-        <TableCell align="left">{row.tipoDeServicio}</TableCell>
+        <TableCell align="left">
+          {getShortAddress(row.anfitrion.direccion)}
+        </TableCell>
         <TableCell align="left" sx={{ height: "100%" }}>
-          {row.confirmado ? (
-            <Chip label="Aceptada" color="success" />
+          {row.reservaActiva ? (
+            <Chip label="Pendiente de aceptacion" color="warning" />
           ) : (
-            <Chip label="Aceptada" color="success" />
+            <Chip label="Pendiente de aceptacion" color="warning" />
           )}
         </TableCell>
       </TableRow>
@@ -110,49 +110,12 @@ function Row(props) {
                     gutterBottom
                     sx={{ fontWeight: "bold", pl: 0 }}
                   >
-                    Id de la reserva:
+                    Id de la reserva
                   </Typography>
                   <Typography variant="subtitle2" gutterBottom>
                     {row._id}
                   </Typography>
                 </Item>
-                <Item
-                  sx={{
-                    display: {
-                      xs: "column",
-                      xl: "flex",
-                      md: "flex",
-                      sm: "flex",
-                    },
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    variant="body1"
-                    gutterBottom
-                    sx={{ fontWeight: "bold", pl: 0 }}
-                  >
-                    Contacto:
-                  </Typography>
-                  <Box sx={{ display: "flex", pl: 2 }}>
-                    <Box sx={{ pr: 1 }}>
-                      <FaPhoneAlt size={20} />
-                    </Box>
-                    <LinkUI
-                      href={whatsappLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {phoneNumber}
-                    </LinkUI>
-                  </Box>
-                  <Box sx={{ display: "flex", pl: 2 }}>
-                    <Box sx={{ pr: 1 }}>
-                      <IoIosMail size={20} />
-                    </Box>
-                    <LinkUI href={mailtoLink}>{email}</LinkUI>
-                  </Box>
-                </Item>
 
                 <Item
                   sx={{
@@ -166,18 +129,18 @@ function Row(props) {
                   }}
                 >
                   <Typography
-                    variant="body1"
+                    variant="h6"
                     gutterBottom
-                    sx={{ fontWeight: "bold", pl: 0 }}
+                    sx={{ fontWeight: "bold", alignItems: "center" }}
                   >
-                    Mensaje:
+                    Anfitrion:
                   </Typography>
                   <Typography
                     variant="subtitle2"
                     gutterBottom
-                    sx={{ display: "flex" }}
+                    sx={{ alignItems: "center", pl: 1 }}
                   >
-                    {row.mensaje}
+                    {row.anfitrion.name} {row.anfitrion.lastname}
                   </Typography>
                 </Item>
                 <Item
@@ -196,15 +159,16 @@ function Row(props) {
                     gutterBottom
                     sx={{ fontWeight: "bold", pl: 0 }}
                   >
-                    Fecha de entrada y salida:{" "}
+                    Precio:
                   </Typography>
                   <Typography variant="subtitle2" gutterBottom>
-                    {new Date(row.fechaDeEntrada).toLocaleDateString()} -{" "}
-                    {new Date(row.fechaDeSalida).toLocaleDateString()}
+                    {"$"}
+                    {row.anfitrion.tarifaBase}
+                    {" ARS"}
                   </Typography>
                 </Item>
 
-                <Item
+                {/* <Item
                   sx={{
                     display: {
                       xs: "column",
@@ -226,7 +190,7 @@ function Row(props) {
                     {formatTime(new Date(row.horarioDeEntrada))} -{" "}
                     {formatTime(new Date(row.horarioDeSalida))}
                   </Typography>
-                </Item>
+                </Item> */}
               </Stack>
 
               <Stack>
@@ -299,10 +263,13 @@ Row.propTypes = {
   }).isRequired,
 };
 
-export default function ReservasConfirmadasAnfitrionTable() {
+export default function ReservasDuenioTable() {
   const { setUsuarioLogeado } = useContext(AppContext);
   const [datosReserva, setDatosReserva] = useState();
   const [loading, setLoading] = useState(false);
+  const [renderKey, setRenderKey] = useState(0);
+
+  const handleRerender = () => setRenderKey((prevKey) => prevKey + 1);
 
   useEffect(() => {
     const storedUsuarioLogeado = JSON.parse(
@@ -316,11 +283,14 @@ export default function ReservasConfirmadasAnfitrionTable() {
 
     if (storedUsuarioLogeado.id) {
       setLoading(true);
+
       axios
-        .post(`https://api-petsion.onrender.com/reservas/anfitrionconfirm`, {
-          anfitrion: storedUsuarioLogeado.id,
+        .post(`https://api-petsion.onrender.com/reservas/user`, {
+          user: storedUsuarioLogeado.id,
         })
         .then((response) => {
+          console.log(setUsuarioLogeado.id);
+          console.log(storedUsuarioLogeado.id);
           setDatosReserva(response.data);
           setLoading(false);
         })
@@ -328,7 +298,7 @@ export default function ReservasConfirmadasAnfitrionTable() {
           setLoading(false);
         });
     }
-  }, [setUsuarioLogeado]);
+  }, [setUsuarioLogeado, renderKey]);
 
   if (loading) {
     return <LoadingOverlay loading={loading} />;
@@ -345,11 +315,11 @@ export default function ReservasConfirmadasAnfitrionTable() {
                   <TableRow>
                     <TableCell />
                     <TableCell align="left" sx={{ fontWeight: "bold" }}>
-                      Usuario
+                      Nombre del anfitrion
                     </TableCell>
 
                     <TableCell align="left" sx={{ fontWeight: "bold" }}>
-                      Tipo de servicio
+                      Dirección
                     </TableCell>
                     <TableCell align="left" sx={{ fontWeight: "bold" }}>
                       Estado de la reserva
@@ -358,7 +328,12 @@ export default function ReservasConfirmadasAnfitrionTable() {
                 </TableHead>
                 <TableBody>
                   {datosReserva.map((row) => (
-                    <Row key={row._id} row={row} />
+                    <Row
+                      key={row._id}
+                      row={row}
+                      handleRerender={handleRerender}
+                      setDatosReserva={setDatosReserva}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -388,14 +363,14 @@ export default function ReservasConfirmadasAnfitrionTable() {
                 gutterBottom
                 sx={{ fontWeight: "bold", fontSize: "1.5rem", p: 2, pb: 1 }}
               >
-                Sin reservaciones confirmadas aún.
+                Sin reservaciones pendientes aún
               </Typography>
               <Typography
                 variant="subtitle2"
                 gutterBottom
                 sx={{ pl: 0, m: "auto" }}
               >
-                Cuando confirmes una reserva pendiente podras verla aquí.
+                Cuando alguien elija reservarte lo veras aquí.
               </Typography>
             </Item>
           </Box>

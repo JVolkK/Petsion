@@ -17,6 +17,7 @@ import ReservarCuidador from "./ReservarCuidador";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { AppProvider } from "../contexts/AppContext";
 import MisReservasAnfitrion from "./MisReservasAnfitrion";
+import MisReservasDuenio from "./MisReservasDuenio";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
               path="reservar-cuidador/:cuidadorId"
               element={<ReservarCuidador />}
             />
+            <Route path="/reservas-duenio" element={<MisReservasDuenio />} />
           </Route>
 
           {/* Rutas para Anfitrion */}

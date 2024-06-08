@@ -85,12 +85,14 @@ const ReservarCuidador = () => {
           mensaje: "",
         });
         setErrors({});
-        navigate("/");
+        alert("Reserva generada con exito, puedes verlas en Mis reservas");
       } catch (error) {
         setLoading(false);
+        alert("Algo salio mal, intentalo de nuevo mas tarde.");
         // Manejo de errores
       } finally {
         setLoading(false);
+        navigate("/reservas-duenio");
       }
     }
   };
