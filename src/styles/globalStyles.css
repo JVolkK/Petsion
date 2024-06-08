@@ -1,0 +1,9 @@
+.buttonPetsion {
+  background-color: #4e75b5;
+  border-color: #324c75;
+  color: "white";
+}
+
+.buttonPetsion:hover {
+  background-color: #497fd7;
+}

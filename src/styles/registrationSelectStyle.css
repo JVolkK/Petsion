@@ -1,38 +1,3 @@
-.buttonStyle {
-  height: 3rem;
-  width: 8rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  background-color: #a8dfe6 !important;
-  border-color: #cff6fc !important;
-}
-
-.buttonStyle span {
-  position: relative;
-  z-index: 2;
-  transition: 0.3s ease all;
-}
-
-.buttonStyle::after {
-  content: "";
-  width: 0;
-  height: 100%;
-  background: #cff6fc;
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  transition: 0.3s ease-in-out width;
-  pointer-events: none;
-  border-radius: 7px;
-}
-
-.buttonStyle:hover::after {
-  width: 100%;
-}
-
 .registrationSelectStyle {
   height: 100vh; /* Asegurando que el contenedor tenga la altura de la vista */
   overflow: hidden; /* Evitando el desbordamiento del contenedor */
@@ -54,4 +19,10 @@
 
 .h-custom-0 {
   height: calc(100% - 56px); /* Ajustar la altura considerando el navbar */
+}
+
+@media (max-width: 575px) {
+  .vh-100-xs {
+    height: 100vh;
+  }
 }
