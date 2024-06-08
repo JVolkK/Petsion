@@ -31,10 +31,6 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: "none",
 }));
 
-function formatTime(date) {
-  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-}
-
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = useState(false);
