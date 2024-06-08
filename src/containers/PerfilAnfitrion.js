@@ -68,17 +68,35 @@ const PerfilAnfitrion = () => {
     const storedUsuarioLogeado = JSON.parse(
       localStorage.getItem("usuarioLogeado")
     );
+    const dataToUpdate = {}; // Objeto para almacenar solo los campos modificados
+
+    // Compara cada campo entre editedData y datosAnfitrion
+    // Si el valor en editedData es diferente al valor en datosAnfitrion, lo agrega a dataToUpdate
+    for (const key in editedData) {
+      if (editedData[key] !== datosAnfitrion[key]) {
+        dataToUpdate[key] = editedData[key];
+      }
+    }
+
+    // Muestra la animación de carga
+    setLoading(true);
+
     axios
-      .put(
+      .patch(
         `https://api-petsion.onrender.com/anfitrion/${storedUsuarioLogeado.id}`,
-        { editedData }
+        dataToUpdate // Envía solo los campos modificados
       )
       .then((response) => {
         console.log("Datos actualizados:", response.data);
-        setShowModal(false);
+        // Recarga la página para reflejar los cambios
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error al actualizar datos:", error);
+      })
+      .finally(() => {
+        // Oculta la animación de carga después de recibir la respuesta
+        setLoading(false);
       });
   };
 
