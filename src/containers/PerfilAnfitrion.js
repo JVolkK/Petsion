@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "../components/NavBar";
 import useLogout from "../hooks/useLogout";
-import { Container, Row, Col, Button, Badge } from "react-bootstrap"; // Asegúrate de importar Badge desde react-bootstrap
+import { Container, Row, Col, Button, Badge, ListGroup } from "react-bootstrap"; // Asegúrate de importar Badge desde react-bootstrap
 import { AppContext } from "../contexts/AppContext";
 import axios from "axios";
 import { Form, Modal } from "react-bootstrap";
@@ -312,26 +312,33 @@ const PerfilAnfitrion = () => {
             </Modal>
             <div className="services">
               <h3 className="section-title">Servicios</h3>
-              <div className="service-item py-2">
-                <FaHome className="icon" />
-                <p className="service-name m-0">Alojamiento:</p>
-                <p className="service-price m-0">
-                  ${`${datosAnfitrion.tarifaBase}`} por Noche
-                </p>
-              </div>
-              <div className="service-item py-2">
-                <IoTennisball className="icon" />
-                <p className="service-name m-0">Cuidado de Día:</p>
-                <p className="service-price m-0">
-                  ${`${datosAnfitrion.tarifaBase}`} por Semana
-                </p>
-              </div>
-              <div className="service-item py-2">
-                <MdOutlinePets className="icon" />
-                <p className="service-name m-0">Paseo:</p>
-                <p className="service-price m-0">Acordar con el Cuidador</p>
-              </div>
+              {datosAnfitrion.disponibilidadVisita && (
+                <div className="service-item py-2">
+                  <FaHome className="icon" />
+                  <p className="service-name m-0">Alojamiento:</p>
+                  <p className="service-price m-0">
+                    ${`${datosAnfitrion.tarifaBase}`} por Noche
+                  </p>
+                </div>
+              )}
+              {datosAnfitrion.disponibilidadVisita && (
+                <div className="service-item py-2">
+                  <IoTennisball className="icon" />
+                  <p className="service-name m-0">Cuidado de Día:</p>
+                  <p className="service-price m-0">
+                    ${`${datosAnfitrion.tarifaBase}`} por Semana
+                  </p>
+                </div>
+              )}
+              {datosAnfitrion.disponibilidadPaseo && (
+                <div className="service-item py-2">
+                  <MdOutlinePets className="icon" />
+                  <p className="service-name m-0">Paseo:</p>
+                  <p className="service-price m-0">Acordar con el Cuidador</p>
+                </div>
+              )}
             </div>
+
             <div className="can-host">
               <h3 className="section-title">
                 {`${datosAnfitrion.name}`} Puede Cuidar
@@ -364,6 +371,71 @@ const PerfilAnfitrion = () => {
                     Otros
                   </Badge>
                 ) : null}
+              </div>
+            </div>
+            <div className="dias-disponibles">
+              <div
+                className={
+                  datosAnfitrion.disponibilidadlunes
+                    ? "dia-disponible"
+                    : "dia-no-disponible"
+                }
+              >
+                Lunes
+              </div>
+              <div
+                className={
+                  datosAnfitrion.disponibilidadmartes
+                    ? "dia-disponible"
+                    : "dia-no-disponible"
+                }
+              >
+                Martes
+              </div>
+              <div
+                className={
+                  datosAnfitrion.disponibilidadmiercoles
+                    ? "dia-disponible"
+                    : "dia-no-disponible"
+                }
+              >
+                Miércoles
+              </div>
+              <div
+                className={
+                  datosAnfitrion.disponibilidadjueves
+                    ? "dia-disponible"
+                    : "dia-no-disponible"
+                }
+              >
+                Jueves
+              </div>
+              <div
+                className={
+                  datosAnfitrion.disponibilidadviernes
+                    ? "dia-disponible"
+                    : "dia-no-disponible"
+                }
+              >
+                Viernes
+              </div>
+              <div
+                className={
+                  datosAnfitrion.disponibilidadsabado
+                    ? "dia-disponible"
+                    : "dia-no-disponible"
+                }
+              >
+                Sábado
+              </div>
+              <div
+                className={
+                  datosAnfitrion.disponibilidaddomingo
+                    ? "dia-disponible"
+                    : "dia-no-disponible"
+                }
+              >
+                Domingo
               </div>
             </div>
           </Col>
