@@ -22,8 +22,7 @@ const FormContac = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes enviar los datos del formulario a través de una solicitud HTTP
-    console.log(formData);
+
     // Limpia el formulario después de enviar
     setFormData({
       name: "",

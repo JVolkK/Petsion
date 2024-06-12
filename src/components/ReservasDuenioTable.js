@@ -285,8 +285,6 @@ export default function ReservasDuenioTable() {
           user: storedUsuarioLogeado.id,
         })
         .then((response) => {
-          console.log(setUsuarioLogeado.id);
-          console.log(storedUsuarioLogeado.id);
           setDatosReserva(response.data);
           setLoading(false);
         })

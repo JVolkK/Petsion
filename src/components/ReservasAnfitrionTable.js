@@ -334,11 +334,9 @@ export default function ReservasAnfitrionTable() {
         .then((response) => {
           setDatosReserva(response.data);
           setLoading(false);
-          console.log(response.data);
         })
         .catch((error) => {
           setLoading(false);
-          console.log(error);
         });
     }
   }, [setUsuarioLogeado, renderKey]);

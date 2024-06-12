@@ -87,7 +87,6 @@ const PerfilAnfitrion = () => {
         dataToUpdate // Envía solo los campos modificados
       )
       .then((response) => {
-        console.log("Datos actualizados:", response.data);
         // Recarga la página para reflejar los cambios
         window.location.reload();
       })
