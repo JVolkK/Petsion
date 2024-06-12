@@ -48,26 +48,34 @@ const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
               </Button>
               <div className="services">
                 <h3 className="section-title">Servicios</h3>
-                <div className="service-item py-2">
-                  <FaHome className="icon" />
-                  <p className="service-name m-0">Alojamiento:</p>
-                  <p className="service-price m-0">
-                    ${`${datosAnfitrion.tarifaBase}`} por Noche
-                  </p>
-                </div>
-                <div className="service-item py-2">
-                  <IoTennisball className="icon" />
-                  <p className="service-name m-0">Cuidado de Dia:</p>
-                  <p className="service-price m-0">
-                    ${`${datosAnfitrion.tarifaBase}`} por Semana
-                  </p>
-                </div>
-                <div className="service-item py-2">
-                  <MdOutlinePets className="icon" />
-                  <p className="service-name m-0">Paseo:</p>
-                  <p className="service-price m-0">Acordar con el Cuidador</p>
-                </div>
+
+                {datosAnfitrion.disponibilidadVisita && (
+                  <div className="service-item py-2">
+                    <FaHome className="icon" />
+                    <p className="service-name m-0">Alojamiento:</p>
+                    <p className="service-price m-0 px-0">
+                      ${`${datosAnfitrion.tarifaBase}`} por noche
+                    </p>
+                  </div>
+                )}
+                {datosAnfitrion.disponibilidadVisita && (
+                  <div className="service-item py-2">
+                    <IoTennisball className="icon" />
+                    <p className="service-name m-0">Cuidado de Día:</p>
+                    <p className="service-price m-0 px-0">
+                      ${`${datosAnfitrion.tarifaBase}`} el día
+                    </p>
+                  </div>
+                )}
+                {datosAnfitrion.disponibilidadPaseo && (
+                  <div className="service-item py-2">
+                    <MdOutlinePets className="icon" />
+                    <p className="service-name m-0">Paseo:</p>
+                    <p className="service-price m-0">Acordar con el Cuidador</p>
+                  </div>
+                )}
               </div>
+
               <div className="can-host">
                 <h3 className="section-title">
                   {`${datosAnfitrion.name}`} Puede Cuidar
@@ -99,6 +107,79 @@ const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
                   ) : null}
                 </div>
               </div>
+              <Row className="dias-disponibles d-flex justify-content-start align-items-center">
+                <h3 className="section-title my-4">Disponibilidad semanal</h3>
+                <Col
+                  xl={12}
+                  className={
+                    datosAnfitrion.disponibilidadlunes
+                      ? "dia-disponible mx-2 mb-1 w-auto"
+                      : "dia-no-disponible mx-2 w-auto"
+                  }
+                >
+                  Lunes
+                </Col>
+                <Col
+                  xl={12}
+                  className={
+                    datosAnfitrion.disponibilidadmartes
+                      ? "dia-disponible mx-2 mb-1 w-auto"
+                      : "dia-no-disponible mx-2 w-auto"
+                  }
+                >
+                  Martes
+                </Col>
+                <Col
+                  xl={12}
+                  className={
+                    datosAnfitrion.disponibilidadmiercoles
+                      ? "dia-disponible mx-2 mb-1 w-auto"
+                      : "dia-no-disponible mx-2 w-auto"
+                  }
+                >
+                  Miércoles
+                </Col>
+                <Col
+                  xl={12}
+                  className={
+                    datosAnfitrion.disponibilidadjueves
+                      ? "dia-disponible mx-2 mb-1 w-auto"
+                      : "dia-no-disponible mx-2 w-auto"
+                  }
+                >
+                  Jueves
+                </Col>
+                <Col
+                  xl={12}
+                  className={
+                    datosAnfitrion.disponibilidadviernes
+                      ? "dia-disponible mx-2 mb-1 w-auto"
+                      : "dia-no-disponible mx-2 w-auto"
+                  }
+                >
+                  Viernes
+                </Col>
+                <Col
+                  xl={12}
+                  className={
+                    datosAnfitrion.disponibilidadsabado
+                      ? "dia-disponible mx-2 mb-1 w-auto"
+                      : "dia-no-disponible mx-2 w-auto"
+                  }
+                >
+                  Sábado
+                </Col>
+                <Col
+                  xl={2}
+                  className={
+                    datosAnfitrion.disponibilidaddomingo
+                      ? "dia-disponible mx-2 w-auto"
+                      : "dia-no-disponible mx-2 w-auto"
+                  }
+                >
+                  Domingo
+                </Col>
+              </Row>
             </Col>
             <Col className="info-container" md="6">
               <div className="user-description">

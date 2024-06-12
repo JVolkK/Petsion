@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "../components/NavBar";
 import useLogout from "../hooks/useLogout";
-import { Container, Row, Col, Button, Badge, ListGroup } from "react-bootstrap"; // Asegúrate de importar Badge desde react-bootstrap
+import { Container, Row, Col, Button, Badge } from "react-bootstrap"; // Asegúrate de importar Badge desde react-bootstrap
 import { AppContext } from "../contexts/AppContext";
 import axios from "axios";
 import { Form, Modal } from "react-bootstrap";
@@ -259,15 +259,18 @@ const PerfilAnfitrion = () => {
                         </Form.Select>
                       </Form.Group>
                       <Form.Group className="mb-3" controlId="formAdmiteOtros">
-                        <Form.Label>¿Aceptas otras mascotas?</Form.Label>
+                        <Form.Label>¿Aceptas todo tipo de mascotas?</Form.Label>
+
                         <Form.Select
                           value={editedData.admitAlltypesMascotas}
                           onChange={handleChange}
                           name="admitAlltypesMascotas"
                         >
-                          <option value="true">Acepto otras mascotas</option>
+                          <option value="true">
+                            Acepto todo tipo de mascotas
+                          </option>
                           <option value="false">
-                            No acepto otras mascotas
+                            No acepto tood tipo de mascotas
                           </option>
                         </Form.Select>
                       </Form.Group>
@@ -316,8 +319,8 @@ const PerfilAnfitrion = () => {
                 <div className="service-item py-2">
                   <FaHome className="icon" />
                   <p className="service-name m-0">Alojamiento:</p>
-                  <p className="service-price m-0">
-                    ${`${datosAnfitrion.tarifaBase}`} por Noche
+                  <p className="service-price m-0 px-0">
+                    ${`${datosAnfitrion.tarifaBase}`} por noche
                   </p>
                 </div>
               )}
@@ -325,8 +328,8 @@ const PerfilAnfitrion = () => {
                 <div className="service-item py-2">
                   <IoTennisball className="icon" />
                   <p className="service-name m-0">Cuidado de Día:</p>
-                  <p className="service-price m-0">
-                    ${`${datosAnfitrion.tarifaBase}`} por Semana
+                  <p className="service-price m-0 px-0">
+                    ${`${datosAnfitrion.tarifaBase}`} el día
                   </p>
                 </div>
               )}
@@ -340,9 +343,7 @@ const PerfilAnfitrion = () => {
             </div>
 
             <div className="can-host">
-              <h3 className="section-title">
-                {`${datosAnfitrion.name}`} Puede Cuidar
-              </h3>
+              <h3 className="section-title">Mascotas que puedes cuidar</h3>
               <div className="badges">
                 {datosAnfitrion.admiteGato ? (
                   <Badge
@@ -373,71 +374,79 @@ const PerfilAnfitrion = () => {
                 ) : null}
               </div>
             </div>
-            <div className="dias-disponibles">
-              <div
+            <Row className="dias-disponibles d-flex justify-content-start align-items-center">
+              <h3 className="section-title my-4">Disponibilidad semanal</h3>
+              <Col
+                xl={12}
                 className={
                   datosAnfitrion.disponibilidadlunes
-                    ? "dia-disponible"
-                    : "dia-no-disponible"
+                    ? "dia-disponible mx-2 mb-1 w-auto"
+                    : "dia-no-disponible mx-2 w-auto"
                 }
               >
                 Lunes
-              </div>
-              <div
+              </Col>
+              <Col
+                xl={12}
                 className={
                   datosAnfitrion.disponibilidadmartes
-                    ? "dia-disponible"
-                    : "dia-no-disponible"
+                    ? "dia-disponible mx-2 mb-1 w-auto"
+                    : "dia-no-disponible mx-2 w-auto"
                 }
               >
                 Martes
-              </div>
-              <div
+              </Col>
+              <Col
+                xl={12}
                 className={
                   datosAnfitrion.disponibilidadmiercoles
-                    ? "dia-disponible"
-                    : "dia-no-disponible"
+                    ? "dia-disponible mx-2 mb-1 w-auto"
+                    : "dia-no-disponible mx-2 w-auto"
                 }
               >
                 Miércoles
-              </div>
-              <div
+              </Col>
+              <Col
+                xl={12}
                 className={
                   datosAnfitrion.disponibilidadjueves
-                    ? "dia-disponible"
-                    : "dia-no-disponible"
+                    ? "dia-disponible mx-2 mb-1 w-auto"
+                    : "dia-no-disponible mx-2 w-auto"
                 }
               >
                 Jueves
-              </div>
-              <div
+              </Col>
+              <Col
+                xl={12}
                 className={
                   datosAnfitrion.disponibilidadviernes
-                    ? "dia-disponible"
-                    : "dia-no-disponible"
+                    ? "dia-disponible mx-2 mb-1 w-auto"
+                    : "dia-no-disponible mx-2 w-auto"
                 }
               >
                 Viernes
-              </div>
-              <div
+              </Col>
+              <Col
+                xl={12}
                 className={
                   datosAnfitrion.disponibilidadsabado
-                    ? "dia-disponible"
-                    : "dia-no-disponible"
+                    ? "dia-disponible mx-2 mb-1 w-auto"
+                    : "dia-no-disponible mx-2 w-auto"
                 }
               >
                 Sábado
-              </div>
-              <div
+              </Col>
+              <Col
+                xl={2}
                 className={
                   datosAnfitrion.disponibilidaddomingo
-                    ? "dia-disponible"
-                    : "dia-no-disponible"
+                    ? "dia-disponible mx-2 w-auto"
+                    : "dia-no-disponible mx-2 w-auto"
                 }
               >
                 Domingo
-              </div>
-            </div>
+              </Col>
+            </Row>
           </Col>
           <Col className="info-container" md="6">
             <div className="user-description">
