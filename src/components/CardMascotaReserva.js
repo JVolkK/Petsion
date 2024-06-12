@@ -3,12 +3,27 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Col, Row } from "react-bootstrap";
 import { FaDog, FaCat } from "react-icons/fa";
 import { GiRabbit } from "react-icons/gi";
+// import { MdDelete } from "react-icons/md";
+// import axios from "axios";
 
-const CardMascotaReserva = ({ nombre, tipoMascota, edad, peso }) => {
+const CardMascotaReserva = ({ nombre, tipoMascota, id, setLoading }) => {
+  // const borrarMascota = () => {
+  //   try {
+  //     setLoading(true);
+  //     axios.post("https://api-petsion.onrender.com/mascota/eliminar", {
+  //       id: id,
+  //     });
+  //   } catch (error) {
+  //     alert("Error al borrar mascota.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   return (
     <>
-      <Container className="d-flex">
-        <Row>
+      <Container className="d-flex justify-content-center text-center w-auto">
+        <Row className="d-flex justify-content-center align-items-center">
           <h4>{nombre}</h4>
           {tipoMascota === "Perro" ? (
             <Col className="d-flex justify-content-center align-items-center">
@@ -23,13 +38,9 @@ const CardMascotaReserva = ({ nombre, tipoMascota, edad, peso }) => {
               <GiRabbit size={100} />
             </Col>
           ) : null}
-          <Col>
-            {/* <ListGroup className="list-group-flush">
-              <ListGroup.Item>{tipoMascota}</ListGroup.Item>
-              <ListGroup.Item>{edad} años</ListGroup.Item>
-              <ListGroup.Item>{peso}kg</ListGroup.Item>
-            </ListGroup> */}
-          </Col>
+          {/* <Button onClick={borrarMascota} className="w-auto">
+            <MdDelete size={20} />
+          </Button> */}
         </Row>
       </Container>
     </>

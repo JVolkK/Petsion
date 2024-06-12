@@ -97,3 +97,24 @@
   /* Agrega estilos adicionales al botón */
   margin: 20px 1px; /* Margen superior de 20px */
 }
+
+.dias-disponibles {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.dia-disponible {
+  background-color: #4e75b5;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.dia-no-disponible {
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}

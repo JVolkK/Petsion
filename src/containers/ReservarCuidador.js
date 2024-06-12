@@ -16,7 +16,7 @@ import LoadingOverlay from "../components/LoadingOverlay";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CardMascotaReserva from "../components/CardMascotaReserva";
-import AddPetCard from "../components/AddPetCard";
+
 import "../styles/ReservarCuidador.css";
 
 const ReservarCuidador = () => {
@@ -40,6 +40,9 @@ const ReservarCuidador = () => {
     mascotasCuidado: [],
     mensaje: "",
   });
+  const [renderKey, setRenderKey] = useState();
+
+  console.log(loading);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -214,13 +217,14 @@ const ReservarCuidador = () => {
             mascotas: response.data,
           }));
           setLoading(false);
+          console.log(response);
         })
         .catch(() => {
           setLoading(false);
         })
         .finally();
     }
-  }, [usuarioLogeadoLocal, formData.user]);
+  }, [usuarioLogeadoLocal, formData.user, renderKey]);
 
   useEffect(() => {
     if (
@@ -462,12 +466,15 @@ const ReservarCuidador = () => {
                       usuarioLogeadoLocal.mascotas.map((mascota, index) => (
                         <Col>
                           <Form.Check
-                            className="border"
+                            className="border m-0"
                             inline
                             label={
                               <CardMascotaReserva
                                 nombre={mascota.nombre}
                                 tipoMascota={mascota.tipoMascota}
+                                id={mascota._id}
+                                setLoading={setLoading}
+                                setRenderKey={setRenderKey}
                               />
                             }
                             name="mascotasCuidado"
@@ -492,7 +499,9 @@ const ReservarCuidador = () => {
                         </Col>
                       ))
                     ) : (
-                      <AddPetCard />
+                      <>
+                        <h6>Carga tus mascotas en tu perfil 🐕</h6>
+                      </>
                     )}
                   </Row>
                 </Form.Group>
@@ -502,7 +511,6 @@ const ReservarCuidador = () => {
                   <Form.Group className="mb-3">
                     <div className="d-flex justify-content-start">
                       <h5>Mensaje para el cuidador</h5>
-                      {/* <Form.Text muted> (opcional)</Form.Text> */}
                     </div>
                     <Form.Control
                       maxLength={100}
