@@ -69,103 +69,103 @@ const validationsForm = (form) => {
 };
 
 describe('validationsForm', () => {
-  it('should return error if username is empty', () => {
+  it('debe devolver error si el nombre de usuario esta vacio', () => {
     const form = { username: '', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('username').to.equal('El campo nombre de usuario es requerido.');
   });
 
-  it('should return error if username contains special characters', () => {
+  it('debe devolver error si el nombre de usuario contiene caracteres especiales', () => {
     const form = { username: 'user!name', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('username').to.equal('El campo de nombre de usuario no acepta caracteres especiales.');
   });
 
-  it('should return error if password is empty', () => {
+  it('debe devolver error si la contraseña esta vacia', () => {
     const form = { username: 'username', password: '', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('password').to.equal('El campo contraseña es requerido');
   });
 
-  it('should return error if password does not meet criteria', () => {
+  it('debe devolver error si la contraseña no cumple con los requisitos', () => {
     const form = { username: 'username', password: 'password', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('password').to.equal(' La contraseña debe contener al menos una mayuscula, minimo 10 caracteres y no contener espacios');
   });
 
-  it('should return error if email is empty', () => {
+  it('debe devolver error si el email esta vacio', () => {
     const form = { username: 'username', password: 'Password123', email: '', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('email').to.equal('El campo de correo electronico es requerido ');
   });
 
-  it('should return error if email is invalid', () => {
+  it('debe devolver error si el email es invalido', () => {
     const form = { username: 'username', password: 'Password123', email: 'invalidemail', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('email').to.equal('El correo electronico ingresado es invalido');
   });
 
-  it('should return error if nombre is empty', () => {
+  it('debe devolver error si el nombre esta vacio', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: '', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('nombre').to.equal('El campo de nombre es requerido ');
   });
 
-  it('should return error if nombre contains special characters', () => {
+  it('debe devolver error si el nombre contiene caracteres especiales', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre@', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('nombre').to.equal('El campo de nombre no acepta caracteres especiales.');
   });
 
-  it('should return error if apellido is empty', () => {
+  it('debe devolver error si el apellido esta vacio', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: '', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('apellido').to.equal('El campo de apellido es requerido');
   });
 
-  it('should return error if apellido contains special characters', () => {
+  it('debe devolver error si el apellido tiene caracteres especiales', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido@', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('apellido').to.equal('El campo de apellido no acepta caracteres especiales.');
   });
 
-  it('should return error if dni is empty', () => {
+  it('debe devolver error si el dni esta vacio', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: '', fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('dni').to.equal('El campo de dni es requerido');
   });
 
-  it('should return error if dni is invalid', () => {
+  it('debe devolver error si el dni es invalido', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 999999999, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('dni').to.equal('Ingrese un DNI valido.');
   });
 
-  it('should return error if fecha de nacimiento is empty', () => {
+  it('debe devolver error si la fecha de nacimiento esta vacia', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('fechaDeNacimiento').to.equal('El campo de fecha de nacimiento es requerido');
   });
 
-  it('should return error if numero de telefono is empty', () => {
+  it('debe devolver error si el numero de telefono esta vacio', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: '', codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('numeroDeTelefono').to.equal('El campo de numero de telefono es requerido');
   });
 
-  it('should return error if numero de telefono is invalid', () => {
+  it('debe devolver error si el numero de telefono es invalido', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 12345678, codigoPostal: 1234 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('numeroDeTelefono').to.equal('El campo de numero de telefono es invalido');
   });
 
-  it('should return error if codigo postal is empty', () => {
+  it('debe devolver error si el codigo postal esta vacio', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: '' };
     const errors = validationsForm(form);
     expect(errors).to.have.property('codigoPostal').to.equal('El campo de codigo postal es requerido');
   });
 
-  it('should return error if codigo postal is invalid', () => {
+  it('debe devolver error si el codigo postal es invalido', () => {
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 12345 };
     const errors = validationsForm(form);
     expect(errors).to.have.property('codigoPostal').to.equal('El campo de codigo postal es invalido');
