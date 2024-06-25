@@ -92,75 +92,123 @@ const validationsForm = (form) => {
 
 
 // Pruebas unitarias
-describe('Validaciones de formulario', () => {
+describe('Validaciones del formulario de registro de anfitrion', () => {
     it('debería devolver un error cuando el nombre de usuario está vacío', () => {
+        // Arrange
         const form = { username: '', password: 'Password123', email: 'test@test.com' };
+
+        // Act
         const errors = validationsForm(form);
+
+        // Assert
         expect(errors).to.have.property('username').to.equal('El campo nombre de usuario es requerido.');
     });
 
     it('debería devolver un error cuando la contraseña no cumple con los requisitos', () => {
+        // Arrange
         const form = { username: 'usuario', password: 'pass', email: 'test@test.com' };
+
+        // Act
         const errors = validationsForm(form);
+
+        // Assert
         expect(errors).to.have.property('password').to.equal('La contraseña debe contener al menos una mayuscula, numeros, minimo 10 caracteres y no contener espacios');
     });
 
     it('debería devolver un error cuando el correo electrónico es inválido', () => {
+        // Arrange
         const form = { username: 'usuario', password: 'Password123', email: 'test@test' };
+
+        // Act
         const errors = validationsForm(form);
+
+        // Assert
         expect(errors).to.have.property('email').to.equal('El correo electronico ingresado es invalido');
     });
     
 
     it('debería devolver un error cuando el nombre está vacío', () => {
+        // Arrange
         const form = { nombre: '', apellido: 'Apellido', dni: '12345678' };
         const validationsFormSpy = sinon.spy(validationsForm);
+        
+        // Act
         const errors = validationsFormSpy(form);
-            
+        
+        // Assert    
         expect(errors).to.have.property('nombre').to.equal('El campo de nombre es requerido ');
         expect(validationsFormSpy.calledOnce).to.be.true;
         expect(validationsFormSpy.calledWith(form)).to.be.true;
     });
 
     it('debería devolver un error cuando el apellido contiene caracteres especiales', () => {
+        // Arrange
         const form = { nombre: 'Nombre', apellido: 'Apellid@!', dni: '12345678' };
+
+        // Act
         const errors = validationsForm(form);
+
+        // Assert
         expect(errors).to.have.property('apellido').to.equal('El campo de apellido no acepta caracteres especiales.');
     });
 
     it('debería devolver un error cuando el DNI es inválido (demasiado alto)', () => {
+        // Arrange
         const form = { nombre: 'Nombre', apellido: 'Apellido', dni: '80000000' };
+
+        // Act
         const errors = validationsForm(form);
+
+        // Assert
         expect(errors).to.have.property('dni').to.equal('Ingrese un DNI valido.');
     });
 
     it('debe devolver error si la fecha de nacimiento esta vacia', () => {
+        // Arrange
         const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
+
+        // Act
         const errors = validationsForm(form);
+
+        // Assert
         expect(errors).to.have.property('fechaDeNacimiento').to.equal('El campo de fecha de nacimiento es requerido');
     });
 
     it('debe devolver error si el numero de telefono es invalido', () => {
+        // Arrange
         const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 12345678, codigoPostal: 1234 };
+
+        // Act
         const errors = validationsForm(form);
+
+        // Assert
         expect(errors).to.have.property('numeroDeTelefono').to.equal('El campo de numero de telefono es invalido');
     });
 
     it('debe devolver error si el codigo postal es invalido', () => {
+        // Arrange
         const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 12345 };
+
+        // Act
         const errors = validationsForm(form);
+
+        // Assert
         expect(errors).to.have.property('codigoPostal').to.equal('El campo de codigo postal es invalido');
     });
 
     it('debería devolver un error cuando no se acepta ningún tipo de mascota', () => {
+        // Arrange
         const form = {
             admiteGato: false,
             admitePerro: false,
             admiteAlltypesMascotas: false
         };
         const validationsFormSpy = sinon.spy(validationsForm);
+
+        // Act
         const errors = validationsFormSpy(form);
         
+        // Assert
         expect(errors).to.have.property('admiteGato').to.equal('Debe aceptar algun tipo de mascota a cuidar.');
         expect(errors).to.have.property('admitePerro').to.equal('Debe aceptar algun tipo de mascota a cuidar.');
         expect(errors).to.have.property('admiteAlltypesMascotas').to.equal('Debe aceptar algun tipo de mascota a cuidar.');
@@ -169,8 +217,13 @@ describe('Validaciones de formulario', () => {
     });
 
     it('debería devolver un error cuando el campo cantidadDeAnimales no contiene solo números', () => {
+        // Arrange
         const form = { cantidadDeAnimales: 'abc' };
+
+        // Act
         const errors = validationsForm(form);
+
+        // Assert
         errors.should.have.property('cantidadDeAnimales').and.equal('Solo puede ingresar numeros.');
     });
 });
