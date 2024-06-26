@@ -78,123 +78,132 @@ const validationsForm = (form) => {
 describe('Validaciones del formulario de registro de dueño', () => {
   
   it('debe devolver error si el nombre de usuario contiene caracteres especiales', () => {
-    // Arrange
-    const form = { username: 'user!name', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
-    const validationsFormSpy = sinon.spy(validationsForm);
 
-    // Act
+    // Arrange: Se define un objeto 'form' que contiene varios campos, incluyendo 'username' que tiene un valor con caracteres especiales 
+    const form = { username: 'user!name', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
+    const validationsFormSpy = sinon.spy(validationsForm); // Se utiliza 'sinon.spy' para crear un spy que envuelve la función 'validationsForm'
+
+    // Act: Se llama a la función 'validationsForm' pasando el objeto 'form' como argumento, siendo monitoreada por el spy
     const errors = validationsFormSpy(form);
 
-    // Assert
+    // Assert: Se verifica que el objeto 'errors' tenga una propiedad 'username' con el valor 'El campo de nombre de usuario no acepta caracteres especiales.'
     errors.should.have.property('username').which.equals('El campo de nombre de usuario no acepta caracteres especiales.');
-    validationsFormSpy.calledOnce.should.be.true;
-    validationsFormSpy.calledWith(form).should.be.true;
+    validationsFormSpy.calledOnce.should.be.true; // Se verifica que el spy fue llamado una vez
+    validationsFormSpy.calledWith(form).should.be.true; // Se verifica que el spy fue llamado con el objeto 'form' como argumento 
   });
 
   it('debe devolver error si la contraseña no cumple con los requisitos', () => {
-    // Arrange
-    const form = { username: 'username', password: 'password', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
-    const validationsFormSpy = sinon.spy(validationsForm);
 
-    // Act
+    // Arrange: Se define un objeto 'form' con varios campos, incluyendo 'password' que no cumple con los requisitos.
+    const form = { username: 'username', password: 'password', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
+    const validationsFormSpy = sinon.spy(validationsForm); // Se utiliza 'sinon.spy' para crear un spy que envuelve la función 'validationsForm'
+
+    // Act: Se llama a la función 'validationsForm' pasando el objeto 'form' como argumento, siendo monitoreada por el spy
     const errors = validationsFormSpy(form);
 
-    // Assert
+    // Assert: Se verifica que el objeto 'errors' tenga una propiedad 'password' con el valor 'La contraseña debe contener al menos una mayúscula, mínimo 10 caracteres y no contener espacios'.
     assert.property(errors, 'password', 'La contraseña debe contener al menos una mayúscula, mínimo 10 caracteres y no contener espacios');
-    assert.isTrue(validationsFormSpy.calledOnce);
-    assert.isTrue(validationsFormSpy.calledWith(form));
+    assert.isTrue(validationsFormSpy.calledOnce); // Se verifica que el spy fue llamado una vez
+    assert.isTrue(validationsFormSpy.calledWith(form)); // Se verifica que el spy fue llamado con el objeto 'form' como argumento
   });
 
   it('debe devolver error si el email es invalido', () => {
-    // Arrange
-    const form = { username: 'username', password: 'Password123', email: 'invalidemail', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
-    const validationsFormSpy = sinon.spy(validationsForm);
 
-    // Act
+    // Arrange: se define un objeto 'form' con varios campos, incluyendo 'email' pero que es invalido
+    const form = { username: 'username', password: 'Password123', email: 'invalidemail', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
+    const validationsFormSpy = sinon.spy(validationsForm); // Se utiliza 'sinon.spy' para crear un spy que envuelve la función 'validationsForm'
+
+    // Act: Se llama a la función 'validationsForm' pasando el objeto 'form' como argumento, siendo monitoreada por el spy
     const errors = validationsFormSpy(form);
 
-    // Assert
+    // Assert: se verifica que el objeto 'errors' tenga una propiedad 'email' con el valor 'El correo electronico ingresado es invalido'
     assert.property(errors, 'email', 'El correo electrónico ingresado es inválido');
-    assert.isTrue(validationsFormSpy.calledOnce);
-    assert.isTrue(validationsFormSpy.calledWith(form));
+    assert.isTrue(validationsFormSpy.calledOnce); // se verifica que el spy fue llamado una vez
+    assert.isTrue(validationsFormSpy.calledWith(form)); // se verifica que el spy fue llamado con el objeto 'form' como argumento
   });
 
   it('debe devolver error si el nombre contiene caracteres especiales', () => {
-    // Arrange
+    
+    // Arrange: se define el objeto 'form' con varios campos, el campo 'nombre' contiene un valor con caracter especial para provocar un error de validacion
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre@', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
-    const expectedErrors = { nombre: 'El campo de nombre no acepta caracteres especiales.' };
-    const validationsFormStub = sinon.stub().returns(expectedErrors);
+    const expectedErrors = { nombre: 'El campo de nombre no acepta caracteres especiales.' }; // se define el objeto 'expectedErrors' que simula el error que deberia devolver la funcion de validacion
+    const validationsFormStub = sinon.stub().returns(expectedErrors); // se crea un stub configurado para devolver 'expectedErrors' cada vez que se llame, simulando el comportamiento de la validacion real
 
-    // Act
+    // Act: se llama al stub con el objeto 'form' como argumento, esta llamada devuelve el objeto 'expectedErrors'
     const errors = validationsFormStub(form);
 
-    // Assert
+    // Assert: verificamos con 'assert.property()' que 'errors' tenga una propiedad 'nombre' y el mensaje de error esperado
     assert.property(errors, 'nombre', 'El campo de nombre no acepta caracteres especiales.');
-    assert.isTrue(validationsFormStub.calledOnce);
-    assert.isTrue(validationsFormStub.calledWith(form));
+    assert.isTrue(validationsFormStub.calledOnce); // para verificar que el stub fue llamado una vez
+    assert.isTrue(validationsFormStub.calledWith(form)); // para verificar que el stub fue llamado con el objeto 'form' como argumento
   });
 
   it('debe devolver error si el apellido esta vacio', () => {
-    // Arrange
-    const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: '', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
-    const expectedErrors = { apellido: 'El campo de apellido es requerido' };
-    const validationsFormStub = sinon.stub().returns(expectedErrors);
 
-    // Act
+    // Arrange: se define el objeto 'form' con varios campos, pero el de 'apellido' se encuentra vacio
+    const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: '', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
+    const expectedErrors = { apellido: 'El campo de apellido es requerido' }; // el objeto 'expectedErrors' es definido y simula el error que debe resoler la funcion de validacion
+    const validationsFormStub = sinon.stub().returns(expectedErrors); // se crea un stub configurado para devolver 'expectedErrors' cada vez que se llame, simulando el comportamiento de la validacion real
+
+    // Act: se llama al stub con el objeto 'form' como argumento, esta llamada devuelve el objeto 'expectedErrors'
     const errors = validationsFormStub(form);
 
-    // Assert
+    // Assert: verificamos con 'assert.property()' que 'errors' tenga una propiedad 'apellido' y el mensaje de error esperado
     assert.property(errors, 'apellido', 'El campo de apellido es requerido');
-    assert.isTrue(validationsFormStub.calledOnce);
-    assert.isTrue(validationsFormStub.calledWith(form));
+    assert.isTrue(validationsFormStub.calledOnce); // para verificar que el stub fue llamado una vez
+    assert.isTrue(validationsFormStub.calledWith(form)); // para verificar que el stub fue llamado con el objeto 'form' como argumento
   });
 
   it('debe devolver error si el dni es invalido', () => {
-    // Arrange
+
+    // Arrange: se define el objeto 'form' con varios campos, pero el de 'dni' es invalido
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 999999999, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     const expectedErrors = { dni: 'Ingrese un DNI valido.' };
     const validationsFormStub = sinon.stub().returns(expectedErrors);
 
-    // Act
+    // Act: se llama al stub con el objeto 'form' como argumento, que devuelve el objeto 
     const errors = validationsFormStub(form);
 
-    // Assert
+    // Assert: el objeto 'errors' tiene una propiedad 'dni' con el valor de 'Ingrese un DNI valido' (el mensaje de error esperado)
     errors.should.have.property('dni').which.equals('Ingrese un DNI valido.');
-    validationsFormStub.calledOnce.should.be.true;
-    validationsFormStub.calledWith(form).should.be.true;
+    validationsFormStub.calledOnce.should.be.true; // el stub fue llamado una vez
+    validationsFormStub.calledWith(form).should.be.true; // el stub fue llamado con el objeto 'form' como argumento durante la prueba
   });
 
 
   it('debe devolver error si la fecha de nacimiento esta vacia', () => {
-    // Arrange
+
+    // Arrange: se define un objeto 'form' con varios campos, pero el campo 'fechaDeNacimiento' se esncuentra vacio
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '', numeroDeTelefono: 1234567890, codigoPostal: 1234 };
     
-    // Act
+    // Act: Se llama a la funcion 'validationsForm' con el objeto 'form'
     const errors = validationsForm(form);
     
-    // Assert
+    // Assert: Se espera que el valor de la propiedad 'fechaDeNacimiento' sea 'El campo de fecha de nacimiento es requerido'
     expect(errors).to.have.property('fechaDeNacimiento').to.equal('El campo de fecha de nacimiento es requerido');
   });
 
   it('debe devolver error si el numero de telefono es invalido', () => {
-    // Arrange
+
+    // Arrange: se prepara el objeto 'form' con el campo de 'telefono' invalido
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 12345678, codigoPostal: 1234 };
     
-    // Act
+    // Act: se llama a la funcion 'validationsForm' con el objeto 'form'
     const errors = validationsForm(form);
     
-    // Assert
+    // Assert: se espera que el valor de la propiedad 'telefono' sea 'El campo de numero de telefono es invalido'
     expect(errors).to.have.property('numeroDeTelefono').to.equal('El campo de numero de telefono es invalido');
   });
 
   it('debe devolver error si el codigo postal es invalido', () => {
-    // Arrange
+
+    // Arrange: se prepara el objeto 'form' con el campo de 'codigo postal' invalido
     const form = { username: 'username', password: 'Password123', email: 'test@test.com', nombre: 'Nombre', apellido: 'Apellido', dni: 12345678, fechaDeNacimiento: '1990-01-01', numeroDeTelefono: 1234567890, codigoPostal: 12345 };
     
-    // Act
+    // Act: se llama a la funcion 'validationsForm' con el objeto 'form'
     const errors = validationsForm(form);
     
-    // Assert
+    // Assert: se espera que el valor de la propiedad 'codigo postal' sea 'El campo de codigo postal es invalido'
     expect(errors).to.have.property('codigoPostal').to.equal('El campo de codigo postal es invalido');
   });
 });
