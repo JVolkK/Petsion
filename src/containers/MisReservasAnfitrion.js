@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ReservasConfirmadasAnfitrionTable from "../components/ReservasConfirmadasAnfitrionTable";
+import ReservasFinalizadasAnfitrionTable from "../components/ReservasFinalizadasAnfitrionTable";
 
 const MisReservasAnfitrion = () => {
   const [selectedTable, setSelectedTable] = useState("table1");
@@ -84,13 +85,25 @@ const MisReservasAnfitrion = () => {
                 >
                   Reservas confirmadas
                 </ToggleButton>
+                <ToggleButton
+                  value="table3"
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    borderTopRightRadius: "1rem",
+                    borderBottomRightRadius: "1rem",
+                  }}
+                >
+                  Reservas finalizadas
+                </ToggleButton>
               </ToggleButtonGroup>
             </FormControl>{" "}
           </ThemeProvider>
         </Box>
         {selectedTable === "table1" && <ReservasAnfitrionTable />}
-        {selectedTable === "table2" && (
-          <ReservasConfirmadasAnfitrionTable />
+        {selectedTable === "table2" && <ReservasConfirmadasAnfitrionTable />}
+        {selectedTable === "table3" && (
+          <ReservasFinalizadasAnfitrionTable />
         )}{" "}
       </Box>
     </>
