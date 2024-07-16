@@ -21,6 +21,7 @@ import { PiDogBold } from "react-icons/pi";
 import CustomAvatar from "../components/CustomAvatar";
 import { InputGroup } from "react-bootstrap";
 import { CiLogout } from "react-icons/ci";
+import Rating from "@mui/material/Rating";
 
 const PerfilAnfitrion = () => {
   const { setUsuarioLogeado } = useContext(AppContext);
@@ -120,6 +121,18 @@ const PerfilAnfitrion = () => {
               onClick={openModal}
             />
             <h1 className="nombre-anfitrion">{`${datosAnfitrion.name} ${datosAnfitrion.lastname}`}</h1>
+            {datosAnfitrion.rating !== undefined &&
+              datosAnfitrion.numberOfRatings !== undefined && (
+                <div className="d-flex">
+                  <Rating
+                    name="read-only"
+                    value={datosAnfitrion.rating}
+                    readOnly
+                  />
+                  {"  "}({datosAnfitrion.numberOfRatings})
+                </div>
+              )}
+
             <h2 className="direccion-anfitrion">{datosAnfitrion.direccion}</h2>
             <div className="d-flex">
               <Button
@@ -340,7 +353,6 @@ const PerfilAnfitrion = () => {
                 </div>
               )}
             </div>
-
             <div className="can-host">
               <h3 className="section-title">Mascotas que puedes cuidar</h3>
               <div className="badges">
