@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import {
@@ -47,10 +47,10 @@ function Row(props) {
   const email = row.anfitrion.email;
   const mailtoLink = `mailto:${email}`;
   const { setUsuarioLogeado } = useContext(AppContext);
-  const [loading, setLoading] = useState(false);
+
   const [userRating, setUserRating] = useState(null);
 
-  const calificarReserva = () => {
+  const calificarReserva = (newValue) => {
     const storedUsuarioLogeado = JSON.parse(
       localStorage.getItem("usuarioLogeado")
     );
@@ -61,21 +61,20 @@ function Row(props) {
     }
 
     if (storedUsuarioLogeado.id) {
-      setLoading(true);
+      console.log(`userRating usado en funcion: ${newValue}`);
       axios
         .post(`https://api-petsion.onrender.com/reservas/calificar`, {
           reservaId: row._id,
-          rating: userRating,
+          rating: newValue,
         })
         .then((response) => {
           alert(response.data.message);
 
-          setLoading(false);
           reloadReservas();
         })
         .catch((error) => {
           alert(error.response.data.error);
-          setLoading(false);
+
           reloadReservas();
         });
     }
@@ -117,15 +116,19 @@ function Row(props) {
           )}
         </TableCell>
         <TableCell align="left" sx={{ height: "100%" }}>
-          {row.rating === 0 && (
+          {row.rating === 0 ? (
             <Rating
               name="simple-controlled"
               value={userRating}
               onChange={(event, newValue) => {
+                console.log(`newValue: ${newValue}`);
                 setUserRating(newValue);
-                calificarReserva();
+
+                calificarReserva(newValue);
               }}
             />
+          ) : (
+            <Rating name="disabled" value={row.rating} disabled />
           )}
         </TableCell>
       </TableRow>
@@ -186,9 +189,6 @@ function Row(props) {
                     value={row.anfitrion.rating}
                     readOnly
                   />
-                  {/* <Typography variant="subtitle2" gutterBottom>
-                    {row.anfitrion.rating} ({row.anfitrion.numberOfRatings})
-                  </Typography> */}
                 </Item>
 
                 <Item
@@ -380,7 +380,7 @@ export default function ReservasFinalizadasDuenioTable() {
   const [datosReserva, setDatosReserva] = useState();
   const [loading, setLoading] = useState(false);
 
-  const loadReservas = () => {
+  const loadReservas = useCallback(() => {
     const storedUsuarioLogeado = JSON.parse(
       localStorage.getItem("usuarioLogeado")
     );
@@ -404,11 +404,11 @@ export default function ReservasFinalizadasDuenioTable() {
           setLoading(false);
         });
     }
-  };
+  }, [setUsuarioLogeado]);
 
   useEffect(() => {
     loadReservas();
-  }, [setUsuarioLogeado]);
+  }, [setUsuarioLogeado, loadReservas]);
 
   if (loading) {
     return <LoadingOverlay loading={loading} />;
