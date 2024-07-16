@@ -391,14 +391,14 @@ export default function ReservasFinalizadasAnfitrionTable() {
                 gutterBottom
                 sx={{ fontWeight: "bold", fontSize: "1.5rem", p: 2, pb: 1 }}
               >
-                Sin reservaciones confirmadas aún.
+                Sin reservaciones finalizadas aún.
               </Typography>
               <Typography
                 variant="subtitle2"
                 gutterBottom
                 sx={{ pl: 0, m: "auto" }}
               >
-                Cuando confirmes una reserva pendiente podras verla aquí.
+                Cuando una reserva finalice la podras ver aqui.
               </Typography>
             </Item>
           </Box>
