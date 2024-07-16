@@ -12,6 +12,7 @@ import { GiRabbit } from "react-icons/gi";
 import { PiCatBold } from "react-icons/pi";
 import { PiDogBold } from "react-icons/pi";
 import CustomAvatar from "./CustomAvatar"; // Importa el componente CustomAvatar
+import Rating from "@mui/material/Rating";
 
 const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
   const navigate = useNavigate();
@@ -35,6 +36,17 @@ const AnfitrionModal = ({ show, onHide, datosAnfitrion }) => {
                 }}
               />
               <h1 className="nombre-anfitrion">{`${datosAnfitrion.name} ${datosAnfitrion.lastname}`}</h1>
+              {datosAnfitrion.rating !== undefined &&
+                datosAnfitrion.numberOfRatings !== undefined && (
+                  <div className="d-flex">
+                    <Rating
+                      name="read-only"
+                      value={datosAnfitrion.rating}
+                      readOnly
+                    />
+                    {"  "}({datosAnfitrion.numberOfRatings})
+                  </div>
+                )}
               <h2 className="direccion-anfitrion">
                 {datosAnfitrion.direccion}
               </h2>
