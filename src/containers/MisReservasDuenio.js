@@ -47,7 +47,7 @@ const MisReservasDuenio = () => {
             <FormControl fullWidth>
               <ToggleButtonGroup
                 sx={{
-                  px: 3,
+                  px: 0,
                   ".MuiToggleButtonGroup-grouped": {},
                   ".MuiToggleButton-root": {
                     fontWeight: "bold",
