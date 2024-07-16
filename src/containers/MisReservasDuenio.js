@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import ReservasConfirmadasDuenioTable from "../components/ReservasConfirmadasDuenioTable";
+import ReservasFinalizadasDuenioTable from "../components/ReservasFinalizadasDuenioTable";
 
 const MisReservasDuenio = () => {
   const [selectedTable, setSelectedTable] = useState("table1");
@@ -84,12 +85,24 @@ const MisReservasDuenio = () => {
                 >
                   Reservas confirmadas
                 </ToggleButton>
+                <ToggleButton
+                  value="table3"
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    borderTopRightRadius: "1rem",
+                    borderBottomRightRadius: "1rem",
+                  }}
+                >
+                  Reservas finalizadas
+                </ToggleButton>
               </ToggleButtonGroup>
             </FormControl>{" "}
           </ThemeProvider>
         </Box>
         {selectedTable === "table1" && <ReservasDuenioTable />}
-        {selectedTable === "table2" && <ReservasConfirmadasDuenioTable />}{" "}
+        {selectedTable === "table2" && <ReservasConfirmadasDuenioTable />}
+        {selectedTable === "table3" && <ReservasFinalizadasDuenioTable />}{" "}
       </Box>
     </>
   );
