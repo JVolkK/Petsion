@@ -90,6 +90,8 @@ const BuscarCuidador = () => {
                 usuariosFiltrados.map((usuario, index) => (
                   <ProfileCard
                     key={index}
+                    rating={usuario.rating}
+                    numberOfRatings={usuario.numberOfRatings}
                     nombre={usuario.name}
                     apellido={usuario.lastname}
                     ubicacion={usuario.direccion}

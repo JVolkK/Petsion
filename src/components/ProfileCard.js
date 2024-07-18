@@ -7,6 +7,7 @@ import { FaHouse } from "react-icons/fa6";
 import { FaBuilding } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import CustomAvatar from "./CustomAvatar";
+import Rating from "@mui/material/Rating";
 
 const ProfileCard = ({
   nombre,
@@ -14,6 +15,8 @@ const ProfileCard = ({
   onClick,
   tipoDeVivienda,
   conPatio,
+  rating,
+  numberOfRatings,
 }) => {
   return (
     <Card
@@ -35,6 +38,12 @@ const ProfileCard = ({
       <Col xs={9}>
         <Card.Body>
           <Card.Title>{`${nombre} ${apellido}`}</Card.Title>
+          {rating !== undefined && numberOfRatings !== undefined && (
+            <div className="d-flex">
+              <Rating name="read-only" value={rating} readOnly />
+              {"  "}({numberOfRatings})
+            </div>
+          )}
           {conPatio ? (
             <div className="d-flex align-items-center">
               <GiGrass color="green" className="align-items-center" size={30} />
