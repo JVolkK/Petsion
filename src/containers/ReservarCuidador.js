@@ -41,7 +41,6 @@ const ReservarCuidador = () => {
   });
   // const [renderKey, setRenderKey] = useState();
   const [filteredMascotas, setFilteredMascotas] = useState([]);
-  const [isLoadingMascotas, setIsLoadingMascotas] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
