@@ -16,7 +16,6 @@ import LoadingOverlay from "../components/LoadingOverlay";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CardMascotaReserva from "../components/CardMascotaReserva";
-
 import "../styles/ReservarCuidador.css";
 
 const ReservarCuidador = () => {
@@ -24,7 +23,7 @@ const ReservarCuidador = () => {
   const { cuidadorId } = useParams();
   const [datosCuidador, setDatosCuidador] = useState({});
   const [usuarioLogeadoLocal, setUsuarioLogeadoLocal] = useState({
-    mascotas: {},
+    mascotas: [],
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -40,9 +39,9 @@ const ReservarCuidador = () => {
     mascotasCuidado: [],
     mensaje: "",
   });
-  const [renderKey, setRenderKey] = useState();
-
-  console.log(loading);
+  // const [renderKey, setRenderKey] = useState();
+  const [filteredMascotas, setFilteredMascotas] = useState([]);
+  const [isLoadingMascotas, setIsLoadingMascotas] = useState(true);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -217,14 +216,14 @@ const ReservarCuidador = () => {
             mascotas: response.data,
           }));
           setLoading(false);
-          console.log(response);
+          // console.log(response);
         })
         .catch(() => {
           setLoading(false);
         })
         .finally();
     }
-  }, [usuarioLogeadoLocal, formData.user, renderKey]);
+  }, [usuarioLogeadoLocal, formData.user]); //renderkey
 
   useEffect(() => {
     if (
@@ -277,6 +276,25 @@ const ReservarCuidador = () => {
       setHighlightedDates(highlighted);
     }
   }, [datosCuidador]);
+
+  useEffect(() => {
+    if (usuarioLogeadoLocal?.mascotas?.length > 0 && datosCuidador) {
+      const { admitePerro, admiteGato, admitAlltypesMascotas } = datosCuidador;
+      const mascotasFiltradas = usuarioLogeadoLocal.mascotas.filter(
+        (mascota) => {
+          if (admitAlltypesMascotas) return true;
+          if (mascota.tipoMascota === "Perro" && admitePerro) return true;
+          if (mascota.tipoMascota === "Gato" && admiteGato) return true;
+          return false;
+        }
+      );
+      setFilteredMascotas(mascotasFiltradas);
+    }
+  }, [usuarioLogeadoLocal, datosCuidador]);
+
+  if (filteredMascotas.length === 0) {
+    return <p>Loading...</p>;
+  }
 
   const CustomInput = React.forwardRef(
     ({ value, onClick, onChange, isInvalid }, ref) => (
@@ -460,10 +478,9 @@ const ReservarCuidador = () => {
 
                   <p className="text-error">{errors.mascotasCuidado}</p>
 
-                  <Row className="w-100 scrollable-row">
-                    {usuarioLogeadoLocal.mascotas &&
-                    usuarioLogeadoLocal.mascotas.length > 0 ? (
-                      usuarioLogeadoLocal.mascotas.map((mascota, index) => (
+                  <Row>
+                    {filteredMascotas.length > 0 ? (
+                      filteredMascotas.map((mascota, index) => (
                         <Col>
                           <Form.Check
                             className="border m-0"
@@ -474,7 +491,6 @@ const ReservarCuidador = () => {
                                 tipoMascota={mascota.tipoMascota}
                                 id={mascota._id}
                                 setLoading={setLoading}
-                                setRenderKey={setRenderKey}
                               />
                             }
                             name="mascotasCuidado"
@@ -500,7 +516,10 @@ const ReservarCuidador = () => {
                       ))
                     ) : (
                       <>
-                        <h6>Carga tus mascotas en tu perfil 🐕</h6>
+                        <h6>
+                          Carga tus mascotas en tu perfil para poder realizar
+                          una reserva. 🐕
+                        </h6>
                       </>
                     )}
                   </Row>
