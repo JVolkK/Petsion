@@ -292,10 +292,6 @@ const ReservarCuidador = () => {
     }
   }, [usuarioLogeadoLocal, datosCuidador]);
 
-  if (filteredMascotas.length === 0) {
-    return <p>Loading...</p>;
-  }
-
   const CustomInput = React.forwardRef(
     ({ value, onClick, onChange, isInvalid }, ref) => (
       <Form.Control
@@ -532,7 +528,7 @@ const ReservarCuidador = () => {
                       <h5>Mensaje para el cuidador</h5>
                     </div>
                     <Form.Control
-                      maxLength={100}
+                      maxLength={350}
                       name="mensaje"
                       onChange={handleChange}
                       value={formData.mensaje}
