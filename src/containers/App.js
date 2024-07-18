@@ -46,8 +46,7 @@ function App() {
           {/* Rutas para User */}
           <Route element={<ProtectedRoute rolDeseado="user" />}>
             <Route path="/perfil-duenio" element={<PerfilDuenio />} />
-            <Route path="/servicios-select" element={<Servicios />} />
-            <Route path="/contacto" element={<Contacto />} />
+
             <Route
               path="reservar-cuidador/:cuidadorId"
               element={<ReservarCuidador />}
@@ -72,10 +71,7 @@ function App() {
           {/* Rutas compartidas entre anfitrion y user */}
           <Route
             element={<ProtectedRoute rolDeseado={["anfitrion", "user"]} />}
-          >
-            <Route path="/servicios-select" element={<Servicios />} />
-            <Route path="/contacto" element={<Contacto />} />
-          </Route>
+          ></Route>
           {/* Rutas compartidas entre anfitrion, user y guest */}
           <Route
             element={
@@ -83,6 +79,8 @@ function App() {
             }
           >
             <Route path="/" element={<Home />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/servicios-select" element={<Servicios />} />
           </Route>
         </Routes>
       </div>
