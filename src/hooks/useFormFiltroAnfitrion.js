@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import axios from "axios";
 
-export const useForm = (initialForm) => {
+export const useForm = (initialForm, setLoading) => {
   const [form, setForm] = useState(initialForm);
-  const [loading, setLoading] = useState(false);
+
   const { setUsuariosFiltrados } = useContext(AppContext);
 
   const handleSubmit = async (e) => {
@@ -180,6 +180,5 @@ export const useForm = (initialForm) => {
   return {
     handleSubmit,
     handleChange,
-    loading,
   };
 };

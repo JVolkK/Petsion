@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import Carousel from "react-bootstrap/Carousel";
 import c1 from "../images/c1.jpg";

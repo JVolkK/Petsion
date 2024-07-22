@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -5,6 +6,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import { useForm } from "../hooks/useFormDuenio";
 import "../styles/DuenioFormStyle.css";
+import "../styles/globalStyles.css";
 import LoadingOverlay from "../components/LoadingOverlay";
 
 const initialForm = {
@@ -27,9 +29,9 @@ const validationsForm = (form) => {
   //Validaciones username
   if (!form.username.trim()) {
     errors.username = "El campo nombre de usuario es requerido.";
-  } else if (!namePattern.test(form.username)) {
+  } else if (!usernamePattern.test(form.username)) {
     errors.username =
-      "El campo de nombre de usuario no acepta caracteres especiales ni numeros.";
+      "El campo de nombre de usuario no acepta caracteres especiales.";
   }
 
   //Validaciones password
@@ -37,7 +39,7 @@ const validationsForm = (form) => {
     errors.password = "El campo contraseña es requerido";
   } else if (!passwordPattern.test(form.password)) {
     errors.password =
-      " La contraseña debe contener al menos una mayuscula, minimo 10 caracteres y no contener espacios";
+      " La contraseña debe contener letras y numeros y al menos 8 caracteres.";
   }
 
   //Validaciones
@@ -101,9 +103,10 @@ let styles = {
   color: "#dc3545",
 };
 
-var namePattern = /^[a-zA-Z]+$/;
-var passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@.#$!%*?&]{10,15}$/; // Test para password, requiere al menos una letra minuscula, una mayuscula, un caracter especial, un numero y un largo minimo de 8 a 15 caracteres
-var emailPattern = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/;
+var usernamePattern = /^[a-zA-Z0-9]+$/;
+var namePattern = /^[a-zA-Z]+(?: [a-zA-Z]+)?$/;
+var passwordPattern = /^(?=.*[a-zA-Z])[a-zA-Z\d!@#$%^&*()\-_=+{};:,<.>.]{8,}$/;
+var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 var numberPattern = /^[0-9]+$/;
 
 function RegistrationDuenioForm() {
@@ -161,8 +164,8 @@ function RegistrationDuenioForm() {
               // Si no hay errores, muestra el label
               <label>
                 {" "}
-                La contraseña debe contener al menos una mayuscula, minimo 10
-                caracteres y no contener espacios
+                La contraseña debe contener letras y numeros y al menos 8
+                caracteres.
               </label>
             )}
           </Form.Group>
@@ -191,7 +194,7 @@ function RegistrationDuenioForm() {
               maxLength="15"
               minLength={3}
               type="text"
-              placeholder="Primer nombre"
+              placeholder="Nombre/s"
               name="nombre"
               onBlur={handleBlur}
               onChange={handleChange}
@@ -302,7 +305,9 @@ function RegistrationDuenioForm() {
             feedbackType="invalid"
           />
         </Form.Group>
-        <Button type="submit">Enviar</Button>
+        <Button type="submit" className="buttonPetsion">
+          Enviar
+        </Button>
       </Form>
     </div>
   );

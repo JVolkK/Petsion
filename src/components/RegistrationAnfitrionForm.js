@@ -1,9 +1,10 @@
-import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
 import { useForm } from "../hooks/useFormAnfitrion";
 import "../styles/DuenioFormStyle.css";
+import "../styles/globalStyles.css";
 import Step1 from "../components/Step1RegistrationAnfitrion";
 import Step2 from "../components/Step2RegistrationAnfitrion";
 import Step3 from "../components/Step3RegistrationAnfitrion";
@@ -22,7 +23,7 @@ const initialForm = {
   codigoPostal: "",
   direccion: "",
   numeroDireccion: 0,
-  tipoDeVivienda: "",
+  tipoDeVivienda: "Casa",
   conPatio: false,
   admitePerro: false,
   admiteGato: false,
@@ -51,7 +52,7 @@ const validationsForm = (form) => {
   //Validaciones username
   if (!form.username.trim()) {
     errors.username = "El campo nombre de usuario es requerido.";
-  } else if (!namePattern.test(form.username)) {
+  } else if (!usernamePattern.test(form.username)) {
     errors.username =
       "El campo de nombre de usuario no acepta caracteres especiales.";
   }
@@ -61,7 +62,7 @@ const validationsForm = (form) => {
     errors.password = "El campo contraseña es requerido";
   } else if (!passwordPattern.test(form.password)) {
     errors.password =
-      " La contraseña debe contener al menos una mayuscula, minimo 10 caracteres y no contener espacios";
+      " La contraseña debe contener letras y numeros y al menos 8 caracteres.";
   }
 
   //Validaciones
@@ -75,7 +76,8 @@ const validationsForm = (form) => {
   if (!form.nombre.trim()) {
     errors.nombre = "El campo de nombre es requerido ";
   } else if (!namePattern.test(form.nombre)) {
-    errors.nombre = "El campo de nombre no acepta caracteres especiales.";
+    errors.nombre =
+      "El campo de nombre no acepta caracteres especiales. Maximo 2 nombres.";
   }
 
   //Validaciones apellido
@@ -192,9 +194,11 @@ const validationsForm = (form) => {
   return errors; // Esta variable error viene y se usa en el useForm
 };
 
-var namePattern = /^[a-zA-Z]+$/;
-var passwordPattern = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@.#$!%*?&]{10,15}$/; // Test para password, requiere al menos una letra minuscula, una mayuscula, un caracter especial, un numero y un largo minimo de 8 a 15 caracteres
-var emailPattern = /^[a-zA-Z0–9._-]+@[a-zA-Z0–9.-]+\.[a-zA-Z]{2,4}$/;
+var usernamePattern = /^[a-zA-Z0-9]+$/;
+
+var namePattern = /^[a-zA-Z]+(?: [a-zA-Z]+)?$/;
+var passwordPattern = /^(?=.*[a-zA-Z])[a-zA-Z\d!@#$%^&*()\-_=+{};:,<.>.]{8,}$/;
+var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 var numberPattern = /^[0-9]+$/;
 
 function RegistrationAnfitrionForm() {
@@ -278,7 +282,7 @@ function RegistrationAnfitrionForm() {
             <Button
               variant="primary"
               onClick={handleNext}
-              className="ms-3"
+              className="ms-3 buttonPetsion"
               disabled={loading}
             >
               Siguiente
@@ -288,7 +292,7 @@ function RegistrationAnfitrionForm() {
             <Button
               variant="success"
               type="submit"
-              className="ms-3"
+              className="ms-3 buttonPetsion"
               disabled={loading}
             >
               {loading ? "Enviando..." : "Enviar"}

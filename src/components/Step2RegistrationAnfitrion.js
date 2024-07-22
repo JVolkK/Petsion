@@ -1,4 +1,5 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Row, Col, InputGroup, Container } from "react-bootstrap";
 
 import AutocompleteAddress from "./AutocompleteAddress";
@@ -21,7 +22,7 @@ const Step2RegistrationAnfitrion = ({
             maxLength="15"
             minLength={3}
             type="text"
-            placeholder="Primer nombre"
+            placeholder="Nombre/s"
             name="nombre"
             onBlur={handleBlur}
             onChange={handleChange}

@@ -1,0 +1,141 @@
+.modal-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+/* Estilos para el contenedor del perfil */
+.profile-container,
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 20px;
+}
+
+/* Estilos para el botón de contacto */
+.contact-button {
+  margin-top: 20px;
+  color: #ffffff;
+  border: 2px solid #007bff;
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+
+.contact-button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Estilos para el ícono de perfil */
+.profile-icon {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+/* Estilos para los elementos de servicio y hogar */
+.service-item,
+.home-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos para los íconos */
+.icon {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Estilos para el nombre del anfitrión */
+.nombre-anfitrion {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Estilos para la dirección del anfitrión */
+.direccion-anfitrion {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Estilos para las secciones */
+.services,
+.can-host,
+.user-description,
+.home-info {
+  margin-top: 40px;
+  width: 100%;
+}
+
+/* Estilos para los títulos de sección */
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Estilos para los nombres de servicio y descripciones de hogar */
+.service-name,
+.home-description {
+  margin-left: 10px;
+}
+
+/* Estilos para el contenedor de badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 1.3em; /* Modifica el tamaño de la fuente para hacer el badge más grande */
+}
+
+/* Estilos para los badges */
+.badge {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #007bff;
+  border-radius: 20px;
+  padding: 12px 24px; /* Aumenta el padding para que el badge sea más grande */
+}
+
+/* Estilos adicionales para los badges personalizados */
+.custom-badge {
+  margin-right: 10px; /* Espacio a la derecha */
+  margin-bottom: 10px; /* Espacio en la parte inferior */
+}
+
+.boton-col {
+  /* Define el ancho de la columna para diferentes tamaños de pantalla */
+  width: 100%;
+  max-width: 240px; /* Define el ancho máximo para evitar que el botón se extienda demasiado */
+}
+
+.BotonLogout {
+  /* Agrega estilos adicionales al botón */
+  margin: 20px 1px; /* Margen superior de 20px */
+}
+
+.dias-disponibles {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.dia-disponible {
+  background-color: #4e75b5;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.dia-no-disponible {
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}

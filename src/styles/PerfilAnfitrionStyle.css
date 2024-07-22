@@ -1,0 +1,120 @@
+/* Estilos para el contenedor del perfil */
+.profile-container,
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 20px;
+}
+
+/* Estilos para el ícono de perfil */
+.profile-icon {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+/* Estilos para los elementos de servicio y hogar */
+.service-item,
+.home-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos para los íconos */
+.icon {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-right: 5px; /* Ajustado para dar un poco más de espacio */
+}
+
+.large-icon {
+  font-size: 1.7rem; /* Ajusta el tamaño según sea necesario */
+}
+
+/* Estilos para el nombre del anfitrión */
+.nombre-anfitrion {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.direccion-anfitrion {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.services,
+.can-host,
+.user-description,
+.home-info {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.service-name,
+.home-description {
+  margin-left: 10px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 1.3em;
+}
+
+/* Estilos para los badges */
+.badge {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #007bff;
+  border-radius: 20px;
+}
+
+.custom-badge {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.boton-col {
+  width: 100%;
+  max-width: 240px;
+}
+
+.BotonLogout {
+  /* Agrega estilos adicionales al botón */
+  margin: 20px 1px; /* Margen superior de 20px */
+}
+
+.dias-disponibles {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.dia-disponible {
+  background-color: #4e75b5;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.dia-no-disponible {
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
