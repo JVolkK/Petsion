@@ -195,8 +195,7 @@ const validationsForm = (form) => {
 };
 
 var usernamePattern = /^[a-zA-Z0-9]+$/;
-
-var namePattern = /^[a-zA-Z]+(?: [a-zA-Z]+)?$/;
+var namePattern = /^[a-zA-ZñÑ]+(?: [a-zA-ZñÑ]+)?$/;
 var passwordPattern = /^(?=.*[a-zA-Z])[a-zA-Z\d!@#$%^&*()\-_=+{};:,<.>.]{8,}$/;
 var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 var numberPattern = /^[0-9]+$/;
